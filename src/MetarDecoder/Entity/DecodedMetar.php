@@ -4,47 +4,44 @@ namespace MetarDecoder\Entity;
 
 class DecodedMetar
 {
+    // raw METAR
+    private $raw_metar;
+    
     // ICAO code of the airport where the observation has been made
     private $icao;
     
     // Date and time of the observation
     private $datetime;
     
-    public function __construct()
+    public function __construct($raw_metar)
     {
+        $this->raw_metar=$raw_metar;
         $this->icao = '';
         $this->datetime = '';
     }
     
-    /**
-     * Set ICAO code
-     */
+    public function getRawMetar()
+    {
+        return $this->raw_metar;
+    }
+    
     public function setIcao($icao)
     {
         $this->icao = $icao;
         return $this;
     }
     
-    /**
-     * Get ICAO code
-     */
     public function getIcao()
     {
         return $this->icao;
     }
     
-    /**
-     * Set observation datetime
-     */
     public function setDatetime($datetime)
     {
         $this->datetime = $datetime;
         return $this;
     }
     
-   /**
-     * Get observation datetime
-     */
     public function getDatetime()
     {
         return $this->datetime;
