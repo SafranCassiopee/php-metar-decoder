@@ -36,11 +36,20 @@ Usage
 
 TODO
 
-Tests
------
+Contribute
+----------
+
+TODO
+
+Tests and coverage
+------------------
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
-Once you installed PHPUnit, launch the test suite with the following command:
+Once you installed PHPUnit (for example with `composer install --dev`), launch the test suite with the following command:
     
-    php phpunit.phar --bootstrap src/MetarDecoder/MetarDecoder.inc.php tests/MetarDecoder
+    ./vendor/bin/phpunit --bootstrap src/MetarDecoder/MetarDecoder.inc.php tests/MetarDecoder
+
+You can also generate an html coverage report by adding the `--coverage-html` option:
+
+    ./vendor/bin/phpunit --bootstrap src/MetarDecoder/MetarDecoder.inc.php --coverage-html ./report tests/MetarDecoder 
