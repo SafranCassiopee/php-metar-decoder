@@ -8,4 +8,8 @@
 
 require_once dirname(__FILE__) . '/MetarDecoder.php';
 require_once dirname(__FILE__) . '/Entity/DecodedMetar.php';
+
 require_once dirname(__FILE__) . '/Service/MetarChunkDecoder.php';
+require_once dirname(__FILE__) . '/Service/MetarChunkDecoderInterface.php';
+
+require_once dirname(__FILE__) . '/Service/IcaoChunkDecoder.php';

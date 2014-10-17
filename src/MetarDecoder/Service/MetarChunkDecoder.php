@@ -2,23 +2,35 @@
 
 namespace MetarDecoder\Service;
 
-class MetarChunkDecoder
+abstract class MetarChunkDecoder
 {
     
     public function __construct()
     {
 
     }
+   
+    /**
+     * Apply regexp on remaining metar string
+     * @return matches array if any match, null if no match
+     */
+    public function applyRegexp($remaining_metar)
+    {        
+        // match regexp on remaining metar string and return matches if any
+        if (\preg_match($this->getRegexp(), $remaining_metar, $matches)) {
+            return $matches;
+        }else{
+            return null;
+        }
+    }
     
     /**
-     * Decode a part of the raw METAR string
+     * Build new remaining metar from current remaining metar
+     * @return original remaining metar amputed from the matched chunk
      */
-    public function parse($partial_metar)
+    public function getRemainingMetar($remaining_metar)
     {
-        return array(
-            'icao' => 'LFPG',
-            'datetime'=> '2014-10-16T21:31:00Z'
-        );
+        return \preg_replace($this->getRegexp(), '', $remaining_metar, 1);
     }
     
 }
