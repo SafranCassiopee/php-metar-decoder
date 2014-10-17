@@ -6,14 +6,38 @@ use MetarDecoder\Entity\DecodedMetar;
 class MetarDecoderTest extends PHPUnit_Framework_TestCase
 {
 
+    private $decoder;
+    
+    public function __construct()
+    {
+        $this->decoder = new MetarDecoder();
+    }
+    
+    public function testConstruct()
+    {
+        $d = new MetarDecoder();
+    }
+    
     public function testParse()
     {
-        // create decoder and launch it
-        //$decoder = new MetarDecoder();
-        //$decoded = $decoder->parse('test');
+        // launch decoder
+        $d = $this->decoder->parse('LFPO blabla');
 
-        // check parse result
-        $this->assertEquals('LFPG', 'LFPG');
+        // compare results
+        $this->assertEquals('LFPO', $d->getIcao());
+    }
+    
+    public function testParseErrors()
+    {
+        
+        // declare the exception that should be thrown
+        $this->setExpectedException(
+            'Exception', 'Parsing error for MetarDecoder\Service\IcaoChunkDecoder: "LFP blabla"'
+        );
+        
+        // launch decoder
+        $d = $this->decoder->parse('LFP blabla');
+
     }
 
 }
