@@ -13,3 +13,4 @@ require_once dirname(__FILE__) . '/Service/MetarChunkDecoder.php';
 require_once dirname(__FILE__) . '/Service/MetarChunkDecoderInterface.php';
 
 require_once dirname(__FILE__) . '/Service/IcaoChunkDecoder.php';
+require_once dirname(__FILE__) . '/Service/DatetimeChunkDecoder.php';
