@@ -13,8 +13,9 @@ This piece of software is a library package that provides a parser to decode raw
 METAR is a format made for weather information reporting. METAR weather reports are predominantly used by pilots and by meteorologists, who use it to assist in weather forecasting.
 Raw METAR format is highly standardized through the International Civil Aviation Organization (ICAO).
 
-*	[METAR definition on wikipedia](http://en.wikipedia.org/wiki/METAR)
-*	METAR format specification(link needed)
+*    [METAR definition on wikipedia](http://en.wikipedia.org/wiki/METAR)
+*    METAR format specification(link needed)
+*    [METAR documentation](http://meteocentre.com/doc/metar.html)
 
 Requirement
 -----------
