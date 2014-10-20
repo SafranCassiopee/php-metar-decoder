@@ -25,24 +25,23 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         // TODO build a big dataset for successful decoding
         
         // launch decoder
-        $d = $this->decoder->parse('LFPO 231027Z blabla');
+        $d = $this->decoder->parse('METAR LFPO 231027Z blabla');
 
         // compare results
+        $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
         $this->assertEquals('23'  , $d->getDay());
         $this->assertEquals(DateTime::createFromFormat('H:i','10:27',new DateTimeZone('UTC')) , $d->getTime());
     }
     
     public function testParseErrors()
-    {
-        // TODO build a big dataset for failing decoding
-        
+    {      
         // declare the exception that should be thrown
         $this->setExpectedException(
-            'Exception', 'Parsing error for MetarDecoder\Service\IcaoChunkDecoder: "LFP blabla"'
+            'Exception', 'Parsing error for MetarDecoder\Service\IcaoChunkDecoder: "LFP BLABLA"'
         );
         
-        // launch decoder
+        // launch decoder that should hit the exception
         $d = $this->decoder->parse('LFP blabla');
 
     }
