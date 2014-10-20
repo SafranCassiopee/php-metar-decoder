@@ -5,8 +5,6 @@ PHP METAR decoder
 
 PHP METAR decoder lib, under construction
 
-by Edouard de Labareyre
-
 Introduction
 ------------
 
@@ -29,24 +27,66 @@ It is not mandatory though.
 Setup
 -----
 
+- With composer (recommanded)
+
+TODO
+
+- By hand
+
 TODO
 
 Usage
 -----
 
-TODO
+First load the library thanks to autoloading
+
+```php
+<?php
+require_once 'vendor/autoload.php';
+```
+
+Or with this if you use the library manually
+
+```php
+<?php
+require_once 'path/to/MetarDecoder/MetarDecoder.inc.php';
+```
+
+
+Instanciate the decoder and launch it on a METAR string.
+The returned object is a DecodedMetar object from which you can retrieve all the weather propertie that have been decoded.
+
+```php
+<?php
+
+require_once 'vendor/autoload.php';
+
+$decoder = new MetarDecoder\MetarDecoder();
+$result = $decoder->parse('PAPO 131156Z 31014KT 5SM +DZ BR OVC042 M23/M27 A2959 RMK A01 11200 21230 52010')
+
+$result->getIcao();
+$result->getDatetime();
+// to be completed
+
+```
 
 Contribute
 ----------
 
-TODO
+Install dev dependencies ([composer](http://getcomposer.org) needed)
+
+    composer install --dev
+    
+Install xdebug (needed only for code coverage)
+
+    apt-get install php5-xdebug
 
 Tests and coverage
 ------------------
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
-Once you installed PHPUnit (for example with `composer install --dev`), launch the test suite with the following command:
+Once you installed the dev dependencies, launch the test suite with the following command:
     
     ./vendor/bin/phpunit --bootstrap src/MetarDecoder/MetarDecoder.inc.php tests/MetarDecoder
 
