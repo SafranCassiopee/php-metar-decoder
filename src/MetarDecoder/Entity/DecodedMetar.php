@@ -35,7 +35,6 @@ class DecodedMetar
         $this->icao = $icao;
         return $this;
     }
-    
     public function getIcao()
     {
         return $this->icao;
@@ -56,7 +55,6 @@ class DecodedMetar
         $this->time = $time;
         return $this;
     }
-    
     public function getTime()
     {
         return $this->time;

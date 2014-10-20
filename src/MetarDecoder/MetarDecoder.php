@@ -4,6 +4,7 @@ namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
 use MetarDecoder\Service\IcaoChunkDecoder;
+use MetarDecoder\Service\DatetimeChunkDecoder;
 
 class MetarDecoder
 {
@@ -13,7 +14,8 @@ class MetarDecoder
     public function __construct()
     {
         $this->decoder_chain = array(
-            new IcaoChunkDecoder()
+            new IcaoChunkDecoder(),
+            new DatetimeChunkDecoder()
         );
     }
 
