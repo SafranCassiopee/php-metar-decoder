@@ -2,6 +2,8 @@
 
 namespace MetarDecoder\Entity;
 
+use \DateTime;
+
 class DecodedMetar
 {
     // raw METAR
@@ -10,8 +12,11 @@ class DecodedMetar
     // ICAO code of the airport where the observation has been made
     private $icao;
     
-    // Date and time of the observation
-    private $datetime;
+    // day of this observation
+    private $day;
+    
+    // time of the observation
+    private $time;
     
     public function __construct($raw_metar)
     {
@@ -36,15 +41,25 @@ class DecodedMetar
         return $this->icao;
     }
     
-    public function setDatetime($datetime)
+    public function setDay($day)
     {
-        $this->datetime = $datetime;
+        $this->day = $day;
+        return $this;
+    }
+    public function getDay()
+    {
+        return $this->day;
+    }
+    
+    public function setTime(DateTime $time)
+    {
+        $this->time = $time;
         return $this;
     }
     
-    public function getDatetime()
+    public function getTime()
     {
-        return $this->datetime;
+        return $this->time;
     }
     
 }
