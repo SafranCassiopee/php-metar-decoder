@@ -28,7 +28,7 @@ class MetarDecoder
     public function parse($raw_metar)
     {
         // init the parsing process
-        $raw_metar_upper = strtoupper($raw_metar);
+        $raw_metar_upper = strtoupper($raw_metar).' ';
         $decoded_metar = new DecodedMetar($raw_metar_upper);
         $remaining_metar = $raw_metar_upper;
         

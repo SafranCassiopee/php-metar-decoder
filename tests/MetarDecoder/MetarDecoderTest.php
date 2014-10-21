@@ -4,6 +4,7 @@ use MetarDecoder\MetarDecoder;
 use MetarDecoder\Entity\DecodedMetar;
 use \DateTime;
 use \DateTimeZone;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoderTest extends PHPUnit_Framework_TestCase
 {
@@ -35,15 +36,17 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
     }
     
     public function testParseErrors()
-    {      
-        // declare the exception that should be thrown
-        $this->setExpectedException(
-            'Exception', 'Parsing error for MetarDecoder\Service\IcaoChunkDecoder: "LFP BLABLA"'
-        );
+    {   
+        // TODO build a big dataset for decoding errors
         
         // launch decoder that should hit the exception
-        $d = $this->decoder->parse('LFP blabla');
-
+        try{
+            $raw_metar = 'LFP blabla';
+            $d = $this->decoder->parse($raw_metar);
+            $this->fail('Decoding metar "'.$raw_metar.'" should have raised an exception');
+        }catch(ChunkDecoderException $cde){
+            
+        }
     }
 
 }
