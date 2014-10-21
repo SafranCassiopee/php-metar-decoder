@@ -4,6 +4,7 @@ use MetarDecoder\Service\DatetimeChunkDecoder;
 
 use \DateTime;
 use \DateTimeZone;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +16,8 @@ class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
         $this->chunk_decoder = new DatetimeChunkDecoder();
     }
     
-    public function testIsMandatory(){
+    public function testIsMandatory()
+    {
         $this->assertTrue($this->chunk_decoder->isMandatory());
     }
     
@@ -28,26 +30,27 @@ class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
         );
         
         foreach($dataset as $input => $expected){
-             $decoded = $this->chunk_decoder->parse($input);
-
-             $this->assertEquals($expected[0], $decoded['result']);
-             $this->assertEquals($expected[1], $decoded['remaining_metar']);
+            $decoded = $this->chunk_decoder->parse($input);
+            $this->assertEquals($expected[0], $decoded['result']);
+            $this->assertEquals($expected[1], $decoded['remaining_metar']);
         }
     }
     
     public function testParseErrors()
     {
         $dataset = array(
-            array('271035 aaa','271035 aaa'),
-            array('2102Z bbb','2102Z bbb'),
-            array('123580Z LFPB','LFPB'),
+            array('271035 aaa'),
+            array('2102Z bbb'),
+            array('123580Z LFPB'),
         );
         
         foreach($dataset as $input){
-             $decoded = $this->chunk_decoder->parse($input[0]);
-             $result = $decoded['result'];
-             $this->assertEquals(null, $decoded['result']);
-             $this->assertEquals($input[1], $decoded['remaining_metar']);
+            try{
+                $decoded = $this->chunk_decoder->parse($input[0]);
+                $this->fail('Parsing "'.$input[0].'" should have raised an exception');
+            }catch(ChunkDecoderException $cde){
+                //we're cool
+            }
         }
     }
 
