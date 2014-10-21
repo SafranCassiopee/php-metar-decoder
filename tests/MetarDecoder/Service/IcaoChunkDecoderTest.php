@@ -1,6 +1,7 @@
 <?php
 
 use MetarDecoder\Service\IcaoChunkDecoder;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class IcaoChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
@@ -42,10 +43,12 @@ class IcaoChunkDecoderTest extends PHPUnit_Framework_TestCase
         );
         
         foreach($dataset as $input){
-             $decoded = $this->chunk_decoder->parse($input);
-             $result = $decoded['result'];
-             $this->assertEquals(null, $decoded['result']);
-             $this->assertEquals($input, $decoded['remaining_metar']);
+            try{
+                $decoded = $this->chunk_decoder->parse($input);
+                $this->fail('Parsing "'.$input.'" should have raised an exception');
+            }catch(ChunkDecoderException $cde){
+                //we're cool
+            }
         }
     }
 

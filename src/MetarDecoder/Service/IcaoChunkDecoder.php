@@ -2,6 +2,8 @@
 
 namespace MetarDecoder\Service;
 
+use MetarDecoder\Exception\ChunkDecoderException;
+
 class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     
@@ -19,14 +21,15 @@ class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInt
     {
         $found = $this->applyRegexp($remaining_metar);
         
-        // handle the case where nothing has been found
+        // throw error if nothing has been found
         if($found == null){
-            $result = null;
-        }else{// retrieve found params
-            $result = array(
-                'icao' => $found[1]
-            );
+            throw new ChunkDecoderException($remaining_metar, 'ICAO code not found', $this);
         }
+        
+        // retrieve found params
+        $result = array(
+            'icao' => $found[1]
+        );
         
         // return result + remaining metar
         return array(
