@@ -4,7 +4,12 @@ namespace MetarDecoder\Service;
 
 use \DateTime;
 use \DateTimeZone;
+use MetarDecoder\Exception\ChunkDecoderException;
 
+/**
+ * Chunk decoder for date+time section
+ * Most of its methods implement MetarChunkDecoderInterface, have a look at it for more information
+ */
 class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     
@@ -24,20 +29,18 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
         
         // handle the case where nothing has been found
         if($found == null){
-            $result = null;
+            throw new ChunkDecoderException($remaining_metar, 'Missing day/hour/minute information', $this);
         }else{// retrieve found params and check them
             $day = $found[1];
             $hour = $found[2];
             $minute = $found[3];
-            if($this->checkValidity($day,$hour,$minute)){
-                $result = array(
-                    'day' => $found[1],
-                    'time' => DateTime::createFromFormat('H:i',$found[2].':'.$found[3],new DateTimeZone('UTC'))
-                );
-            }else{
-                $result = null;
+            if(!$this->checkValidity($day,$hour,$minute)){
+                throw new ChunkDecoderException($remaining_metar, 'Invalid day/hour/minute format', $this);
             }
-            
+            $result = array(
+                'day' => $found[1],
+                'time' => DateTime::createFromFormat('H:i',$found[2].':'.$found[3],new DateTimeZone('UTC'))
+            );
         }
         
         // return result + remaining metar

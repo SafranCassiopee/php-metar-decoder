@@ -11,6 +11,7 @@
 $to_include = array(
     'MetarDecoder.php',
     'Entity/DecodedMetar.php',
+    'Exception/ChunkDecoderException.php',
     
     'Service/MetarChunkDecoder.php',
     'Service/MetarChunkDecoderInterface.php',
