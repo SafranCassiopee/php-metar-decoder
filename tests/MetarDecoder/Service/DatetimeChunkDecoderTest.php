@@ -16,11 +16,6 @@ class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
         $this->chunk_decoder = new DatetimeChunkDecoder();
     }
     
-    public function testIsMandatory()
-    {
-        $this->assertTrue($this->chunk_decoder->isMandatory());
-    }
-    
     public function testParse()
     {
         $dataset = array(

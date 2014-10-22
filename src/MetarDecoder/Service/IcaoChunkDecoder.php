@@ -4,13 +4,11 @@ namespace MetarDecoder\Service;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 
+/**
+ * Chunk decoder for icao section
+ */
 class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-    
-    public function isMandatory()
-    {
-        return true;
-    }
     
     public function getRegexp()
     {

@@ -8,16 +8,10 @@ use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
  * Chunk decoder for date+time section
- * Most of its methods implement MetarChunkDecoderInterface, have a look at it for more information
  */
 class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-    
-    public function isMandatory()
-    {
-        return true;
-    }
-    
+       
     public function getRegexp()
     {
         return '#^([0-9]{2})([0-9]{2})([0-9]{2})Z #';

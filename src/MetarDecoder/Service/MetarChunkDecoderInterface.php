@@ -4,13 +4,7 @@ namespace MetarDecoder\Service;
 
 interface MetarChunkDecoderInterface
 {
-   
-    /**
-     * Get mandatory / not mandatory status of the chunk for which the decoder is designed
-     */
-    public function isMandatory();
-    
-       
+      
     /**
      * Get the regular expression that will be used by chunk decoder
      * Each chunk decoder must declare its own

@@ -12,11 +12,6 @@ class ReportTypeChunkDecoderTest extends PHPUnit_Framework_TestCase
         $this->chunk_decoder = new ReportTypeChunkDecoder();
     }
     
-    public function testIsMandatory()
-    {
-        $this->assertFalse($this->chunk_decoder->isMandatory());
-    }
-    
     public function testParse()
     {
         $dataset = array(

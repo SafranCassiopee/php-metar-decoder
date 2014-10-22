@@ -2,13 +2,11 @@
 
 namespace MetarDecoder\Service;
 
+/**
+ * Chunk decoder for report type section
+ */
 class ReportTypeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-    
-    public function isMandatory()
-    {
-        return false;
-    }
     
     public function getRegexp()
     {
