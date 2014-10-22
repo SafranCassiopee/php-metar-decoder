@@ -40,8 +40,9 @@ class MetarDecoder
             try{
                 $decoded = $chunk_decoder->parse($remaining_metar);
             }catch(ChunkDecoderException $cde){
-                // log error into $decoded object
-                throw $cde;
+                // log error in decoded metar and abort decoding
+                $decoded_metar->setException($cde);
+                break;
             }
             
             // map obtained fields (if any) to the final decoded object

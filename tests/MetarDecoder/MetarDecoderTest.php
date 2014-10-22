@@ -39,14 +39,15 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
     {   
         // TODO build a big dataset for decoding errors
         
-        // launch decoder that should hit the exception
-        try{
-            $raw_metar = 'LFP blabla';
-            $d = $this->decoder->parse($raw_metar);
-            $this->fail('Decoding metar "'.$raw_metar.'" should have raised an exception');
-        }catch(ChunkDecoderException $cde){
-            
-        }
-    }
+        // launch decoder that should hit an error
+        $raw_metar = 'LFPG aaa bbb cccc';
+        $d = $this->decoder->parse($raw_metar);
+        
+        // check the error triggered
+        $this->assertFalse($d->isValid());
+        $error = $d->getException();
+        $this->assertEquals('AAA BBB CCCC ', $error->getChunk());
+        $this->assertEquals('MetarDecoder\Service\DatetimeChunkDecoder', $error->getChunkDecoder())
+;    }
 
 }
