@@ -3,6 +3,7 @@
 use MetarDecoder\Entity\DecodedMetar;
 use \DateTime;
 use \DateTimeZone;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class DecodedMetarTest extends PHPUnit_Framework_TestCase
 {
@@ -26,11 +27,20 @@ class DecodedMetarTest extends PHPUnit_Framework_TestCase
         $d->setIcao($s['icao'])
           ->setDay($s['day'])
           ->setTime($s['time']);
-                     
+        
+        // about fields content
         $this->assertEquals($s['icao'], $d->getIcao());
         $this->assertEquals($s['day'], $d->getDay());
         $this->assertEquals($s['time'], $d->getTime());
         $this->assertEquals($s['raw_metar'], $d->getRawMetar());
+        
+        // about metar validity
+        $this->assertTrue($d->isValid());
+        $error = new ChunkDecoderException('metar chunk','error message',$this);
+        $d->setException($error);
+        $this->assertFalse($d->isValid());
+        $this->assertEquals($error, $d->getException());
+        
     }
     
 

@@ -3,11 +3,15 @@
 namespace MetarDecoder\Entity;
 
 use \DateTime;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class DecodedMetar
 {
     // raw METAR
     private $raw_metar;
+    
+    // decoding exception, if any
+    private $decoding_exception;
     
     // report type (METAR, METAR COR or SPECI)
     private $type;
@@ -23,11 +27,39 @@ class DecodedMetar
     
     public function __construct($raw_metar)
     {
+        $this->decoding_exception = null;
         $this->raw_metar=$raw_metar;
         $this->type = null;
         $this->icao = null;
         $this->day = null;
         $this->time = null;
+    }
+    
+    /**
+     * Check if the decoded metar is valid, i.e. if there was no error during decoding
+     */
+    public function isValid()
+    {
+        return ($this->decoding_exception == null);
+    }
+    
+    /**
+     * Set the exception that occured during metar decoding
+     */
+    public function setException(ChunkDecoderException $exception)
+    {
+        $this->decoding_exception = $exception;
+        return $this;
+    }
+    
+    /**
+     * If the decoded metar is invalid, get the exception that occured during decoding
+     * Else return null;
+     */
+     
+    public function getException()
+    {
+        return $this->decoding_exception;
     }
     
     public function getRawMetar()
