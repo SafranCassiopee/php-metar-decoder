@@ -33,9 +33,9 @@ class MetarDecoder
     public function parse($raw_metar)
     {
         // prepare decoding inputs/outputs
-        $raw_metar_upper = strtoupper($raw_metar).' ';
-        $remaining_metar = $raw_metar_upper;
-        $decoded_metar = new DecodedMetar($raw_metar_upper);
+        $clean_metar = preg_replace("#[ ]{2,}#", ' ', trim(strtoupper($raw_metar))).' ';
+        $remaining_metar = $clean_metar;
+        $decoded_metar = new DecodedMetar($clean_metar);
                 
         // call each decoder in the chain and use results to populate decoded
         foreach($this->decoder_chain as $chunk_decoder){

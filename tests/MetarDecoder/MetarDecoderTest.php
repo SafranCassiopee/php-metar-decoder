@@ -26,7 +26,7 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         // TODO build a big dataset for successful decoding
         
         // launch decoding for a valid metar
-        $d = $this->decoder->parse('METAR LFPO 231027Z AUTO blabla');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO blabla');
 
         // compare results
         $this->assertEquals('METAR', $d->getType());
