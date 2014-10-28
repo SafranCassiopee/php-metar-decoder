@@ -25,6 +25,9 @@ class DecodedMetar
     // time of the observation
     private $time;
     
+    // report status (AUTO or NIL)
+    private $status;
+    
     public function __construct($raw_metar)
     {
         $this->decoding_exception = null;
@@ -33,6 +36,7 @@ class DecodedMetar
         $this->icao = null;
         $this->day = null;
         $this->time = null;
+        $this->status = null;
     }
     
     /**
@@ -107,4 +111,13 @@ class DecodedMetar
         return $this->time;
     }
     
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

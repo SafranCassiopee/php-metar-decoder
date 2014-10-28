@@ -26,13 +26,14 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         // TODO build a big dataset for successful decoding
         
         // launch decoder
-        $d = $this->decoder->parse('METAR LFPO 231027Z blabla');
+        $d = $this->decoder->parse('METAR LFPO 231027Z AUTO blabla');
 
         // compare results
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
         $this->assertEquals('23'  , $d->getDay());
         $this->assertEquals(DateTime::createFromFormat('H:i','10:27',new DateTimeZone('UTC')) , $d->getTime());
+        $this->assertEquals('AUTO', $d->getStatus());
     }
     
     public function testParseErrors()

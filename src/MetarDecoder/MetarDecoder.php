@@ -3,9 +3,12 @@
 namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
+
 use MetarDecoder\Service\ReportTypeChunkDecoder;
 use MetarDecoder\Service\IcaoChunkDecoder;
 use MetarDecoder\Service\DatetimeChunkDecoder;
+use MetarDecoder\Service\ReportStatusChunkDecoder;
+
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
@@ -18,7 +21,8 @@ class MetarDecoder
         $this->decoder_chain = array(
             new ReportTypeChunkDecoder(),
             new IcaoChunkDecoder(),
-            new DatetimeChunkDecoder()
+            new DatetimeChunkDecoder(),
+            new ReportStatusChunkDecoder(),
         );
     }
 
