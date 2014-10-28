@@ -15,7 +15,7 @@ class ReportStatusChunkDecoderTest extends PHPUnit_Framework_TestCase
     public function testParse()
     {
         $dataset = array(
-            'NIL AAA' => array(array('status' => 'NIL'),'AAA'),
+            'NIL ' => array(array('status' => 'NIL'),''),
             'AUTO AAA' => array(array('status' => 'AUTO'),'AAA')
         );
         

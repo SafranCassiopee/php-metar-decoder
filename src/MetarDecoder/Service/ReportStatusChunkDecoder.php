@@ -2,6 +2,8 @@
 
 namespace MetarDecoder\Service;
 
+use MetarDecoder\Exception\ChunkDecoderException;
+
 /**
  * Chunk decoder for report statuc section (NIL or AUTO)
  */
@@ -25,11 +27,19 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
                 'status' => $found[1]
             );
         }
+        $next_remaining_metar = $this->getRemainingMetar($remaining_metar);
+
+        // in the case where status is NIL, check that there is nothing left in the remaining metar
+        if($result != null && $result['status'] == 'NIL' ){
+            if(strlen(trim($next_remaining_metar)) > 0){
+                throw new ChunkDecoderException($remaining_metar, 'No information expected after NIL status', $this);
+            }
+        }
         
         // return result + remaining metar
         return array(
             'result' => $result,
-            'remaining_metar' => $this->getRemainingMetar($remaining_metar)
+            'remaining_metar' => $next_remaining_metar
         );
     }
 }

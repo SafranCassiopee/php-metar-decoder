@@ -25,7 +25,7 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
     {
         // TODO build a big dataset for successful decoding
         
-        // launch decoder
+        // launch decoding for a valid metar
         $d = $this->decoder->parse('METAR LFPO 231027Z AUTO blabla');
 
         // compare results
@@ -36,19 +36,33 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('AUTO', $d->getStatus());
     }
     
+    public function testParseNil()
+    {
+        // empty metar, valid
+        $d = $this->decoder->parse('METAR LFPO 231027Z NIL');
+        $this->assertEquals('NIL', $d->getStatus());
+        
+    }
+    
     public function testParseErrors()
     {   
-        // TODO build a big dataset for decoding errors
         
-        // launch decoder that should hit an error
-        $raw_metar = 'LFPG aaa bbb cccc';
-        $d = $this->decoder->parse($raw_metar);
+        $error_dataset = array(
+            array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC '),
+            array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234 ')
+        );
         
-        // check the error triggered
-        $this->assertFalse($d->isValid());
-        $error = $d->getException();
-        $this->assertEquals('AAA BBB CCCC ', $error->getChunk());
-        $this->assertEquals('MetarDecoder\Service\DatetimeChunkDecoder', $error->getChunkDecoder())
-;    }
+        foreach($error_dataset as $metar_error){
+            // launch decoding
+            $d = $this->decoder->parse($metar_error[0]);
+            
+            // check the error triggered
+            $this->assertFalse($d->isValid());
+            $error = $d->getException();
+            $this->assertEquals('MetarDecoder\Service\\'.$metar_error[1], $error->getChunkDecoder());
+            $this->assertEquals($metar_error[2], $error->getChunk());
+        }
+
+    }
 
 }

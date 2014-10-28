@@ -60,10 +60,22 @@ class MetarDecoder
             
             // prepare new remaining metar for next round
             $remaining_metar = $decoded['remaining_metar'];
+            
+            // hook for report status decoder, abort if nil, but decoded metar is valid though
+            if ($chunk_decoder instanceof ReportStatusChunkDecoder) {
+                if($decoded_metar->getStatus() == 'NIL' ){
+                    break;
+                }
+            }
+            
+            // hook for CAVOK decoder
+            // TODO
+            
         }
         
         return $decoded_metar;
     }
+    
 
 
 }
