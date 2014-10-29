@@ -12,13 +12,6 @@ $to_include = array(
     'MetarDecoder.php',
     'Entity/DecodedMetar.php',
     'Exception/ChunkDecoderException.php',
-    
-    'Service/MetarChunkDecoder.php',
-    'Service/MetarChunkDecoderInterface.php',
-    
-    'Service/ReportTypeChunkDecoder.php',
-    'Service/IcaoChunkDecoder.php',
-    'Service/DatetimeChunkDecoder.php'
 );
 
 foreach($to_include as $file){
