@@ -8,6 +8,7 @@ use MetarDecoder\Service\ReportTypeChunkDecoder;
 use MetarDecoder\Service\IcaoChunkDecoder;
 use MetarDecoder\Service\DatetimeChunkDecoder;
 use MetarDecoder\Service\ReportStatusChunkDecoder;
+use MetarDecoder\Service\SurfaceWindChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 
@@ -23,6 +24,7 @@ class MetarDecoder
             new IcaoChunkDecoder(),
             new DatetimeChunkDecoder(),
             new ReportStatusChunkDecoder(),
+            new SurfaceWindChunkDecoder(),
         );
     }
 

@@ -28,15 +28,12 @@ class DecodedMetar
     // report status (AUTO or NIL)
     private $status;
     
+    // surface wind information
+    private $surface_wind;
+    
     public function __construct($raw_metar)
     {
-        $this->decoding_exception = null;
         $this->raw_metar=$raw_metar;
-        $this->type = null;
-        $this->icao = null;
-        $this->day = null;
-        $this->time = null;
-        $this->status = null;
     }
     
     /**
@@ -119,5 +116,15 @@ class DecodedMetar
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    public function setSurfaceWind(SurfaceWind $surface_wind)
+    {
+        $this->surface_wind = $surface_wind;
+        return $this;
+    }
+    public function getSurfaceWind()
+    {
+        return $this->surface_wind;
     }
 }
