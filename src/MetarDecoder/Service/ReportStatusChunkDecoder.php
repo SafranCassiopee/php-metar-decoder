@@ -5,7 +5,7 @@ namespace MetarDecoder\Service;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
- * Chunk decoder for report statuc section (NIL or AUTO)
+ * Chunk decoder for report status section (NIL or AUTO)
  */
 class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
