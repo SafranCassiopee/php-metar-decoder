@@ -26,7 +26,7 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         // TODO build a big dataset for successful decoding
         
         // launch decoding for a valid metar
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 350V070');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS ');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -35,6 +35,11 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('23'  , $d->getDay());
         $this->assertEquals(DateTime::createFromFormat('H:i','10:27',new DateTimeZone('UTC')) , $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
+        $w = $d->getSurfaceWind();
+        $this->assertEquals('240', $w->getDirection());
+        $this->assertEquals('04', $w->getSpeed());
+        $this->assertEquals('09', $w->getSpeedVariations());
+        $this->assertEquals('MPS', $w->getSpeedUnit());
     }
     
     public function testParseNil()
