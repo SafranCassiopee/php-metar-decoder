@@ -44,8 +44,8 @@ Add the following line to the `composer.json` of your project and launch compose
 
 Launch install from your project root with:
 
-```bash
-    composer install --no-dev --prefer-dist
+```shell
+composer install --no-dev --prefer-dist
 ```
 
 - By hand
@@ -92,14 +92,14 @@ Contribute
 
 Install dev dependencies ([composer](http://getcomposer.org) needed)
 
-```bash
-    composer install --dev
+```shell
+composer install --dev
 ```
 
 Install xdebug (needed only for code coverage)
 
-```bash
-    apt-get install php5-xdebug
+```shell
+apt-get install php5-xdebug
 ```
 
 Tests and coverage
@@ -109,8 +109,13 @@ This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting
 
 Once you installed the dev dependencies, launch the test suite with the following command:
     
-    ./vendor/bin/phpunit tests
+```shell
+./vendor/bin/phpunit tests
+```
 
 You can also generate an html coverage report by adding the `--coverage-html` option:
 
-    ./vendor/bin/phpunit --coverage-html ./report tests
+```shell
+./vendor/bin/phpunit --coverage-html ./report tests
+```
+
