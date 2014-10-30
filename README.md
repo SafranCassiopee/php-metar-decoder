@@ -30,9 +30,23 @@ It is not mandatory though.
 Setup
 -----
 
-- With composer (recommanded)
+- With composer *(recommended)*
 
-TODO
+Add the following line to the `composer.json` of your project and launch composer install command
+
+```json
+{
+    "require": {
+        "inouire/php-metar-decoder": "dev-master"
+    }
+}
+```
+
+Launch install from your project root with:
+
+```bash
+    composer install --no-dev --prefer-dist
+```
 
 - By hand
 
@@ -41,14 +55,14 @@ TODO
 Usage
 -----
 
-First load the library thanks to autoloading
+Load the library thanks to autoloading:
 
 ```php
 <?php
 require_once 'vendor/autoload.php';
 ```
 
-Or with this if you use the library manually
+Or if you didn't use composer, use static import file:
 
 ```php
 <?php
@@ -78,11 +92,15 @@ Contribute
 
 Install dev dependencies ([composer](http://getcomposer.org) needed)
 
+```bash
     composer install --dev
-    
+```
+
 Install xdebug (needed only for code coverage)
 
+```bash
     apt-get install php5-xdebug
+```
 
 Tests and coverage
 ------------------
@@ -91,8 +109,8 @@ This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting
 
 Once you installed the dev dependencies, launch the test suite with the following command:
     
-    ./vendor/bin/phpunit --bootstrap src/MetarDecoder/MetarDecoder.inc.php tests/MetarDecoder
+    ./vendor/bin/phpunit tests
 
 You can also generate an html coverage report by adding the `--coverage-html` option:
 
-    ./vendor/bin/phpunit --bootstrap src/MetarDecoder/MetarDecoder.inc.php --coverage-html ./report tests/MetarDecoder 
+    ./vendor/bin/phpunit --coverage-html ./report tests
