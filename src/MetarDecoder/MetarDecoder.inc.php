@@ -23,7 +23,9 @@ $to_include = array(
     'ChunkDecoder/IcaoChunkDecoder.php',
     'ChunkDecoder/DatetimeChunkDecoder.php',
     'ChunkDecoder/ReportStatusChunkDecoder.php',
-    'ChunkDecoder/SurfaceWindChunkDecoder.php'
+    'ChunkDecoder/SurfaceWindChunkDecoder.php',
+    
+    'Service/DatasetProvider.php'
 );
 
 foreach($to_include as $file){

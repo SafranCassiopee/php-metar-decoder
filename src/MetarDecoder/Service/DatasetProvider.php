@@ -139,6 +139,12 @@ class DatasetProvider
      */
     private function evalToType($value, $type)
     {
+        if($value == '-'){
+            return null;
+        }
+        if($value == '' ){
+            $value = 'no';
+        }
         $types = array(
             'bool'   => FILTER_VALIDATE_BOOLEAN,
             'int'    => FILTER_VALIDATE_INT,
