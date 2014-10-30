@@ -1,6 +1,6 @@
 <?php
 
-use MetarDecoder\Service\IcaoChunkDecoder;
+use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class IcaoChunkDecoderTest extends PHPUnit_Framework_TestCase

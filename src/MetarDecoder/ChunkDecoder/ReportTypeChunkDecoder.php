@@ -1,6 +1,6 @@
 <?php
 
-namespace MetarDecoder\Service;
+namespace MetarDecoder\ChunkDecoder;
 
 /**
  * Chunk decoder for report type section

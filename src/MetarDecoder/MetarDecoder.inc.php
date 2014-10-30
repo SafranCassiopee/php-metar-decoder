@@ -14,15 +14,14 @@ $to_include = array(
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
     'Exception/ChunkDecoderException.php',
-    
-    'Service/MetarChunkDecoder.php',
-    'Service/MetarChunkDecoderInterface.php',
 
-    'Service/ReportTypeChunkDecoder.php',
-    'Service/IcaoChunkDecoder.php',
-    'Service/DatetimeChunkDecoder.php',
-    'Service/ReportStatusChunkDecoder.php',
-    'Service/SurfaceWindChunkDecoder.php'
+    'ChunkDecoder/MetarChunkDecoder.php',
+    'ChunkDecoder/MetarChunkDecoderInterface.php',
+    'ChunkDecoder/ReportTypeChunkDecoder.php',
+    'ChunkDecoder/IcaoChunkDecoder.php',
+    'ChunkDecoder/DatetimeChunkDecoder.php',
+    'ChunkDecoder/ReportStatusChunkDecoder.php',
+    'ChunkDecoder/SurfaceWindChunkDecoder.php'
 );
 
 foreach($to_include as $file){

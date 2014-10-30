@@ -65,7 +65,7 @@ class MetarDecoderTest extends PHPUnit_Framework_TestCase
             // check the error triggered
             $this->assertFalse($d->isValid());
             $error = $d->getException();
-            $this->assertEquals('MetarDecoder\Service\\'.$metar_error[1], $error->getChunkDecoder());
+            $this->assertEquals('MetarDecoder\ChunkDecoder\\'.$metar_error[1], $error->getChunkDecoder());
             $this->assertEquals($metar_error[2], $error->getChunk());
         }
 

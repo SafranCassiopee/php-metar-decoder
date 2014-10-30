@@ -1,6 +1,6 @@
 <?php
 
-use MetarDecoder\Service\SurfaceWindChunkDecoder;
+use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class SurfaceWindChunkDecoderTest extends PHPUnit_Framework_TestCase

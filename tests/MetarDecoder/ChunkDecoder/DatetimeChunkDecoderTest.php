@@ -1,6 +1,6 @@
 <?php
 
-use MetarDecoder\Service\DatetimeChunkDecoder;
+use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 
 use \DateTime;
 use \DateTimeZone;

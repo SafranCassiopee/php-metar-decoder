@@ -4,11 +4,11 @@ namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
 
-use MetarDecoder\Service\ReportTypeChunkDecoder;
-use MetarDecoder\Service\IcaoChunkDecoder;
-use MetarDecoder\Service\DatetimeChunkDecoder;
-use MetarDecoder\Service\ReportStatusChunkDecoder;
-use MetarDecoder\Service\SurfaceWindChunkDecoder;
+use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
+use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
+use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
+use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
+use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 

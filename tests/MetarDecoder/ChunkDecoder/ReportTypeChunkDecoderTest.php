@@ -1,6 +1,6 @@
 <?php
 
-use MetarDecoder\Service\ReportTypeChunkDecoder;
+use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 
 class ReportTypeChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
