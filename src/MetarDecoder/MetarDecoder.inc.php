@@ -13,7 +13,9 @@ $to_include = array(
     
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
+    
     'Exception/ChunkDecoderException.php',
+    'Exception/DatasetLoadingException.php',
 
     'ChunkDecoder/MetarChunkDecoder.php',
     'ChunkDecoder/MetarChunkDecoderInterface.php',
