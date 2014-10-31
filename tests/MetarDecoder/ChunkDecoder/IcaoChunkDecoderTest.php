@@ -2,49 +2,33 @@
 
 use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
+use MetarDecoder\Service\DatasetProvider;
 
 class IcaoChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $chunk_decoder;
-    
-    public function __construct()
-    {
-        $this->chunk_decoder = new IcaoChunkDecoder();
-    }
-    
     public function testParse()
-    {
-        $dataset = array(
-            'LFPG aaa' => array(array('icao' => 'LFPG'),'aaa'),
-            'CNS8 bbb' => array(array('icao' => 'CNS8'),'bbb'),
-            'LFPO LFPB' => array(array('icao' => 'LFPO'),'LFPB')
-        );
+    {        
+        $chunk_decoder = new IcaoChunkDecoder();
+        $dsp = new DatasetProvider('./test-data/ChunkDecoder');
         
-        foreach($dataset as $input => $expected){
-             $decoded = $this->chunk_decoder->parse($input);
-
-             $this->assertEquals($expected[0], $decoded['result']);
-             $this->assertEquals($expected[1], $decoded['remaining_metar']);
-        }
-    }
-    
-    public function testParseErrors()
-    {
-        $dataset = array(
-            'L aaa',
-            'LFP bbb',
-            'LF8 LFPB'
-        );
-        
-        foreach($dataset as $input){
-            try{
-                $decoded = $this->chunk_decoder->parse($input);
-                $this->fail('Parsing "'.$input.'" should have raised an exception');
-            }catch(ChunkDecoderException $cde){
-                //we're cool
+        foreach($dsp->getDataset('icao_chunk_decoding.csv') as $data){
+            if($data['expected']['exception']){
+                // case when exceptions are expected
+                try{
+                    $input = $data['input']['chunk'];
+                    $decoded = $chunk_decoder->parse($input);
+                    $this->fail('Parsing "'.$input.'" should have raised an exception');
+                }catch(ChunkDecoderException $cde){}
+            }else{
+                // case when valid data is expected
+                $decoded = $chunk_decoder->parse($data['input']['chunk']);
+                $this->assertEquals($data['expected']['icao'], $decoded['result']['icao']);
+                $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
             }
+
         }
     }
+
 
 }
