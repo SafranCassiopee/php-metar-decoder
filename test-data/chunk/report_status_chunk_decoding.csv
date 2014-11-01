@@ -1,0 +1,13 @@
+chunk;status;remaining;exception
+input;expected;expected;expected
+string;string;string;bool
+NIL ;NIL;;
+AUTO AAA;AUTO;AAA;
+AUTO AUTO;AUTO;AUTO;
+BBB BBB;-;BBB BBB;
+NUL CCC;-;NUL CCC;
+AUT DDD;-;AUT DDD;
+AUTOM EEE;-;AUTOM EEE;
+NILL FFF;-;NILL FFF;
+NIL BBB;-;-;yes
+NIL NIL;-;-;yes

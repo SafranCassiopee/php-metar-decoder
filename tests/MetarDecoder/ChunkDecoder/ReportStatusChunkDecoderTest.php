@@ -1,47 +1,31 @@
 <?php
 
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
+use MetarDecoder\Exception\ChunkDecoderException;
+use MetarDecoder\Service\DatasetProvider;
 
 class ReportStatusChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $chunk_decoder;
-    
-    public function __construct()
-    {
-        $this->chunk_decoder = new ReportStatusChunkDecoder();
-    }
-    
     public function testParse()
-    {
-        $dataset = array(
-            'NIL ' => array(array('status' => 'NIL'),''),
-            'AUTO AAA' => array(array('status' => 'AUTO'),'AAA')
-        );
+    {        
+        $chunk_decoder = new ReportStatusChunkDecoder();
+        $dsp = new DatasetProvider('./test-data/chunk');
         
-        // iterate on all the dataset
-        foreach($dataset as $input => $expected){
-             // call to chunk decoder
-             $decoded = $this->chunk_decoder->parse($input);
-             $this->assertEquals($expected[0], $decoded['result']);
-             $this->assertEquals($expected[1], $decoded['remaining_metar']);
-        }
-    }
-    
-    public function testParseErrors()
-    {
-        $dataset = array(
-            'BBB AAA',
-            'NUL AAA',
-            'AUT AAA',
-            'AUTOM AAA'
-        );
-        
-        foreach($dataset as $input){
-             $decoded = $this->chunk_decoder->parse($input);
-             $result = $decoded['result'];
-             $this->assertEquals(null, $decoded['result']);
-             $this->assertEquals($input, $decoded['remaining_metar']);
+        foreach($dsp->getDataset('report_status_chunk_decoding.csv') as $data){
+            if($data['expected']['exception']){
+                // case when exceptions are expected
+                try{
+                    $input = $data['input']['chunk'];
+                    $decoded = $chunk_decoder->parse($input);
+                    $this->fail('Parsing "'.$input.'" should have raised an exception');
+                }catch(ChunkDecoderException $cde){}
+            }else{
+                // case when valid data is expected
+                $decoded = $chunk_decoder->parse($data['input']['chunk']);
+                $this->assertEquals($data['expected']['status'], $decoded['result']['status']);
+                $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
+            }
         }
     }
 
