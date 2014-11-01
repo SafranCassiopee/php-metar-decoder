@@ -104,10 +104,7 @@ class DatasetProvider
     {
         $categories = array(
             'input',
-            'in',
             'expected',
-            'output',
-            'out'
         );
         if(!in_array($value, $categories)){
             throw new DatasetLoadingException('Invalid category: "'.$value.'". Expected: '.implode(',',$categories));
@@ -142,7 +139,7 @@ class DatasetProvider
         if($value == '-'){
             return null;
         }
-        if($value == '' ){
+        if($type == 'bool' && $value == '' ){
             $value = 'no';
         }
         $types = array(
