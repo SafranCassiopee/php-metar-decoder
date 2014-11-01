@@ -5,49 +5,34 @@ use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use \DateTime;
 use \DateTimeZone;
 use MetarDecoder\Exception\ChunkDecoderException;
+use MetarDecoder\Service\DatasetProvider;
 
 class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $chunk_decoder;
-    
-    public function __construct()
-    {
-        $this->chunk_decoder = new DatetimeChunkDecoder();
-    }
-    
     public function testParse()
-    {
-        $dataset = array(
-            '271035Z aaa'  => array(array('day' => '27', 'time' => DateTime::createFromFormat('H:i','10:35',new DateTimeZone('UTC'))),'aaa'),
-            '012342Z bbb'  => array(array('day' => '01', 'time' => DateTime::createFromFormat('H:i','23:42',new DateTimeZone('UTC'))),'bbb'),
-            '311200Z ccc' => array(array('day' => '31', 'time' => DateTime::createFromFormat('H:i','12:00',new DateTimeZone('UTC'))),'ccc'),
-        );
+    {        
+        $chunk_decoder = new DatetimeChunkDecoder();
+        $dsp = new DatasetProvider('./test-data/chunk');
         
-        foreach($dataset as $input => $expected){
-            $decoded = $this->chunk_decoder->parse($input);
-            $this->assertEquals($expected[0], $decoded['result']);
-            $this->assertEquals($expected[1], $decoded['remaining_metar']);
-        }
-    }
-    
-    public function testParseErrors()
-    {
-        $dataset = array(
-            array('271035 aaa'),
-            array('2102Z bbb'),
-            array('123580Z LFPB'),
-        );
-        
-        foreach($dataset as $input){
-            try{
-                $decoded = $this->chunk_decoder->parse($input[0]);
-                $this->fail('Parsing "'.$input[0].'" should have raised an exception');
-            }catch(ChunkDecoderException $cde){
-                //we're cool
+        foreach($dsp->getDataset('date_time_chunk_decoding.csv') as $data){
+            if($data['expected']['exception']){
+                // case when exceptions are expected
+                try{
+                    $input = $data['input']['chunk'];
+                    $decoded = $chunk_decoder->parse($input);
+                    $this->fail('Parsing "'.$input.'" should have raised an exception');
+                }catch(ChunkDecoderException $cde){}
+            }else{
+                // case when valid data is expected
+                $decoded = $chunk_decoder->parse($data['input']['chunk']);
+                $expected_time = DateTime::createFromFormat('H:i',$data['expected']['time'],new DateTimeZone('UTC'));
+                $this->assertEquals($data['expected']['day'],  $decoded['result']['day']);
+                $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
+                $this->assertEquals($expected_time, $decoded['result']['time']);
             }
         }
     }
-
+  
 
 }
