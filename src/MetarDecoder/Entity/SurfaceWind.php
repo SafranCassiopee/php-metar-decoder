@@ -71,7 +71,9 @@ class SurfaceWind
     }
     public function setDirectionVariations($direction_max, $direction_min)
     {
-        $this->direction_variations = array($direction_max, $direction_min);
+        if($direction_max != null && $direction_min != null){
+            $this->direction_variations = array($direction_max, $direction_min);
+        }
         return $this;
     }
 
