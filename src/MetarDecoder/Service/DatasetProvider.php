@@ -122,7 +122,8 @@ class DatasetProvider
             'int',
             'string',
             'bool',
-            'float'
+            'float',
+            'json'
         );
         if(!in_array($value, $types)){
             throw new DatasetLoadingException('Invalid type :"'.$value.'". Expected: '.implode(',',$types));
@@ -142,6 +143,12 @@ class DatasetProvider
         if($type == 'bool' && $value == '' ){
             $value = 'no';
         }
+        if($type == 'json'){
+            $value = json_decode($value);
+            if ( $value === null ) {
+                throw new DatasetLoadingException('Invalid '.$type.' format for value: "'.$value.'"');
+            }
+        }
         $types = array(
             'bool'   => FILTER_VALIDATE_BOOLEAN,
             'int'    => FILTER_VALIDATE_INT,
@@ -149,7 +156,7 @@ class DatasetProvider
         );
         if(array_key_exists($type, $types)){
             $eval = filter_var($value, $types[$type],FILTER_NULL_ON_FAILURE);
-            if ( $eval === NULL ) {
+            if ( $eval === null ) {
                 throw new DatasetLoadingException('Invalid '.$type.' format for value: "'.$value.'"');
             }
         }else{
