@@ -1,12 +1,14 @@
 <?php
 
+namespace MetarDecoder\Test;
+
 use MetarDecoder\MetarDecoder;
 use MetarDecoder\Entity\DecodedMetar;
 use \DateTime;
 use \DateTimeZone;
 use MetarDecoder\Exception\ChunkDecoderException;
 
-class MetarDecoderTest extends PHPUnit_Framework_TestCase
+class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 {
 
     private $decoder;

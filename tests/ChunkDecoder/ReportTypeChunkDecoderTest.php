@@ -1,9 +1,11 @@
 <?php
 
+namespace MetarDecoder\Test\ChunkDecoder;
+
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 use MetarDecoder\Service\DatasetProvider;
 
-class ReportTypeChunkDecoderTest extends PHPUnit_Framework_TestCase
+class ReportTypeChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testParse()

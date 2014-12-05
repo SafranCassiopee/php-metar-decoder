@@ -1,21 +1,20 @@
 <?php
 
-use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
+namespace MetarDecoder\Test\ChunkDecoder;
 
-use \DateTime;
-use \DateTimeZone;
+use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Service\DatasetProvider;
 
-class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
+class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testParse()
     {        
-        $chunk_decoder = new DatetimeChunkDecoder();
+        $chunk_decoder = new ReportStatusChunkDecoder();
         $dsp = new DatasetProvider('./test-data/chunk');
         
-        foreach($dsp->getDataset('date_time_chunk_decoding.csv') as $data){
+        foreach($dsp->getDataset('report_status_chunk_decoding.csv') as $data){
             if($data['expected']['exception']){
                 // case when exceptions are expected
                 try{
@@ -26,13 +25,10 @@ class DatetimeChunkDecoderTest extends PHPUnit_Framework_TestCase
             }else{
                 // case when valid data is expected
                 $decoded = $chunk_decoder->parse($data['input']['chunk']);
-                $expected_time = DateTime::createFromFormat('H:i',$data['expected']['time'],new DateTimeZone('UTC'));
-                $this->assertEquals($data['expected']['day'],  $decoded['result']['day']);
+                $this->assertEquals($data['expected']['status'], $decoded['result']['status']);
                 $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
-                $this->assertEquals($expected_time, $decoded['result']['time']);
             }
         }
     }
-  
 
 }

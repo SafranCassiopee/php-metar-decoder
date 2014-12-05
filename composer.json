@@ -14,8 +14,13 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "": "src"
+        "psr-4": {
+            "MetarDecoder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MetarDecoder\\Test\\": "tests/"
         }
     },
     "require-dev": {
