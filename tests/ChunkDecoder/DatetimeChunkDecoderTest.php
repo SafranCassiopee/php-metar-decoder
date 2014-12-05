@@ -3,35 +3,72 @@
 namespace MetarDecoder\Test\ChunkDecoder;
 
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
-use DateTime;
-use DateTimeZone;
-use MetarDecoder\Exception\ChunkDecoderException;
-use MetarDecoder\Service\DatasetProvider;
 
 class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testParse()
-    {
-        $chunk_decoder = new DatetimeChunkDecoder();
-        $dsp = new DatasetProvider('./test-data/chunk');
+    private $decoder;
 
-        foreach ($dsp->getDataset('date_time_chunk_decoding.csv') as $data) {
-            if ($data['expected']['exception']) {
-                // case when exceptions are expected
-                try {
-                    $input = $data['input']['chunk'];
-                    $decoded = $chunk_decoder->parse($input);
-                    $this->fail('Parsing "'.$input.'" should have raised an exception');
-                } catch (ChunkDecoderException $cde) {
-                }
-            } else {
-                // case when valid data is expected
-                $decoded = $chunk_decoder->parse($data['input']['chunk']);
-                $expected_time = DateTime::createFromFormat('H:i', $data['expected']['time'], new DateTimeZone('UTC'));
-                $this->assertEquals($data['expected']['day'],  $decoded['result']['day']);
-                $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
-                $this->assertEquals($expected_time, $decoded['result']['time']);
-            }
-        }
+    protected function setup()
+    {
+        $this->decoder = new DatetimeChunkDecoder();
+    }
+
+    /**
+     * @param $chunk
+     * @param $day
+     * @param $time
+     * @param $remaining
+     * @dataProvider getChunk()
+     */
+    public function testParse($chunk, $day, $time, $remaining)
+    {
+        $decoded = $this->decoder->parse($chunk);
+        $expected_time = \DateTime::createFromFormat('H:i', $time, new \DateTimeZone('UTC'));
+        $this->assertEquals($day, $decoded['result']['day']);
+        $this->assertEquals($remaining, $decoded['remaining_metar']);
+        $this->assertEquals($expected_time, $decoded['result']['time']);
+    }
+
+    public function getChunk()
+    {
+        return array(
+            array(
+                "chunk" => "271035Z AAA",
+                "day" => 27,
+                "time" => "10:35",
+                "remaining" => "AAA",
+            ),
+            array(
+                "chunk" => "012342Z BBB",
+                "day" => 1,
+                "time" => "23:42",
+                "remaining" => "BBB",
+            ),
+            array(
+                "chunk" => "311200Z CCC",
+                "day" => 31,
+                "time" => "12:00",
+                "remaining" => "CCC",
+            ),
+        );
+    }
+
+    /**
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseInvalidChunk($chunk)
+    {
+        $this->decoder->parse($chunk);
+    }
+
+    public function getInvalidChunk()
+    {
+        return array(
+            array('271035'),
+            array('2102Z'),
+            array('123580Z'),
+            array('12018Z'),
+        );
     }
 }
