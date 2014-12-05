@@ -10,10 +10,10 @@
 
 $to_include = array(
     'MetarDecoder.php',
-    
+
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
-    
+
     'Exception/ChunkDecoderException.php',
     'Exception/DatasetLoadingException.php',
 
@@ -24,11 +24,10 @@ $to_include = array(
     'ChunkDecoder/DatetimeChunkDecoder.php',
     'ChunkDecoder/ReportStatusChunkDecoder.php',
     'ChunkDecoder/SurfaceWindChunkDecoder.php',
-    
-    'Service/DatasetProvider.php'
+
+    'Service/DatasetProvider.php',
 );
 
-foreach($to_include as $file){
-    require_once dirname(__FILE__) . '/'.$file;
+foreach ($to_include as $file) {
+    require_once dirname(__FILE__).'/'.$file;
 }
-

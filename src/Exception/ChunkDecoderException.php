@@ -4,18 +4,17 @@ namespace MetarDecoder\Exception;
 
 class ChunkDecoderException extends \Exception
 {
-    
     private $metar_chunk;
-    
+
     private $chunk_decoder_class;
-    
+
     public function __construct($metar_chunk, $message, $chunk_decoder)
     {
         parent::__construct($message.' for chunk "'.$metar_chunk.'"');
         $this->metar_chunk = $metar_chunk;
         $this->chunk_decoder_class = get_class($chunk_decoder);
     }
-    
+
     /**
      * Get the class of the chunk decoder which triggered the exception
      */
@@ -23,7 +22,7 @@ class ChunkDecoderException extends \Exception
     {
         return $this->chunk_decoder_class;
     }
-    
+
     /**
      * Get metar chunk that failed during decoding
      */
@@ -31,5 +30,4 @@ class ChunkDecoderException extends \Exception
     {
         return $this->metar_chunk;
     }
-    
 }
