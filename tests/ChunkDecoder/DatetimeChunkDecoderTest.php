@@ -14,11 +14,12 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test parsing of valid datetime chunks
      * @param $chunk
      * @param $day
      * @param $time
      * @param $remaining
-     * @dataProvider getChunk()
+     * @dataProvider getChunk
      */
     public function testParse($chunk, $day, $time, $remaining)
     {
@@ -27,6 +28,17 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($day, $decoded['result']['day']);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
         $this->assertEquals($expected_time, $decoded['result']['time']);
+    }
+
+    /**
+     * Test parsing of invalid datetime chunks
+     * @param $chunk
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseInvalidChunk($chunk)
+    {
+        $this->decoder->parse($chunk);
     }
 
     public function getChunk()
@@ -53,22 +65,15 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
-     * @dataProvider getInvalidChunk
-     */
-    public function testParseInvalidChunk($chunk)
-    {
-        $this->decoder->parse($chunk);
-    }
-
     public function getInvalidChunk()
     {
         return array(
-            array('271035'),
-            array('2102Z'),
-            array('123580Z'),
-            array('12018Z'),
+            array("chunk" => "271035 AAA"),
+            array("chunk" => "2102Z AAA"),
+            array("chunk" => "123580Z AAA"),
+            array("chunk" => "122380Z AAA"),
+            array("chunk" => "351212Z AAA"),
+            array("chunk" => "35018Z AAA"),
         );
     }
 }

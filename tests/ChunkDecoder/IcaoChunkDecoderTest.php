@@ -14,6 +14,7 @@ class IcaoChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test parsing of valid icao chunks
      * @param string $chunk
      * @param string $icao
      * @param string $remaining
@@ -26,13 +27,24 @@ class IcaoChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
+    /**
+     * Test parsing of invalid icao chunks
+     * @param string $chunk
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseInvalidIcaoChunk($chunk)
+    {
+        $this->decoder->parse($chunk);
+    }
+
     public function getChunk()
     {
         return array(
             array(
                 "input" => "LFPG AAA",
                 "icao" => "LFPG",
-                "remaining" => "AAA"
+                "remaining" => "AAA",
             ),
             array(
                 "input" => "LFPO BBB",
@@ -42,27 +54,18 @@ class IcaoChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "input" => "LFIO CCC",
                 "icao" => "LFIO",
-                "remaining" => "CCC"
+                "remaining" => "CCC",
             ),
         );
-    }
-
-    /**
-     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
-     * @dataProvider getInvalidChunk
-     */
-    public function testParseInvalidIcaoChunk($chunk)
-    {
-        $this->decoder->parse($chunk);
     }
 
     public function getInvalidChunk()
     {
         return array(
-            array('LFA AAA'),
-            array('L AAA'),
-            array('LFP BBB'),
-            array('LF8 CCC'),
+            array("chunk" => "LFA AAA"),
+            array("chunk" => "L AAA"),
+            array("chunk" => "LFP BBB"),
+            array("chunk" => "LF8 CCC"),
         );
     }
 }
