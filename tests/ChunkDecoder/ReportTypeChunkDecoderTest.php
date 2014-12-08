@@ -3,19 +3,68 @@
 namespace MetarDecoder\Test\ChunkDecoder;
 
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
-use MetarDecoder\Service\DatasetProvider;
 
 class ReportTypeChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testParse()
-    {
-        $chunk_decoder = new ReportTypeChunkDecoder();
-        $dsp = new DatasetProvider('./test-data/chunk');
+    private $decoder;
 
-        foreach ($dsp->getDataset('report_type_chunk_decoding.csv') as $data) {
-            $decoded = $chunk_decoder->parse($data['input']['chunk']);
-            $this->assertEquals($data['expected']['type'], $decoded['result']['type']);
-            $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
-        }
+    protected function setup()
+    {
+        $this->decoder = new ReportTypeChunkDecoder();
+    }
+
+    /**
+     * Test parsing of valid report type chunks
+     * @param $chunk
+     * @param $type
+     * @param $remaining
+     * @dataProvider getChunk
+     */
+    public function testParse($chunk, $type, $remaining)
+    {
+        $decoded = $this->decoder->parse($chunk);
+        $this->assertEquals($type, $decoded['result']['type']);
+        $this->assertEquals($remaining, $decoded['remaining_metar']);
+    }
+
+    public function getChunk()
+    {
+        return array(
+            array(
+                "chunk" => "METAR LFPG",
+                "type" => "METAR",
+                "remaining" => "LFPG",
+            ),
+            array(
+                "chunk" => "SPECI LFPB",
+                "type" => "SPECI",
+                "remaining" => "LFPB",
+            ),
+            array(
+                "chunk" => "METAR COR LFPO",
+                "type" => "METAR COR",
+                "remaining" => "LFPO",
+            ),
+            array(
+                "chunk" => "META LFPG",
+                "type" => "",
+                "remaining" => "META LFPG",
+            ),
+            array(
+                "chunk" => "SPECIA LFPG",
+                "type" => "",
+                "remaining" => "SPECIA LFPG",
+            ),
+            array(
+                "chunk" => "META COR LFPB",
+                "type" => "",
+                "remaining" => "META COR LFPB",
+            ),
+            array(
+                "chunk" => "123 LFPO",
+                "type" => "",
+                "remaining" => "123 LFPO",
+            ),
+        );
     }
 }
