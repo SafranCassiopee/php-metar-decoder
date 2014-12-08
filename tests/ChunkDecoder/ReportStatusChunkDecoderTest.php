@@ -3,31 +3,97 @@
 namespace MetarDecoder\Test\ChunkDecoder;
 
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
-use MetarDecoder\Exception\ChunkDecoderException;
-use MetarDecoder\Service\DatasetProvider;
 
 class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testParse()
-    {
-        $chunk_decoder = new ReportStatusChunkDecoder();
-        $dsp = new DatasetProvider('./test-data/chunk');
+    private $decoder;
 
-        foreach ($dsp->getDataset('report_status_chunk_decoding.csv') as $data) {
-            if ($data['expected']['exception']) {
-                // case when exceptions are expected
-                try {
-                    $input = $data['input']['chunk'];
-                    $decoded = $chunk_decoder->parse($input);
-                    $this->fail('Parsing "'.$input.'" should have raised an exception');
-                } catch (ChunkDecoderException $cde) {
-                }
-            } else {
-                // case when valid data is expected
-                $decoded = $chunk_decoder->parse($data['input']['chunk']);
-                $this->assertEquals($data['expected']['status'], $decoded['result']['status']);
-                $this->assertEquals($data['expected']['remaining'], $decoded['remaining_metar']);
-            }
-        }
+    protected function setup()
+    {
+        $this->decoder = new ReportStatusChunkDecoder();
+    }
+
+    /**
+     * Test parsing of valid report status chunks
+     * @param $chunk
+     * @param $status
+     * @param $remaining
+     * @dataProvider getChunk
+     */
+    public function testParse($chunk, $status, $remaining)
+    {
+        $decoded = $this->decoder->parse($chunk);
+        $this->assertEquals($status, $decoded['result']['status']);
+        $this->assertEquals($remaining, $decoded['remaining_metar']);
+    }
+
+    /**
+     * Test parsing of invalid report status chunks
+     * @param $chunk
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseInvalidChunk($chunk)
+    {
+        $this->decoder->parse($chunk);
+    }
+
+    public function getChunk()
+    {
+        return array(
+            array(
+                "chunk" => "NIL ",
+                "status" => "NIL",
+                "remaining" => "",
+            ),
+            array(
+                "chunk" => "AUTO AAA",
+                "status" => "AUTO",
+                "remaining" => "AAA",
+            ),
+            array(
+                "chunk" => "AUTO AUTO",
+                "status" => "AUTO",
+                "remaining" => "AUTO",
+            ),
+            array(
+                "chunk" => "AUTO AUTO",
+                "status" => "AUTO",
+                "remaining" => "AUTO",
+            ),
+            array(
+                "chunk" => "BBB BBB",
+                "status" => "",
+                "remaining" => "BBB BBB",
+            ),
+            array(
+                "chunk" => "NUL CCC",
+                "status" => "",
+                "remaining" => "NUL CCC",
+            ),
+            array(
+                "chunk" => "AUT DDD",
+                "status" => "",
+                "remaining" => "AUT DDD",
+            ),
+            array(
+                "chunk" => "AUTOM EEE",
+                "status" => "",
+                "remaining" => "AUTOM EEE",
+            ),
+            array(
+                "chunk" => "NILL FFF",
+                "status" => "",
+                "remaining" => "NILL FFF",
+            ),
+        );
+    }
+
+    public function getInvalidChunk()
+    {
+        return array(
+            array("chunk" => "NIL BBB"),
+            array("chunk" => "NIL NIL"),
+        );
     }
 }
