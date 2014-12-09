@@ -4,7 +4,7 @@
 
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 // or if you don't use autoloading:
-// require_once dirname(__FILE__) . '/src/MetarDecoder/MetarDecoder.inc.php';
+// require_once dirname(__FILE__) . '/src/MetarDecoder.inc.php';
 
 use MetarDecoder\MetarDecoder;
 
