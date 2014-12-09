@@ -46,7 +46,10 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 
     /**
      * Check the validity of the decoded information for date time
-     * @return true if valid, false if not
+     * @param string $day
+     * @param string $hour
+     * @param string $minute
+     * @return boolean true if valid, false if not
      */
     private function checkValidity($day, $hour, $minute)
     {
