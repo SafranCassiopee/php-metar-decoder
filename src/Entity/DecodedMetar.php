@@ -31,6 +31,10 @@ class DecodedMetar
     // surface wind information
     private $surface_wind;
 
+    // visibility information
+    private $visibility;
+    private $cavok;
+
     public function __construct($raw_metar)
     {
         $this->raw_metar = $raw_metar;
@@ -138,5 +142,29 @@ class DecodedMetar
     public function getSurfaceWind()
     {
         return $this->surface_wind;
+    }
+
+    public function setVisibility(Visibility $visibility)
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    public function setCavok($cavok)
+    {
+        $this->cavok = $cavok;
+
+        return;
+    }
+
+    public function getCavok()
+    {
+        return $this->cavok;
     }
 }

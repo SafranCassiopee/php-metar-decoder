@@ -25,7 +25,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         // TODO build a big dataset for successful decoding
 
         // launch decoding for a valid metar
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS ');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -39,6 +39,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('04', $w->getSpeed());
         $this->assertEquals('09', $w->getSpeedVariations());
         $this->assertEquals('MPS', $w->getSpeedUnit());
+        $v = $d->getVisibility();
+        $this->assertEquals('2500', $v->getVisibility());
+        $this->assertEquals('1000', $v->getMinimumVisibility());
+        $this->assertEquals('NW', $v->getMinimumVisibilityDirection());
     }
 
     public function testParseNil()

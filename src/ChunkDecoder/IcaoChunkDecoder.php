@@ -9,6 +9,8 @@ use MetarDecoder\Exception\ChunkDecoderException;
  */
 class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
+    protected $regexp = '#^([A-Z0-9]{4}) #';
+
     public function getRegexp()
     {
         return '#^([A-Z0-9]{4}) #';

@@ -8,6 +8,7 @@ use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
+use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
@@ -22,6 +23,7 @@ class MetarDecoder
             new DatetimeChunkDecoder(),
             new ReportStatusChunkDecoder(),
             new SurfaceWindChunkDecoder(),
+            new VisibilityChunkDecoder(),
         );
     }
 
@@ -35,6 +37,7 @@ class MetarDecoder
         $clean_metar = preg_replace("#[ ]{2,}#", ' ', trim(strtoupper($raw_metar))).' ';
         $remaining_metar = $clean_metar;
         $decoded_metar = new DecodedMetar($clean_metar);
+        $with_cavok = false;
 
         // call each decoder in the chain and use results to populate decoded
         foreach ($this->decoder_chain as $chunk_decoder) {
@@ -67,7 +70,9 @@ class MetarDecoder
             }
 
             // hook for CAVOK decoder
-            // TODO
+            if ($chunk_decoder instanceof VisibilityChunkDecoder) {
+                $with_cavok = $decoded_metar->getCavok();
+            }
         }
 
         return $decoded_metar;

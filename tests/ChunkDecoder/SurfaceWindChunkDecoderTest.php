@@ -57,7 +57,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "speed_variations" => null,
                 "speed_unit" => "MPS",
                 "direction_variations" => null,
-                "remaining" => "AAA"
+                "remaining" => "AAA",
             ),
             array(
                 "chunk" => "24004MPS BBB",
@@ -66,7 +66,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "speed_variations" => null,
                 "speed_unit" => "MPS",
                 "direction_variations" => null,
-                "remaining" => "BBB"
+                "remaining" => "BBB",
             ),
             array(
                 "chunk" => "140P99KT CCC",
@@ -75,7 +75,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "speed_variations" => null,
                 "speed_unit" => "KT",
                 "direction_variations" => null,
-                "remaining" => "CCC"
+                "remaining" => "CCC",
             ),
             array(
                 "chunk" => "02005MPS 350V070 DDD",
@@ -84,7 +84,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "speed_variations" => null,
                 "speed_unit" => "MPS",
                 "direction_variations" => array("350","070"),
-                "remaining" => "DDD"
+                "remaining" => "DDD",
             ),
             array(
                 "chunk" => "12003G09MPS EEE",
@@ -93,7 +93,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "speed_variations" => "09",
                 "speed_unit" => "MPS",
                 "direction_variations" => null,
-                "remaining" => "EEE"
+                "remaining" => "EEE",
             ),
         );
     }
@@ -102,7 +102,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array("chunk" => "12003G09 AAA"),
-            array("chunk" => "VRB01MP BBB")
+            array("chunk" => "VRB01MP BBB"),
         );
     }
 }
