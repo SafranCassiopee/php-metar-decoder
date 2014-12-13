@@ -4,11 +4,6 @@ namespace MetarDecoder\ChunkDecoder;
 
 abstract class MetarChunkDecoder
 {
-    public function getRegexp()
-    {
-        return '#^#';
-    }
-
     /**
      * Apply regexp on remaining metar string
      * @return array matches array if any match, null if no match
