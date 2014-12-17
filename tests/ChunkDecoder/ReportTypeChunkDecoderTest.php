@@ -47,22 +47,22 @@ class ReportTypeChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "chunk" => "META LFPG",
-                "type" => "",
+                "type" => null,
                 "remaining" => "META LFPG",
             ),
             array(
                 "chunk" => "SPECIA LFPG",
-                "type" => "",
+                "type" => null,
                 "remaining" => "SPECIA LFPG",
             ),
             array(
                 "chunk" => "META COR LFPB",
-                "type" => "",
+                "type" => null,
                 "remaining" => "META COR LFPB",
             ),
             array(
                 "chunk" => "123 LFPO",
-                "type" => "",
+                "type" => null,
                 "remaining" => "123 LFPO",
             ),
         );

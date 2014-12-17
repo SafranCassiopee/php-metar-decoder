@@ -89,10 +89,10 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "CAVO"),
-            array("chunk" => "CAVOKO"),
-            array("chunk" => "123"),
-            array("chunk" => "12335"),
+            array("chunk" => "CAVO EEE"),
+            array("chunk" => "CAVOKO EEE"),
+            array("chunk" => "123 EEE"),
+            array("chunk" => "12335 EEE"),
         );
     }
 }
