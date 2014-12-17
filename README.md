@@ -87,21 +87,6 @@ $result->getDatetime();
 
 ```
 
-Contribute
-----------
-
-Install dev dependencies ([composer](http://getcomposer.org) needed)
-
-```shell
-composer install --dev
-```
-
-Install xdebug (needed only for code coverage)
-
-```shell
-apt-get install php5-xdebug
-```
-
 Tests and coverage
 ------------------
 
@@ -117,5 +102,21 @@ You can also generate an html coverage report by adding the `--coverage-html` op
 
 ```shell
 ./vendor/bin/phpunit --coverage-html ./report tests
+
+Contribute
+----------
+
+Install dev dependencies ([composer](http://getcomposer.org) needed)
+
+```shell
+composer install --dev
+```
+
+Install xdebug (needed only for code coverage)
+
+```shell
+apt-get install php5-xdebug
+```
+
 ```
 
