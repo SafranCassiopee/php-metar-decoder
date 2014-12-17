@@ -29,10 +29,11 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
             throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information, applied regexp is "'.$this->getRegexp().'"', $this);
         }
 
+        $layers = null;
+        $visibility = null;
+            
         if($found[2] != null){
             // handle the case where no clouds observed
-            $layers = null;
-            $visibility = null;
             // TODO what fields ?
         }else{
             // handle cloud layers and visibility
@@ -59,7 +60,5 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
             ),
             'remaining_metar' => $this->getRemainingMetar($remaining_metar),
         );
-        
-
     }
 }
