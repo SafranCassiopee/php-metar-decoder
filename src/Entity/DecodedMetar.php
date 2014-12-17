@@ -35,6 +35,10 @@ class DecodedMetar
     private $visibility;
     private $cavok;
 
+    // cloud information
+    private $clouds;
+    private $vertical_visibility;
+    
     public function __construct($raw_metar)
     {
         $this->raw_metar = $raw_metar;
@@ -166,5 +170,29 @@ class DecodedMetar
     public function getCavok()
     {
         return $this->cavok;
+    }
+    
+    public function getVerticalVisibility()
+    {
+        return $this->vertical_visibility;
+    }
+
+    public function setVerticalVisibility($vertical_visibility)
+    {
+        $this->vertical_visibility = $vertical_visibility;
+
+        return $this;
+    }
+    
+    public function getClouds()
+    {
+        return $this->clouds;
+    }
+    
+    public function setClouds($clouds)
+    {
+        $this->clouds = $clouds;
+        
+        return $this;
     }
 }
