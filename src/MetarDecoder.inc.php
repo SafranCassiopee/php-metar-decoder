@@ -14,7 +14,8 @@ $to_include = array(
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
     'Entity/Visibility.php',
-
+    'Entity/CloudLayer.php',
+    
     'Exception/ChunkDecoderException.php',
 
     'ChunkDecoder/MetarChunkDecoder.php',
@@ -25,6 +26,7 @@ $to_include = array(
     'ChunkDecoder/ReportStatusChunkDecoder.php',
     'ChunkDecoder/SurfaceWindChunkDecoder.php',
     'ChunkDecoder/VisibilityChunkDecoder.php',
+    'ChunkDecoder/CloudChunkDecoder.php',
 );
 
 foreach ($to_include as $file) {

@@ -22,7 +22,7 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
     public function parse($remaining_metar)
     {
         $found = $this->applyRegexp($remaining_metar);
-        var_dump($found);
+        //var_dump($found);
         // handle the case where nothing has been found
         if ($found == null) {
             // TODO no error in the case of CAVOK
