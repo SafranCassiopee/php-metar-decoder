@@ -27,6 +27,7 @@ $to_include = array(
     'ChunkDecoder/SurfaceWindChunkDecoder.php',
     'ChunkDecoder/VisibilityChunkDecoder.php',
     'ChunkDecoder/CloudChunkDecoder.php',
+    'ChunkDecoder/PressureChunkDecoder.php',
 );
 
 foreach ($to_include as $file) {
