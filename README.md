@@ -102,6 +102,7 @@ You can also generate an html coverage report by adding the `--coverage-html` op
 
 ```shell
 ./vendor/bin/phpunit --coverage-html ./report tests
+```
 
 Contribute
 ----------
