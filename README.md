@@ -92,6 +92,13 @@ Tests and coverage
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
+If you want to run the tests, first install dev dependencies ([composer](http://getcomposer.org) needed)
+
+```shell
+composer install --dev
+apt-get install php5-xdebug #only needed if you're interested in code coverage)
+```
+
 Once you installed the dev dependencies, launch the test suite with the following command:
     
 ```shell
@@ -107,17 +114,6 @@ You can also generate an html coverage report by adding the `--coverage-html` op
 Contribute
 ----------
 
-Install dev dependencies ([composer](http://getcomposer.org) needed)
 
-```shell
-composer install --dev
-```
 
-Install xdebug (needed only for code coverage)
-
-```shell
-apt-get install php5-xdebug
-```
-
-```
 
