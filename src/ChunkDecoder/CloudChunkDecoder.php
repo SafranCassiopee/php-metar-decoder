@@ -15,14 +15,14 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
         $no_cloud = "(NSC|NCD|CLR|SKC)";
         $layer = "(FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
         $vertical_visibility = "VV([0-9]{3}|///)";
-        
+
         return "#^($no_cloud|($layer)( $layer)?( $layer)?( $layer)?( $vertical_visibility)?)( )#";
     }
 
     public function parse($remaining_metar)
     {
         $found = $this->applyRegexp($remaining_metar);
-        
+
         // handle the case where nothing has been found
         if ($found == null) {
             // TODO no error in the case of CAVOK
@@ -31,15 +31,15 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
 
         $layers = null;
         $visibility = null;
-            
-        if($found[2] != null){
+
+        if ($found[2] != null) {
             // handle the case where no clouds observed
             // TODO what fields ?
-        }else{
+        } else {
             // handle cloud layers and visibility
             $layers = array();
-            for($i = 3; $i <= 15 ; $i+= 4 ){
-                if($found[$i] != null){
+            for ($i = 3; $i <= 15; $i += 4) {
+                if ($found[$i] != null) {
                     $layer = new CloudLayer();
                     $layer->setAmount($found[$i+1])
                           ->setBaseHeight($found[$i+2])
@@ -47,11 +47,11 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                     $layers[] = $layer;
                 }
             }
-            if($found[19] != null){
+            if ($found[19] != null) {
                 $visibility = $found[20];
             }
         }
-        
+
         // return result + remaining metar
         return array(
             'result' => array(

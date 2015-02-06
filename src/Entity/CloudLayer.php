@@ -6,10 +6,10 @@ class CloudLayer
 {
     // annotation corresponding to amount of clouds (FEW/SCT/BKN/OVC)
     private $amount;
-    
+
     // height of cloud base, unit ?
     private $base_height;
-    
+
     // cloud type cumulonimbus, towering cumulonimbus (CB/TCU)
     private $type;
 
@@ -19,7 +19,7 @@ class CloudLayer
         $this->base_height = null;
         $this->type = null;
     }
-    
+
     public function getAmount()
     {
         return $this->amount;
@@ -31,7 +31,7 @@ class CloudLayer
 
         return $this;
     }
-    
+
     public function getBaseHeight()
     {
         return $this->base_height;
@@ -43,7 +43,7 @@ class CloudLayer
 
         return $this;
     }
-    
+
     public function getType()
     {
         return $this->type;
@@ -55,5 +55,4 @@ class CloudLayer
 
         return $this;
     }
-    
 }

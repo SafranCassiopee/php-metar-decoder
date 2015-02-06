@@ -16,7 +16,7 @@ $to_include = array(
     'Entity/RunwayVisualRange.php',
     'Entity/Visibility.php',
     'Entity/CloudLayer.php',
-    
+
     'Exception/ChunkDecoderException.php',
 
     'ChunkDecoder/MetarChunkDecoder.php',

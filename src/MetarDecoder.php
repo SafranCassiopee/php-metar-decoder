@@ -3,18 +3,15 @@
 namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
-
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
-use MetarDecoder\ChunkDecoder\RunwayVisualRangeChunkDecoder;
 use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
 use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
 use MetarDecoder\ChunkDecoder\WindShearChunkDecoder;
-
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
@@ -53,8 +50,7 @@ class MetarDecoder
         $with_cavok = false;
 
         // call each decoder in the chain and use results to populate decoded metar
-        foreach ($this->decoder_chain as $chunk_decoder)
-        {    
+        foreach ($this->decoder_chain as $chunk_decoder) {
             // try to parse a chunk with current chunk decoder
             try {
                 $decoded = $chunk_decoder->parse($remaining_metar);

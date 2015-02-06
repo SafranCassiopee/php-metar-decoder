@@ -31,12 +31,12 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $cloud = $clouds[0];
         $vis = $decoded['result']['verticalVisibility'];
         $this->assertEquals($nb_layers, count($clouds));
-        if($cloud != null) {
+        if ($cloud != null) {
             $this->assertEquals($layer1_amount, $cloud->getAmount());
             $this->assertEquals($layer1_base_height, $cloud->getBaseHeight());
             $this->assertEquals($layer1_type, $cloud->getType());
         }
-        if($vis != null){
+        if ($vis != null) {
             $this->assertEquals($visibility, $vis);
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
@@ -63,7 +63,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_base_height" => "100",
                 "layer1_type" => null,
                 "visibility" => "085",
-                "remaining" => "AAA"
+                "remaining" => "AAA",
             ),
             array(
                 "chunk" => "BKN200TCU OVC250 VV/// BBB",
@@ -72,7 +72,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_base_height" => "200",
                 "layer1_type" => "TCU",
                 "visibility" => "///",
-                "remaining" => "BBB"
+                "remaining" => "BBB",
             ),
             array(
                 "chunk" => "OVC////// FEW250 CCC",
@@ -81,7 +81,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_base_height" => "///",
                 "layer1_type" => "///",
                 "visibility" => null,
-                "remaining" => "CCC"
+                "remaining" => "CCC",
             ),
             array(
                 "chunk" => "NSC DDD",
@@ -90,7 +90,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_base_height" => null,
                 "layer1_type" => null,
                 "visibility" => null,
-                "remaining" => "DDD"
+                "remaining" => "DDD",
             ),
         );
     }

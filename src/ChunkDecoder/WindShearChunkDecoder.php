@@ -6,8 +6,7 @@ namespace MetarDecoder\ChunkDecoder;
  * Chunk decoder for atmospheric pressure section
  */
 class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
-{  
-
+{
     public function getRegexp()
     {
         return "#^WS (R([0-9]{2}[LCR]?)|(ALL) RWY)( )#";
@@ -16,7 +15,7 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
     public function parse($remaining_metar)
     {
         $found = $this->applyRegexp($remaining_metar);
-        
+
         // handle the case where nothing has been found
         if ($found == null) {
             $result = null;
@@ -35,4 +34,3 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
         );
     }
 }
-

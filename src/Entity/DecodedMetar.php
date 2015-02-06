@@ -38,10 +38,10 @@ class DecodedMetar
     // cloud information
     private $clouds;
     private $vertical_visibility;
-    
+
     // windshear runway information (which runway, or "all")
     private $windshear_runway;
-    
+
     public function __construct($raw_metar)
     {
         $this->raw_metar = $raw_metar;
@@ -174,7 +174,7 @@ class DecodedMetar
     {
         return $this->cavok;
     }
-    
+
     public function getVerticalVisibility()
     {
         return $this->vertical_visibility;
@@ -186,27 +186,28 @@ class DecodedMetar
 
         return $this;
     }
-    
+
     public function getClouds()
     {
         return $this->clouds;
     }
-    
+
     public function setClouds($clouds)
     {
         $this->clouds = $clouds;
-        
+
         return $this;
     }
-    
+
     public function getWindshearRunway()
     {
         return $this->windshear_runway;
     }
-    
+
     public function setWindShearRunway($runway)
     {
         $this->windshear_runway = $runway;
+
         return $this;
     }
 }
