@@ -1,7 +1,7 @@
 PHP METAR decoder
 =================
 
-A PHP library to decode METAR strings (under construction)
+A PHP library to decode METAR strings (under construction, progress around 75%)
 
 [![License](https://poser.pugx.org/inouire/php-metar-decoder/license.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
 [![Build Status](https://travis-ci.org/inouire/php-metar-decoder.svg?branch=master)](https://travis-ci.org/inouire/php-metar-decoder)

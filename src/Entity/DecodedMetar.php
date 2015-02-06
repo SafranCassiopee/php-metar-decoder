@@ -201,12 +201,12 @@ class DecodedMetar
     
     public function getWindshearRunway()
     {
-        return $this->$windshear_runway;
+        return $this->windshear_runway;
     }
     
     public function setWindShearRunway($runway)
     {
-        $this->$windshear_runway = $runway;
+        $this->windshear_runway = $runway;
         return $this;
     }
 }
