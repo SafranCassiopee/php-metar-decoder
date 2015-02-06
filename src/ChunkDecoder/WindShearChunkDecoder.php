@@ -10,7 +10,7 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
 
     public function getRegexp()
     {
-        return "#^WS (R([0-9]{2}(L|C|R)?)|(ALL) RWY)( )#";
+        return "#^WS (R([0-9]{2}[LCR]?)|(ALL) RWY)( )#";
     }
 
     public function parse($remaining_metar)
