@@ -16,7 +16,7 @@ class TemperatureChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         return "#^$temp_regex/$temp_regex #";
     }
 
-    public function parse($remaining_metar, $cavok=false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

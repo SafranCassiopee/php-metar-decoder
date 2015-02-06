@@ -17,19 +17,19 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
         return "#^($runway)( $runway)?( $runway)?( $runway)?( )#";
     }
 
-    public function parse($remaining_metar, $cavok=false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
-  
+
         // handle the case where nothing has been found
         if ($found == null) {
             // if cavok has been detected earlier in the metar, no problem
-            if($cavok){
+            if ($cavok) {
                 $result = null;
-            }else{
+            } else {
                 throw new ChunkDecoderException($remaining_metar, 'Runway visual range not found', $this);
             }
-        }else{
+        } else {
             // iterate on the results to get all runways visual range found
             $runways = array();
             for ($i = 1; $i <= 16; $i += 4) {
@@ -43,7 +43,7 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
             }
             $result = array('runways_visual_range' => $runways);
         }
-        
+
         // return result + remaining metar
         return array(
             'result' => $result,

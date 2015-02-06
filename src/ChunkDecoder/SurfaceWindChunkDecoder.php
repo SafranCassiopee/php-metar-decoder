@@ -22,7 +22,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         //last group capture is here to ensure that array will always have the same size if there is a match
     }
 
-    public function parse($remaining_metar, $cavok=false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

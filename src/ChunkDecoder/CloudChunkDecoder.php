@@ -19,19 +19,19 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
         return "#^($no_cloud|($layer)( $layer)?( $layer)?( $layer)?( $vertical_visibility)?)( )#";
     }
 
-    public function parse($remaining_metar, $cavok=false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 
         // handle the case where nothing has been found
         if ($found == null) {
             // if cavok has been detected earlier in the metar, no problem
-            if($cavok){
+            if ($cavok) {
                 $result = null;
-            }else{
+            } else {
                 throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information, applied regexp is "'.$this->getRegexp().'"', $this);
             }
-        }else{
+        } else {
             $layers = null;
             $visibility = null;
 

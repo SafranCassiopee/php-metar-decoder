@@ -20,7 +20,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         return "#^($cavok|$visibility$minimum_visibility)( )#";
     }
 
-    public function parse($remaining_metar, $cavok=false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

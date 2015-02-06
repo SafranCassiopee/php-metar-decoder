@@ -12,7 +12,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $this->decoder = new RunwayVisualRangeChunkDecoder();
     }
-                
+
     /**
      * Test parsing of valid runway visual range chunks
      * @param $chunk
@@ -33,7 +33,6 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
-
     /**
      * Test parsing with invalid visual range chunks but with CAVOK earlier in the METAR
      * @param $chunk
@@ -44,7 +43,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $decoded = $this->decoder->parse($chunk, true);
         $this->assertNull($decoded['result']);
     }
-    
+
     /**
      * Test parsing of invalid cloud chunks
      * @param $chunk
