@@ -14,7 +14,7 @@ class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInt
         return '#^([A-Z0-9]{4}) #';
     }
 
-    public function parse($remaining_metar)
+    public function parse($remaining_metar, $cavok=false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

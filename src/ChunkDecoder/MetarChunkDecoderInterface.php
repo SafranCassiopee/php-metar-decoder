@@ -11,7 +11,8 @@ interface MetarChunkDecoderInterface
     public function getRegexp();
 
     /**
-     * Decode the chunk targetted by the chunk decoder and returns the decoded information and the remaining metar without this chunk
+     * Decode the chunk targetted by the chunk decoder and returns the 
+     * decoded information and the remaining metar without this chunk
      */
-    public function parse($remaining_metar);
+    public function parse($remaining_metar, $with_cavok);
 }

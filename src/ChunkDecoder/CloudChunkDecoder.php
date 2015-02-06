@@ -19,45 +19,50 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
         return "#^($no_cloud|($layer)( $layer)?( $layer)?( $layer)?( $vertical_visibility)?)( )#";
     }
 
-    public function parse($remaining_metar)
+    public function parse($remaining_metar, $cavok=false)
     {
         $found = $this->applyRegexp($remaining_metar);
 
         // handle the case where nothing has been found
         if ($found == null) {
-            // TODO no error in the case of CAVOK
-            throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information, applied regexp is "'.$this->getRegexp().'"', $this);
-        }
+            // if cavok has been detected earlier in the metar, no problem
+            if($cavok){
+                $result = null;
+            }else{
+                throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information, applied regexp is "'.$this->getRegexp().'"', $this);
+            }
+        }else{
+            $layers = null;
+            $visibility = null;
 
-        $layers = null;
-        $visibility = null;
-
-        if ($found[2] != null) {
-            // handle the case where no clouds observed
-            // TODO what fields ?
-        } else {
-            // handle cloud layers and visibility
-            $layers = array();
-            for ($i = 3; $i <= 15; $i += 4) {
-                if ($found[$i] != null) {
-                    $layer = new CloudLayer();
-                    $layer->setAmount($found[$i+1])
-                          ->setBaseHeight($found[$i+2])
-                          ->setType($found[$i+3]);
-                    $layers[] = $layer;
+            if ($found[2] != null) {
+                // handle the case where no clouds observed
+                // TODO what fields to map ?
+            } else {
+                // handle cloud layers and visibility
+                $layers = array();
+                for ($i = 3; $i <= 15; $i += 4) {
+                    if ($found[$i] != null) {
+                        $layer = new CloudLayer();
+                        $layer->setAmount($found[$i+1])
+                              ->setBaseHeight($found[$i+2])
+                              ->setType($found[$i+3]);
+                        $layers[] = $layer;
+                    }
+                }
+                if ($found[19] != null) {
+                    $visibility = $found[20];
                 }
             }
-            if ($found[19] != null) {
-                $visibility = $found[20];
-            }
+            $result = array(
+                'clouds' => $layers,
+                'verticalVisibility' => $visibility,
+            );
         }
 
         // return result + remaining metar
         return array(
-            'result' => array(
-                'clouds' => $layers,
-                'verticalVisibility' => $visibility,
-            ),
+            'result' => $result,
             'remaining_metar' => $this->getRemainingMetar($remaining_metar),
         );
     }

@@ -53,7 +53,7 @@ class MetarDecoder
         foreach ($this->decoder_chain as $chunk_decoder) {
             // try to parse a chunk with current chunk decoder
             try {
-                $decoded = $chunk_decoder->parse($remaining_metar);
+                $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
             } catch (ChunkDecoderException $cde) {
                 // log error in decoded metar and abort decoding
                 $decoded_metar->setException($cde);

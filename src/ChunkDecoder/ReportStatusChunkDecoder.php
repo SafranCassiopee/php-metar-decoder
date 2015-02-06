@@ -14,7 +14,7 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
         return '#^((AUTO|NIL){0,1}) #';
     }
 
-    public function parse($remaining_metar)
+    public function parse($remaining_metar, $cavok=false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

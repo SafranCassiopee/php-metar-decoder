@@ -15,7 +15,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
         return "#^(Q|A)(////|[0-9]{4})( )#";
     }
 
-    public function parse($remaining_metar)
+    public function parse($remaining_metar, $cavok=false)
     {
         $found = $this->applyRegexp($remaining_metar);
         //var_dump($found);

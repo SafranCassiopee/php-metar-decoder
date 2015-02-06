@@ -16,7 +16,7 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
         return '#^([0-9]{2})([0-9]{2})([0-9]{2})Z #';
     }
 
-    public function parse($remaining_metar)
+    public function parse($remaining_metar, $cavok=false)
     {
         $found = $this->applyRegexp($remaining_metar);
 

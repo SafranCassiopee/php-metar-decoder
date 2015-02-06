@@ -42,6 +42,18 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
+
+    /**
+     * Test parsing with invalid cloud chunks but with CAVOK earlier in the METAR
+     * @param $chunk
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseCAVOKChunk($chunk)
+    {
+        $decoded = $this->decoder->parse($chunk, true);
+        $this->assertNull($decoded['result']);
+    }
+    
     /**
      * Test parsing of invalid cloud chunks
      * @param $chunk
