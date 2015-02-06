@@ -27,7 +27,7 @@ class RunwayVisualRange
 
     public function getVisualRange()
     {
-        return $this->minimum;
+        return $this->visual_range;
     }
 
     public function setVisualRange($visual_range)
