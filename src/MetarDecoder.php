@@ -3,12 +3,17 @@
 namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
+
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
+use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
+use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
+use MetarDecoder\ChunkDecoder\WindShearChunkDecoder;
+
 use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
@@ -24,6 +29,13 @@ class MetarDecoder
             new ReportStatusChunkDecoder(),
             new SurfaceWindChunkDecoder(),
             new VisibilityChunkDecoder(),
+            //TODO runway visual range
+            //TODO present weather
+            //new CloudChunkDecoder(),
+            //TODO air and dew point temperature
+            //new PressureChunkDecoder(),
+            //TODO recent weather
+            //new WindShearChunkDecoder()
         );
     }
 
@@ -33,15 +45,16 @@ class MetarDecoder
      */
     public function parse($raw_metar)
     {
-        // prepare decoding inputs/outputs
+        // prepare decoding inputs/outputs (upper case + trim + no more than one space)
         $clean_metar = preg_replace("#[ ]{2,}#", ' ', trim(strtoupper($raw_metar))).' ';
         $remaining_metar = $clean_metar;
         $decoded_metar = new DecodedMetar($clean_metar);
         $with_cavok = false;
 
-        // call each decoder in the chain and use results to populate decoded
-        foreach ($this->decoder_chain as $chunk_decoder) {
-            // decode this chunk
+        // call each decoder in the chain and use results to populate decoded metar
+        foreach ($this->decoder_chain as $chunk_decoder)
+        {    
+            // try to parse a chunk with current chunk decoder
             try {
                 $decoded = $chunk_decoder->parse($remaining_metar);
             } catch (ChunkDecoderException $cde) {
