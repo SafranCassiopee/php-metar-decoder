@@ -10,6 +10,7 @@ use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
+use MetarDecoder\ChunkDecoder\RunwayVisualRangeChunkDecoder;
 use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
 use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
 use MetarDecoder\ChunkDecoder\WindShearChunkDecoder;
@@ -29,7 +30,7 @@ class MetarDecoder
             new ReportStatusChunkDecoder(),
             new SurfaceWindChunkDecoder(),
             new VisibilityChunkDecoder(),
-            //TODO runway visual range
+            //new RunwayVisualRange(),
             //TODO present weather
             //new CloudChunkDecoder(),
             //TODO air and dew point temperature

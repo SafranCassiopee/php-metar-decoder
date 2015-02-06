@@ -13,6 +13,7 @@ $to_include = array(
 
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
+    'Entity/RunwayVisualRange.php',
     'Entity/Visibility.php',
     'Entity/CloudLayer.php',
     
@@ -26,6 +27,7 @@ $to_include = array(
     'ChunkDecoder/ReportStatusChunkDecoder.php',
     'ChunkDecoder/SurfaceWindChunkDecoder.php',
     'ChunkDecoder/VisibilityChunkDecoder.php',
+    'ChunkDecoder/RunwayVisualRangeChunkDecoder.php',
     'ChunkDecoder/CloudChunkDecoder.php',
     'ChunkDecoder/TemperatureChunkDecoder.php',
     'ChunkDecoder/PressureChunkDecoder.php',
