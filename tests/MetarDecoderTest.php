@@ -26,7 +26,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 FEW015 VV005 17/10 Q1009 ');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FEW015 VV005 17/10 Q1009 ');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -44,11 +44,17 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2500', $v->getVisibility());
         $this->assertEquals('1000', $v->getMinimumVisibility());
         $this->assertEquals('NW', $v->getMinimumVisibilityDirection());
-        $r = $d->getRunwaysVisualRange()[0];
-        $this->assertEquals('32', $r->getRunway());
-        $this->assertEquals('0400', $r->getVisualRange());
-        $this->assertEquals('', $r->getPastTendency());
-        $c = $d->getClouds()[0];
+        $rs = $d->getRunwaysVisualRange();
+        $r1 = $rs[0];
+        $this->assertEquals('32', $r1->getRunway());
+        $this->assertEquals('0400', $r1->getVisualRange());
+        $this->assertEquals('', $r1->getPastTendency());
+        $r2 = $rs[1];
+        $this->assertEquals('08C', $r2->getRunway());
+        $this->assertEquals('0004', $r2->getVisualRange());
+        $this->assertEquals('D', $r2->getPastTendency());
+        $cs = $d->getClouds();
+        $c = $cs[0];
         $this->assertEquals('FEW', $c->getAmount());
         $this->assertEquals('015', $c->getBaseHeight());
         $this->assertEquals('005', $d->getVerticalVisibility());
