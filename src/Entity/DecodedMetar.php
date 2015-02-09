@@ -35,10 +35,24 @@ class DecodedMetar
     private $visibility;
     private $cavok;
 
+    // runway visual range
+    private $runways_visual_range;
+    
+    // TODO present weather
+        
     // cloud information
     private $clouds;
     private $vertical_visibility;
 
+    // temperature information
+    private $air_temperature;
+    private $dew_point_temperature;
+    
+    // pressure information
+    private $pressure;
+    
+    // TODO recent weather
+    
     // windshear runway information (which runway, or "all")
     private $windshear_runway;
 
@@ -175,6 +189,30 @@ class DecodedMetar
         return $this->cavok;
     }
 
+    public function getRunwaysVisualRange()
+    {
+        return $this->runways_visual_range;
+    }
+    
+    public function setRunwaysVisualRange(array $runways)
+    {
+        $this->runways_visual_range = $runways;
+        
+        return $this;
+    }
+    
+    public function getClouds()
+    {
+        return $this->clouds;
+    }
+
+    public function setClouds(array $clouds)
+    {
+        $this->clouds = $clouds;
+
+        return $this;
+    }
+    
     public function getVerticalVisibility()
     {
         return $this->vertical_visibility;
@@ -187,18 +225,36 @@ class DecodedMetar
         return $this;
     }
 
-    public function getClouds()
+    public function getAirTemperature()
     {
-        return $this->clouds;
+        return $this->air_temperature;        
     }
-
-    public function setClouds($clouds)
+    
+    public function setAirTemperature($temperature)
     {
-        $this->clouds = $clouds;
-
-        return $this;
+        $this->air_temperature = $temperature;
     }
-
+    
+    public function getDewPointTemperature()
+    {
+        return $this->dew_point_temperature;        
+    }
+    
+    public function setDewPointTemperature($temperature)
+    {
+        $this->dew_point_temperature = $temperature;
+    }
+    
+    public function getPressure()
+    {
+        return $this->pressure;        
+    }
+    
+    public function setPressure($pressure)
+    {
+        $this->pressure = $pressure;
+    }
+    
     public function getWindshearRunway()
     {
         return $this->windshear_runway;
