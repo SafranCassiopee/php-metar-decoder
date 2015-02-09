@@ -41,7 +41,7 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
                     $runways[] = $observation;
                 }
             }
-            $result = array('runways_visual_range' => $runways);
+            $result = array('runwaysVisualRange' => $runways);
         }
 
         // return result + remaining metar

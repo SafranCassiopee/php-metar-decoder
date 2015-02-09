@@ -25,7 +25,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $runways = $decoded['result']['runways_visual_range'];
+        $runways = $decoded['result']['runwaysVisualRange'];
         $visual_range = $runways[0];
         $this->assertEquals($nb_runways, count($runways));
         $this->assertEquals($rwy1_name, $visual_range->getRunway());

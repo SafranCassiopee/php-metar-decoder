@@ -27,8 +27,8 @@ class TemperatureChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // retrieve found params
         $result = array(
-            'air_temperature' => $found[1],
-            'dew_point_temperature' => $found[2],
+            'airTemperature' => $found[1],
+            'dewPointTemperature' => $found[2],
         );
 
         // return result + remaining metar
