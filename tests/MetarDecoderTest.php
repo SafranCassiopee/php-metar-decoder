@@ -20,12 +20,13 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = new MetarDecoder();
     }
 
+    /**
+     * Test parsing of a complete, valid METAR
+     */
     public function testParse()
     {
-        // TODO build a big dataset for successful decoding
-
-        // launch decoding for a valid metar
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW');
+        // launch decoding
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 FEW015 VV005 17/10 Q1009 ');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -43,15 +44,42 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2500', $v->getVisibility());
         $this->assertEquals('1000', $v->getMinimumVisibility());
         $this->assertEquals('NW', $v->getMinimumVisibilityDirection());
+        $r = $d->getRunwaysVisualRange()[0];
+        $this->assertEquals('32', $r->getRunway());
+        $this->assertEquals('0400', $r->getVisualRange());
+        $this->assertEquals('', $r->getPastTendency());
+        $c = $d->getClouds()[0];
+        $this->assertEquals('FEW', $c->getAmount());
+        $this->assertEquals('015', $c->getBaseHeight());
+        $this->assertEquals('005', $d->getVerticalVisibility());
+        $this->assertEquals('17', $d->getAirTemperature());
+        $this->assertEquals('10', $d->getDewPointTemperature());
+        $this->assertEquals('1009', $d->getPressure());
     }
 
+    /**
+     * Test parsing of an empty METAR, which is valid
+     */
     public function testParseNil()
     {
-        // empty metar, valid
         $d = $this->decoder->parse('METAR LFPO 231027Z NIL');
         $this->assertEquals('NIL', $d->getStatus());
     }
-
+    
+    /**
+     * Test parsing of a METAR with CAVOK
+     */
+    public function testParseCAVOK()
+    {
+        $d = $this->decoder->parse('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
+        $this->assertTrue($d->getCavok());
+        // TODO also check cloud and visibility information
+        $this->assertEquals('0995', $d->getPressure());
+    }
+    
+    /**
+     * Test parsing of invalid METARs
+     */
     public function testParseErrors()
     {
         $error_dataset = array(

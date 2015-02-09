@@ -9,7 +9,9 @@ use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
+use MetarDecoder\ChunkDecoder\RunwayVisualRangeChunkDecoder;
 use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
+use MetarDecoder\ChunkDecoder\TemperatureChunkDecoder;
 use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
 use MetarDecoder\ChunkDecoder\WindShearChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
@@ -27,13 +29,13 @@ class MetarDecoder
             new ReportStatusChunkDecoder(),
             new SurfaceWindChunkDecoder(),
             new VisibilityChunkDecoder(),
-            //new RunwayVisualRange(),
+            new RunwayVisualRangeChunkDecoder(),
             //TODO present weather
-            //new CloudChunkDecoder(),
-            //TODO air and dew point temperature
-            //new PressureChunkDecoder(),
+            new CloudChunkDecoder(),
+            new TemperatureChunkDecoder(),
+            new PressureChunkDecoder(),
             //TODO recent weather
-            //new WindShearChunkDecoder()
+            new WindShearChunkDecoder()
         );
     }
 
@@ -64,8 +66,10 @@ class MetarDecoder
             $result = $decoded['result'];
             if ($result != null) {
                 foreach ($result as $key => $value) {
-                    $setter_name = 'set'.ucfirst($key);
-                    $decoded_metar->$setter_name($value);
+                    if($value != null){
+                        $setter_name = 'set'.ucfirst($key);
+                        $decoded_metar->$setter_name($value);
+                    }
                 }
             }
 
@@ -79,7 +83,7 @@ class MetarDecoder
                 }
             }
 
-            // hook for CAVOK decoder
+            // hook for CAVOK decoder, keep CAVOK information in memory
             if ($chunk_decoder instanceof VisibilityChunkDecoder) {
                 $with_cavok = $decoded_metar->getCavok();
             }
