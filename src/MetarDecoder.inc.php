@@ -31,6 +31,7 @@ $to_include = array(
     'ChunkDecoder/CloudChunkDecoder.php',
     'ChunkDecoder/TemperatureChunkDecoder.php',
     'ChunkDecoder/PressureChunkDecoder.php',
+    'ChunkDecoder/RecentWeatherDecoder.php',
     'ChunkDecoder/WindShearChunkDecoder.php',
 );
 

@@ -13,6 +13,7 @@ use MetarDecoder\ChunkDecoder\RunwayVisualRangeChunkDecoder;
 use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
 use MetarDecoder\ChunkDecoder\TemperatureChunkDecoder;
 use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
+use MetarDecoder\ChunkDecoder\RecentWeatherChunkDecoder;
 use MetarDecoder\ChunkDecoder\WindShearChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
@@ -34,7 +35,7 @@ class MetarDecoder
             new CloudChunkDecoder(),
             new TemperatureChunkDecoder(),
             new PressureChunkDecoder(),
-            //TODO recent weather
+            new RecentWeatherChunkDecoder(),
             new WindShearChunkDecoder()
         );
     }

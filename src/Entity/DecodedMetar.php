@@ -51,7 +51,8 @@ class DecodedMetar
     // pressure information
     private $pressure;
     
-    // TODO recent weather
+    // recent weather
+    private $recent_weather;
     
     // windshear runway information (which runway, or "all")
     private $windshear_runway;
@@ -243,6 +244,8 @@ class DecodedMetar
     public function setDewPointTemperature($temperature)
     {
         $this->dew_point_temperature = $temperature;
+        
+        return $this;
     }
     
     public function getPressure()
@@ -253,6 +256,18 @@ class DecodedMetar
     public function setPressure($pressure)
     {
         $this->pressure = $pressure;
+    }
+    
+    public function getRecentWeather()
+    {
+        return $this->recent_weather;
+    }
+    
+    public function setRecentWeather($recent_weather)
+    {
+        $this->recent_weather = $recent_weather;
+        
+        return $this;
     }
     
     public function getWindshearRunway()
