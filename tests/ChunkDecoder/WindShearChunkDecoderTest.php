@@ -23,7 +23,7 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $runway, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($runway, $decoded['result']['windshear_runway']);
+        $this->assertEquals($runway, $decoded['result']['windshearRunway']);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 

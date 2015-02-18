@@ -26,7 +26,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRA +SN // VCBLSA FEW015 VV005 17/10 Q1009 RERASN');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRA +SN // VCBLSA FEW015 VV005 17/10 Q1009 RERASN WS R03');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -66,6 +66,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('10', $d->getDewPointTemperature());
         $this->assertEquals('1009', $d->getPressure());
         $this->assertEquals('RASN', $d->getRecentWeather());
+        $this->assertEquals('03', $d->getWindshearRunway());
     }
 
     /**

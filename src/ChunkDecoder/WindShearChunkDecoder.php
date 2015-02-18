@@ -23,7 +23,7 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
             // detect if we have windshear on all runway or only one
             empty($found[2]) ? $runway = 'all' : $runway = $found[2];
             $result = array(
-                'windshear_runway' => $runway,
+                'windshearRunway' => $runway,
             );
         }
 
