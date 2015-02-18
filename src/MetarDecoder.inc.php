@@ -15,6 +15,7 @@ $to_include = array(
     'Entity/SurfaceWind.php',
     'Entity/RunwayVisualRange.php',
     'Entity/Visibility.php',
+    'Entity/PresentWeather.php',
     'Entity/CloudLayer.php',
 
     'Exception/ChunkDecoderException.php',
@@ -28,6 +29,7 @@ $to_include = array(
     'ChunkDecoder/SurfaceWindChunkDecoder.php',
     'ChunkDecoder/VisibilityChunkDecoder.php',
     'ChunkDecoder/RunwayVisualRangeChunkDecoder.php',
+    'ChunkDecoder/PresentWeatherChunkDecoder.php',
     'ChunkDecoder/CloudChunkDecoder.php',
     'ChunkDecoder/TemperatureChunkDecoder.php',
     'ChunkDecoder/PressureChunkDecoder.php',
