@@ -37,9 +37,9 @@ class DecodedMetar
 
     // runway visual range
     private $runways_visual_range;
-    
+
     // TODO present weather
-        
+
     // cloud information
     private $clouds;
     private $vertical_visibility;
@@ -47,13 +47,13 @@ class DecodedMetar
     // temperature information
     private $air_temperature;
     private $dew_point_temperature;
-    
+
     // pressure information
     private $pressure;
-    
+
     // recent weather
     private $recent_weather;
-    
+
     // windshear runway information (which runway, or "all")
     private $windshear_runway;
 
@@ -194,14 +194,14 @@ class DecodedMetar
     {
         return $this->runways_visual_range;
     }
-    
+
     public function setRunwaysVisualRange(array $runways)
     {
         $this->runways_visual_range = $runways;
-        
+
         return $this;
     }
-    
+
     public function getClouds()
     {
         return $this->clouds;
@@ -213,7 +213,7 @@ class DecodedMetar
 
         return $this;
     }
-    
+
     public function getVerticalVisibility()
     {
         return $this->vertical_visibility;
@@ -228,48 +228,48 @@ class DecodedMetar
 
     public function getAirTemperature()
     {
-        return $this->air_temperature;        
+        return $this->air_temperature;
     }
-    
+
     public function setAirTemperature($temperature)
     {
         $this->air_temperature = $temperature;
     }
-    
+
     public function getDewPointTemperature()
     {
-        return $this->dew_point_temperature;        
+        return $this->dew_point_temperature;
     }
-    
+
     public function setDewPointTemperature($temperature)
     {
         $this->dew_point_temperature = $temperature;
-        
+
         return $this;
     }
-    
+
     public function getPressure()
     {
-        return $this->pressure;        
+        return $this->pressure;
     }
-    
+
     public function setPressure($pressure)
     {
         $this->pressure = $pressure;
     }
-    
+
     public function getRecentWeather()
     {
         return $this->recent_weather;
     }
-    
+
     public function setRecentWeather($recent_weather)
     {
         $this->recent_weather = $recent_weather;
-        
+
         return $this;
     }
-    
+
     public function getWindshearRunway()
     {
         return $this->windshear_runway;

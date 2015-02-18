@@ -26,9 +26,9 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $decoded = $this->decoder->parse($chunk);
         $present_weather = $decoded['result']['presentWeather'];
-        $this->assertEquals($precipitations, implode(' ',$present_weather->getPrecipitations()));
-        $this->assertEquals($obstacles, implode(' ',$present_weather->getObstacles()));
-        $this->assertEquals($vicinities, implode(' ',$present_weather->getVicinities()));
+        $this->assertEquals($precipitations, implode(' ', $present_weather->getPrecipitations()));
+        $this->assertEquals($obstacles, implode(' ', $present_weather->getObstacles()));
+        $this->assertEquals($vicinities, implode(' ', $present_weather->getVicinities()));
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 

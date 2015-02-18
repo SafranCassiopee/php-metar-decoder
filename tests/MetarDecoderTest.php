@@ -72,7 +72,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = $this->decoder->parse('METAR LFPO 231027Z NIL');
         $this->assertEquals('NIL', $d->getStatus());
     }
-    
+
     /**
      * Test parsing of a METAR with CAVOK
      */
@@ -83,7 +83,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         // TODO also check cloud and visibility information
         $this->assertEquals('0995', $d->getPressure());
     }
-    
+
     /**
      * Test parsing of invalid METARs
      */

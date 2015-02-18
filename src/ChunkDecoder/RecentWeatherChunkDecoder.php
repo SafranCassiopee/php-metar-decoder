@@ -15,7 +15,7 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
     public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
-        
+
         // handle the case where nothing has been found
         if ($found == null) {
             $result = null;
