@@ -38,7 +38,8 @@ class DecodedMetar
     // runway visual range
     private $runways_visual_range;
 
-    // TODO present weather
+    // present weather
+    private $present_weather;
 
     // cloud information
     private $clouds;
@@ -198,6 +199,18 @@ class DecodedMetar
     public function setRunwaysVisualRange(array $runways)
     {
         $this->runways_visual_range = $runways;
+
+        return $this;
+    }
+
+    public function getPresentWeather()
+    {
+        return $this->present_weather;
+    }
+
+    public function setPresentWeather($weather)
+    {
+        $this->present_weather = $weather;
 
         return $this;
     }

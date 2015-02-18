@@ -10,6 +10,7 @@ use MetarDecoder\ChunkDecoder\ReportStatusChunkDecoder;
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
 use MetarDecoder\ChunkDecoder\VisibilityChunkDecoder;
 use MetarDecoder\ChunkDecoder\RunwayVisualRangeChunkDecoder;
+use MetarDecoder\ChunkDecoder\PresentWeatherChunkDecoder;
 use MetarDecoder\ChunkDecoder\CloudChunkDecoder;
 use MetarDecoder\ChunkDecoder\TemperatureChunkDecoder;
 use MetarDecoder\ChunkDecoder\PressureChunkDecoder;
@@ -31,7 +32,7 @@ class MetarDecoder
             new SurfaceWindChunkDecoder(),
             new VisibilityChunkDecoder(),
             new RunwayVisualRangeChunkDecoder(),
-            //TODO present weather
+            new PresentWeatherChunkDecoder(),
             new CloudChunkDecoder(),
             new TemperatureChunkDecoder(),
             new PressureChunkDecoder(),
@@ -41,8 +42,7 @@ class MetarDecoder
     }
 
     /**
-     * Decode a full metar string
-     * Under construction
+     * Decode a full metar string into a complete metar object
      */
     public function parse($raw_metar)
     {
@@ -74,7 +74,7 @@ class MetarDecoder
                 }
             }
 
-            // prepare new remaining metar for next round
+            // update remaining metar for next round
             $remaining_metar = $decoded['remaining_metar'];
 
             // hook for report status decoder, abort if nil, but decoded metar is valid though

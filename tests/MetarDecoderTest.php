@@ -26,7 +26,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FEW015 VV005 17/10 Q1009 RERASN');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRA +SN // VCBLSA FEW015 VV005 17/10 Q1009 RERASN');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -53,6 +53,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('08C', $r2->getRunway());
         $this->assertEquals('0004', $r2->getVisualRange());
         $this->assertEquals('D', $r2->getPastTendency());
+        $pw = $d->getPresentWeather();
+        $this->assertEquals(array('FZRA', '+SN'), $pw->getPrecipitations());
+        $this->assertEquals(array('//'), $pw->getObstacles());
+        $this->assertEquals(array('BLSA'), $pw->getVicinities());
         $cs = $d->getClouds();
         $c = $cs[0];
         $this->assertEquals('FEW', $c->getAmount());
@@ -92,6 +96,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $error_dataset = array(
             array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC '),
             array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234 '),
+            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ','PresentWeatherChunkDecoder','FZRAA FEW015 '),
         );
 
         foreach ($error_dataset as $metar_error) {
