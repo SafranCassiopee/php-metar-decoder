@@ -18,7 +18,6 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
     public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
-        //var_dump($found);
 
         // throw error if nothing has been found
         if ($found == null) {
@@ -27,7 +26,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 
         // retrieve found params
         $result = array(
-            'pressure' => $found[2],
+            'pressure' => $this->toInt($found[2]),
         );
 
         // return result + remaining metar
