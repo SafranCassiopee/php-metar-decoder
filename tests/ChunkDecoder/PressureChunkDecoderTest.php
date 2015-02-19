@@ -48,7 +48,7 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "input" => "A0200 BBB",
-                "icao" => "0200",
+                "pressure" => "0200",
                 "remaining" => "BBB",
             ),
         );
