@@ -45,20 +45,20 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 "input" => "M01/M10 AAA",
-                "air_temperature" => "M01",
-                "dew_point_temperature" => "M10",
+                "air_temperature" => -1,
+                "dew_point_temperature" => -10,
                 "remaining" => "AAA",
             ),
             array(
                 "input" => "05/12 BBB",
-                "air_temperature" => "05",
-                "dew_point_temperature" => "12",
+                "air_temperature" => 5,
+                "dew_point_temperature" => 12,
                 "remaining" => "BBB",
             ),
             array(
                 "input" => "10/M01 CCC",
-                "air_temperature" => "10",
-                "dew_point_temperature" => "M01",
+                "air_temperature" => 10,
+                "dew_point_temperature" => -1,
                 "remaining" => "CCC",
             ),
         );

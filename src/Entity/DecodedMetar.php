@@ -35,13 +35,13 @@ class DecodedMetar
     private $visibility;
     private $cavok;
 
-    // runway visual range
+    // runway visual range information
     private $runways_visual_range;
 
     // present weather
     private $present_weather;
 
-    // cloud information
+    // cloud layers information
     private $clouds;
     private $vertical_visibility;
 

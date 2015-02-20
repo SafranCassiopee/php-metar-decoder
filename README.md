@@ -1,7 +1,7 @@
 PHP METAR decoder
 =================
 
-A PHP library to decode METAR strings (under construction, progress around 75%)
+A PHP library to decode METAR strings (under construction, progress around 90%)
 
 [![License](https://poser.pugx.org/inouire/php-metar-decoder/license.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
 [![Build Status](https://travis-ci.org/inouire/php-metar-decoder.svg?branch=master)](https://travis-ci.org/inouire/php-metar-decoder)
@@ -62,16 +62,15 @@ Load the library thanks to autoloading:
 require_once 'vendor/autoload.php';
 ```
 
-Or if you didn't use composer, use static import file:
+Or if you didn't use composer, use the static import file:
 
 ```php
 <?php
 require_once 'path/to/MetarDecoder/MetarDecoder.inc.php';
 ```
 
-
-Instanciate the decoder and launch it on a METAR string.
-The returned object is a DecodedMetar object from which you can retrieve all the weather propertie that have been decoded.
+Instantiate the decoder and launch it on a METAR string.
+The returned object is a DecodedMetar object from which you can retrieve all the weather properties that have been decoded.
 
 ```php
 <?php
@@ -86,6 +85,11 @@ $result->getDatetime();
 // to be completed
 
 ```
+
+Contribute
+----------
+
+If you find a valid METAR that is badly parsed by this library, you can open a github issue
 
 Tests and coverage
 ------------------
@@ -110,10 +114,6 @@ You can also generate an html coverage report by adding the `--coverage-html` op
 ```shell
 ./vendor/bin/phpunit --coverage-html ./report tests
 ```
-
-Contribute
-----------
-
 
 
 

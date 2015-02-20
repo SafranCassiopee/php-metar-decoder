@@ -25,14 +25,14 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
             throw new ChunkDecoderException($remaining_metar, 'Missing day/hour/minute information', $this);
         } else {
             // retrieve found params and check them
-            $day = $found[1];
+            $day = intval($found[1]);
             $hour = $found[2];
             $minute = $found[3];
             if (!$this->checkValidity($day, $hour, $minute)) {
                 throw new ChunkDecoderException($remaining_metar, 'Invalid day/hour/minute format', $this);
             }
             $result = array(
-                'day' => $found[1],
+                'day' => $day,
                 'time' => DateTime::createFromFormat('H:i', $found[2].':'.$found[3], new DateTimeZone('UTC')),
             );
         }

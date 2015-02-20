@@ -37,8 +37,8 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
             // retrieve found params
             $cavok = false;
             $visibility = new Visibility();
-            $visibility->setVisibility($found[2])
-                       ->setMinimumVisibility($found[4])
+            $visibility->setVisibility($this->toInt($found[2]))
+                       ->setMinimumVisibility($this->toInt($found[4]))
                        ->setMinimumVisibilityDirection($found[5]);
         }
 

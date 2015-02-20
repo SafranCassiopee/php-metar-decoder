@@ -36,7 +36,7 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
                 if ($found[$i] != null) {
                     $observation = new RunwayVisualRange();
                     $observation->setRunway($found[$i+1])
-                                ->setVisualRange($found[$i+2])
+                                ->setVisualRange($this->toInt($found[$i+2]))
                                 ->setPastTendency($found[$i+3]);
                     $runways[] = $observation;
                 }
