@@ -2,7 +2,6 @@
 
 namespace MetarDecoder\ChunkDecoder;
 
-use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\RunwayVisualRange;
 
 /**

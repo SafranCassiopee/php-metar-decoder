@@ -77,7 +77,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     {
         // launch decoding
         $d = $this->decoder->parse('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ');
-        
+
         // compare results
         $this->assertTrue($d->isValid());
         $this->assertEquals('METAR', $d->getType());
@@ -99,7 +99,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $d->getDewPointTemperature());
         $this->assertEquals(1032, $d->getPressure());
     }
-    
+
     /**
      * Test parsing of an empty METAR, which is valid
      */

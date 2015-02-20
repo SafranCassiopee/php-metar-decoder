@@ -52,7 +52,7 @@ class DecodedMetar
     // pressure information
     private $pressure;
     private $pressure_unit;
-    
+
     // recent weather
     private $recent_weather;
 
@@ -271,7 +271,7 @@ class DecodedMetar
     {
         $this->pressure = $pressure;
     }
-    
+
     public function getPressureUnit()
     {
         return $this->pressure_unit;
