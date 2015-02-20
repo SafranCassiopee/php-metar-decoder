@@ -17,13 +17,15 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * Test parsing of valid pressure chunks
      * @param string $chunk
      * @param string $pressure
+     * @param string $pressure_unit
      * @param string $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $pressure, $remaining)
+    public function testParse($chunk, $pressure, $pressure_unit, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $this->assertEquals($pressure, $decoded['result']['pressure']);
+        $this->assertEquals($pressure_unit, $decoded['result']['pressureUnit']);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
@@ -44,16 +46,19 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "input" => "Q1000 AAA",
                 "pressure" => 1000,
+                "pressure_unit" => 'hPA',
                 "remaining" => "AAA",
             ),
             array(
-                "input" => "A0200 BBB",
-                "pressure" => 200,
+                "input" => "A0202 BBB",
+                "pressure" => 20.2,
+                "pressure_unit" => 'inHg',
                 "remaining" => "BBB",
             ),
             array(
                 "input" => "Q//// CCC",
                 "pressure" => null,
+                "pressure_unit" => 'hPA',
                 "remaining" => "CCC",
             ),
         );

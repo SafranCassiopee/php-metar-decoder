@@ -65,6 +65,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(17, $d->getAirTemperature());
         $this->assertEquals(10, $d->getDewPointTemperature());
         $this->assertEquals(1009, $d->getPressure());
+        $this->assertEquals('hPA', $d->getPressureUnit());
         $this->assertEquals('RASN', $d->getRecentWeather());
         $this->assertEquals('03', $d->getWindshearRunway());
     }
