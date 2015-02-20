@@ -33,28 +33,6 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
-    /**
-     * Test parsing with invalid visual range chunks but with CAVOK earlier in the METAR
-     * @param $chunk
-     * @dataProvider getInvalidChunk
-     */
-    public function testParseCAVOKChunk($chunk)
-    {
-        $decoded = $this->decoder->parse($chunk, true);
-        $this->assertNull($decoded['result']);
-    }
-
-    /**
-     * Test parsing of invalid cloud chunks
-     * @param $chunk
-     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
-     * @dataProvider getInvalidChunk
-     */
-    public function testParseInvalidChunk($chunk)
-    {
-        $this->decoder->parse($chunk);
-    }
-
     public function getChunk()
     {
         return array(
@@ -82,12 +60,4 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function getInvalidChunk()
-    {
-        return array(
-            array("chunk" => "RABC EEE"),
-            array("chunk" => "R120R/1200 EEE"),
-            array("chunk" => "R02L/888 EEE"),
-        );
-    }
 }

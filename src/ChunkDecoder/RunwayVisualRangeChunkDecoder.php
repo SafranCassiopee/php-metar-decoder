@@ -23,12 +23,7 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
 
         // handle the case where nothing has been found
         if ($found == null) {
-            // if cavok has been detected earlier in the metar, no problem
-            if ($cavok) {
-                $result = null;
-            } else {
-                throw new ChunkDecoderException($remaining_metar, 'Runway visual range not found', $this);
-            }
+            $result = null;
         } else {
             // iterate on the results to get all runways visual range found
             $runways = array();
