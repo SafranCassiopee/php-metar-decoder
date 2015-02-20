@@ -32,26 +32,26 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($d->isValid());
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
-        $this->assertEquals('23', $d->getDay());
+        $this->assertEquals(23, $d->getDay());
         $this->assertEquals(DateTime::createFromFormat('H:i', '10:27', new DateTimeZone('UTC')), $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
         $w = $d->getSurfaceWind();
-        $this->assertEquals('240', $w->getDirection());
-        $this->assertEquals('04', $w->getSpeed());
-        $this->assertEquals('09', $w->getSpeedVariations());
+        $this->assertEquals(240, $w->getDirection());
+        $this->assertEquals(4, $w->getSpeed());
+        $this->assertEquals(9, $w->getSpeedVariations());
         $this->assertEquals('MPS', $w->getSpeedUnit());
         $v = $d->getVisibility();
-        $this->assertEquals('2500', $v->getVisibility());
-        $this->assertEquals('1000', $v->getMinimumVisibility());
+        $this->assertEquals(2500, $v->getVisibility());
+        $this->assertEquals(1000, $v->getMinimumVisibility());
         $this->assertEquals('NW', $v->getMinimumVisibilityDirection());
         $rs = $d->getRunwaysVisualRange();
         $r1 = $rs[0];
         $this->assertEquals('32', $r1->getRunway());
-        $this->assertEquals('0400', $r1->getVisualRange());
+        $this->assertEquals(400, $r1->getVisualRange());
         $this->assertEquals('', $r1->getPastTendency());
         $r2 = $rs[1];
         $this->assertEquals('08C', $r2->getRunway());
-        $this->assertEquals('0004', $r2->getVisualRange());
+        $this->assertEquals(4, $r2->getVisualRange());
         $this->assertEquals('D', $r2->getPastTendency());
         $pw = $d->getPresentWeather();
         $this->assertEquals(array('FZRA', '+SN'), $pw->getPrecipitations());
@@ -60,11 +60,11 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $cs = $d->getClouds();
         $c = $cs[0];
         $this->assertEquals('FEW', $c->getAmount());
-        $this->assertEquals('015', $c->getBaseHeight());
-        $this->assertEquals('005', $d->getVerticalVisibility());
-        $this->assertEquals('17', $d->getAirTemperature());
-        $this->assertEquals('10', $d->getDewPointTemperature());
-        $this->assertEquals('1009', $d->getPressure());
+        $this->assertEquals(15, $c->getBaseHeight());
+        $this->assertEquals(5, $d->getVerticalVisibility());
+        $this->assertEquals(17, $d->getAirTemperature());
+        $this->assertEquals(10, $d->getDewPointTemperature());
+        $this->assertEquals(1009, $d->getPressure());
         $this->assertEquals('RASN', $d->getRecentWeather());
         $this->assertEquals('03', $d->getWindshearRunway());
     }
@@ -86,7 +86,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = $this->decoder->parse('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
         $this->assertTrue($d->getCavok());
         // TODO also check cloud and visibility information
-        $this->assertEquals('0995', $d->getPressure());
+        $this->assertEquals(995, $d->getPressure());
     }
 
     /**
