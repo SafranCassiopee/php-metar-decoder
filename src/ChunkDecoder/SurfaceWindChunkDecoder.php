@@ -13,8 +13,8 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
     public function getRegexp()
     {
         $direction = "([/0-9]{3}|V?RB)";
-        $speed = "(P?[/0-9]{2}[0-9]?)";
-        $speed_variations = "(GP?([0-9]{2}[0-9]?))?"; // optionnal
+        $speed = "(P?[0-9]{2,3})";
+        $speed_variations = "(GP?([0-9]{2,3}))?"; // optionnal
         $unit = "(KT|MPS)";
         $direction_variations = "( ([0-9]{3})V([0-9]{3}))?"; // optionnal
 
@@ -34,10 +34,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         // retrieve found params
         $surface_wind = new SurfaceWind();
         $surface_wind->setDirection($found[1])
-                     ->setSpeed($found[2])
-                     ->setSpeedVariations($found[4])
+                     ->setSpeed($this->toInt($found[2]))
+                     ->setSpeedVariations($this->toInt($found[4]))
                      ->setSpeedUnit($found[5])
-                     ->setDirectionVariations($found[7], $found[8]);
+                     ->setDirectionVariations($this->toInt($found[7]), $this->toInt($found[8]));
 
         // return result + remaining metar
         return array(
