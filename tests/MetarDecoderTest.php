@@ -26,7 +26,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR  LFPO 231027Z    AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRA +SN // VCBLSA FEW015 VV005 17/10 Q1009 RERASN WS R03');
+        $d = $this->decoder->parse('METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRA +SN // VCBLSA FEW015 VV005 17/10 Q1009 RERASN WS R03');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -69,6 +69,36 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('03', $d->getWindshearRunway());
     }
 
+    /**
+     * Test parsing of a short, valid METAR
+     */
+    public function testParseShort()
+    {
+        // launch decoding
+        $d = $this->decoder->parse('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ');
+        
+        // compare results
+        $this->assertTrue($d->isValid());
+        $this->assertEquals('METAR', $d->getType());
+        $this->assertEquals('LFPB', $d->getIcao());
+        $this->assertEquals(19, $d->getDay());
+        $this->assertEquals(DateTime::createFromFormat('H:i', '07:30', new DateTimeZone('UTC')), $d->getTime());
+        $this->assertEquals('AUTO', $d->getStatus());
+        $w = $d->getSurfaceWind();
+        $this->assertEquals(170, $w->getDirection());
+        $this->assertEquals(5, $w->getSpeed());
+        $this->assertEquals('KT', $w->getSpeedUnit());
+        $v = $d->getVisibility();
+        $this->assertEquals(6000, $v->getVisibility());
+        $cs = $d->getClouds();
+        $c = $cs[0];
+        $this->assertEquals('OVC', $c->getAmount());
+        $this->assertEquals(24, $c->getBaseHeight());
+        $this->assertEquals(2, $d->getAirTemperature());
+        $this->assertEquals(0, $d->getDewPointTemperature());
+        $this->assertEquals(1032, $d->getPressure());
+    }
+    
     /**
      * Test parsing of an empty METAR, which is valid
      */
