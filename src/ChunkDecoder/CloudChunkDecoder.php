@@ -4,6 +4,7 @@ namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\CloudLayer;
+use MetarDecoder\Entity\Value;
 
 /**
  * Chunk decoder for cloud section
@@ -45,13 +46,13 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                     if ($found[$i] != null) {
                         $layer = new CloudLayer();
                         $layer->setAmount($found[$i+1])
-                              ->setBaseHeight($this->toInt($found[$i+2]))
+                              ->setBaseHeight(Value::toInt($found[$i+2]))
                               ->setType($found[$i+3]);
                         $layers[] = $layer;
                     }
                 }
                 if ($found[19] != null) {
-                    $visibility = $this->toInt($found[20]);
+                    $visibility = Value::toInt($found[20]);
                 }
             }
             $result = array(

@@ -4,6 +4,7 @@ namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\Visibility;
+use MetarDecoder\Entity\Value;
 
 /**
  * Chunk decoder for visibility section
@@ -37,8 +38,8 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
             // retrieve found params
             $cavok = false;
             $visibility = new Visibility();
-            $visibility->setVisibility($this->toInt($found[2]))
-                       ->setMinimumVisibility($this->toInt($found[4]))
+            $visibility->setVisibility(Value::toInt($found[2]))
+                       ->setMinimumVisibility(Value::toInt($found[4]))
                        ->setMinimumVisibilityDirection($found[5]);
         }
 

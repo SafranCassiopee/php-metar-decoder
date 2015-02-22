@@ -25,17 +25,4 @@ abstract class MetarChunkDecoder
         return preg_replace($this->getRegexp(), '', $remaining_metar, 1);
     }
 
-    public function toInt($value)
-    {
-        $letter_signs = array('P','M');
-        $numeric_signs = array('','-');
-
-        $value_numeric = str_replace($letter_signs, $numeric_signs, $value);
-
-        if (preg_match('#^[\-0-9]#', $value_numeric)) {
-            return intval($value_numeric);
-        } else {
-            return;
-        }
-    }
 }

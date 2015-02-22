@@ -4,6 +4,8 @@ namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\SurfaceWind;
+use MetarDecoder\Entity\Value;
+
 
 /**
  * Chunk decoder for surface wind section
@@ -34,10 +36,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         // retrieve found params
         $surface_wind = new SurfaceWind();
         $surface_wind->setDirection($found[1])
-                     ->setSpeed($this->toInt($found[2]))
-                     ->setSpeedVariations($this->toInt($found[4]))
+                     ->setSpeed(Value::toInt($found[2]))
+                     ->setSpeedVariations(Value::toInt($found[4]))
                      ->setSpeedUnit($found[5])
-                     ->setDirectionVariations($this->toInt($found[7]), $this->toInt($found[8]));
+                     ->setDirectionVariations(Value::toInt($found[7]), Value::toInt($found[8]));
 
         // return result + remaining metar
         return array(
