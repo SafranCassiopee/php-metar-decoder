@@ -2,19 +2,17 @@
 
 namespace MetarDecoder\Entity;
 
-use MetarDecoder\Exception\ChunkDecoderException;
 
 class Value
 {
-
     private $value;
-    
+
     private $unit;
-    
+
     public function __construct($value, $unit)
     {
         $this->value = $value;
-        
+
         $this->unit = $unit;
     }
 
@@ -22,12 +20,12 @@ class Value
     {
         return $this->value;
     }
-    
+
     public function getUnit()
     {
         return $this->unit;
     }
-    
+
     /**
      * Create new temperature value (°C)
      */
@@ -35,7 +33,7 @@ class Value
     {
         return new Value(self::toInt($value), '°C');
     }
-    
+
     /**
      * Convert a string value into an int, and takes into account some non-numeric char
      * P = +
@@ -55,5 +53,4 @@ class Value
             return;
         }
     }
-    
 }

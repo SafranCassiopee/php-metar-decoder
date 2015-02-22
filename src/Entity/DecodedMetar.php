@@ -51,7 +51,7 @@ class DecodedMetar
 
     // pressure information
     private $pressure;
-    
+
     // recent weather
     private $recent_weather;
 

@@ -6,7 +6,6 @@ use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\SurfaceWind;
 use MetarDecoder\Entity\Value;
 
-
 /**
  * Chunk decoder for surface wind section
  */

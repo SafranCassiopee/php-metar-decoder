@@ -12,7 +12,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 {
     private $units = array(
         'Q' => 'hPA',
-        'A' => 'inHg'
+        'A' => 'inHg',
     );
 
     public function getRegexp()
@@ -32,7 +32,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
         $raw_value = Value::toInt($found[2]);
         $type = $found[1];
         // convert value if needed
-        if ( $type == 'A') {
+        if ($type == 'A') {
             $raw_value = $raw_value / 10;
         }
         $value = new Value($raw_value, $this->units[$type]);
