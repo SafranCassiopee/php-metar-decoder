@@ -3,6 +3,7 @@
 namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
+use MetarDecoder\Entity\Value;
 
 /**
  * Chunk decoder for atmospheric pressure section
@@ -11,7 +12,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 {
     private $units = array(
         'Q' => 'hPA',
-        'A' => 'inHg',
+        'A' => 'inHg'
     );
 
     public function getRegexp()
@@ -28,18 +29,17 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
             throw new ChunkDecoderException($remaining_metar, 'Atmospheric pressure not found', $this);
         }
 
-        // get unit and make a conversion if needed
+        $raw_value = Value::toInt($found[2]);
         $type = $found[1];
-        $unit = $this->units[$type];
-        $value = $this->toInt($found[2]);
-        if ($type == 'A') {
-            $value = $value / 10;
+        // convert value if needed
+        if ( $type == 'A') {
+            $raw_value = $raw_value / 10;
         }
+        $value = new Value($raw_value, $this->units[$type]);
 
         // retrieve found params
         $result = array(
             'pressure' => $value,
-            'pressureUnit' => $unit,
         );
 
         // return result + remaining metar

@@ -64,8 +64,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $d->getVerticalVisibility());
         $this->assertEquals(17, $d->getAirTemperature()->getValue());
         $this->assertEquals(10, $d->getDewPointTemperature()->getValue());
-        $this->assertEquals(1009, $d->getPressure());
-        $this->assertEquals('hPA', $d->getPressureUnit());
+        $this->assertEquals(1009, $d->getPressure()->getValue());
+        $this->assertEquals('hPA', $d->getPressure()->getUnit());
         $this->assertEquals('RASN', $d->getRecentWeather());
         $this->assertEquals('03', $d->getWindshearRunway());
     }
@@ -97,7 +97,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(24, $c->getBaseHeight());
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
-        $this->assertEquals(1032, $d->getPressure());
+        $this->assertEquals(1032, $d->getPressure()->getValue());
+        $this->assertEquals('hPA', $d->getPressure()->getUnit());
     }
 
     /**
@@ -117,7 +118,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = $this->decoder->parse('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
         $this->assertTrue($d->getCavok());
         // TODO also check cloud and visibility information
-        $this->assertEquals(995, $d->getPressure());
+        $this->assertEquals(995, $d->getPressure()->getValue());
     }
 
     /**
