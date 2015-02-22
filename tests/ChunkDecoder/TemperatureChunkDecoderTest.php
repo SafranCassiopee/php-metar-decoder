@@ -24,8 +24,8 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $air_temperature, $dew_point_temperature, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($air_temperature, $decoded['result']['airTemperature']);
-        $this->assertEquals($dew_point_temperature, $decoded['result']['dewPointTemperature']);
+        $this->assertEquals($air_temperature, $decoded['result']['airTemperature']->getValue());
+        $this->assertEquals($dew_point_temperature, $decoded['result']['dewPointTemperature']->getValue());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 

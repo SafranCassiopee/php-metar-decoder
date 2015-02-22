@@ -10,14 +10,15 @@
 
 $to_include = array(
     'MetarDecoder.php',
-
+    
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
     'Entity/RunwayVisualRange.php',
     'Entity/Visibility.php',
     'Entity/PresentWeather.php',
     'Entity/CloudLayer.php',
-
+    'Entity/Value.php',
+    
     'Exception/ChunkDecoderException.php',
 
     'ChunkDecoder/MetarChunkDecoder.php',

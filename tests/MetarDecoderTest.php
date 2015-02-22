@@ -62,8 +62,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('FEW', $c->getAmount());
         $this->assertEquals(15, $c->getBaseHeight());
         $this->assertEquals(5, $d->getVerticalVisibility());
-        $this->assertEquals(17, $d->getAirTemperature());
-        $this->assertEquals(10, $d->getDewPointTemperature());
+        $this->assertEquals(17, $d->getAirTemperature()->getValue());
+        $this->assertEquals(10, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1009, $d->getPressure());
         $this->assertEquals('hPA', $d->getPressureUnit());
         $this->assertEquals('RASN', $d->getRecentWeather());
@@ -95,8 +95,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $c = $cs[0];
         $this->assertEquals('OVC', $c->getAmount());
         $this->assertEquals(24, $c->getBaseHeight());
-        $this->assertEquals(2, $d->getAirTemperature());
-        $this->assertEquals(0, $d->getDewPointTemperature());
+        $this->assertEquals(2, $d->getAirTemperature()->getValue());
+        $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1032, $d->getPressure());
     }
 

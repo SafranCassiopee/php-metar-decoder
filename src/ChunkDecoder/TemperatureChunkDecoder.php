@@ -3,6 +3,7 @@
 namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Exception\ChunkDecoderException;
+use MetarDecoder\Entity\Value;
 
 /**
  * Chunk decoder for air and dew point temperature section
@@ -27,8 +28,8 @@ class TemperatureChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // retrieve found params
         $result = array(
-            'airTemperature' => $this->toInt($found[1]),
-            'dewPointTemperature' => $this->toInt($found[2]),
+            'airTemperature' => Value::newTemperatureValue($found[1]),
+            'dewPointTemperature' => Value::newTemperatureValue($found[2]),
         );
 
         // return result + remaining metar
