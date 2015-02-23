@@ -13,6 +13,7 @@ class Value
     CONST KNOT = 'kt';
     const METER_PER_SECOND = 'm/s';
     const METER = 'm';
+    const FEET = 'ft';
     
     public function __construct($value, $unit)
     {

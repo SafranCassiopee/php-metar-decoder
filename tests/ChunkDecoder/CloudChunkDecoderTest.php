@@ -33,7 +33,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nb_layers, count($clouds));
         if ($cloud != null) {
             $this->assertEquals($layer1_amount, $cloud->getAmount());
-            $this->assertEquals($layer1_base_height, $cloud->getBaseHeight());
+            $this->assertEquals($layer1_base_height, $cloud->getBaseHeight()->getValue());
+            $this->assertEquals('ft', $cloud->getBaseHeight()->getUnit());
             $this->assertEquals($layer1_type, $cloud->getType());
         }
         if ($vis != null) {
@@ -71,7 +72,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "FEW100 VV085 AAA",
                 "nb_layers" => 1,
                 "layer1_amount" => "FEW",
-                "layer1_base_height" => 100,
+                "layer1_base_height" => 10000,
                 "layer1_type" => null,
                 "visibility" => 85,
                 "remaining" => "AAA",
@@ -80,7 +81,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "BKN200TCU OVC250 VV/// BBB",
                 "nb_layers" => 2,
                 "layer1_amount" => "BKN",
-                "layer1_base_height" => 200,
+                "layer1_base_height" => 20000,
                 "layer1_type" => "TCU",
                 "visibility" => null,
                 "remaining" => "BBB",

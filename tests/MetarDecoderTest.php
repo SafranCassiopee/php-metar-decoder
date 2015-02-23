@@ -60,7 +60,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $cs = $d->getClouds();
         $c = $cs[0];
         $this->assertEquals('FEW', $c->getAmount());
-        $this->assertEquals(15, $c->getBaseHeight());
+        $this->assertEquals(1500, $c->getBaseHeight()->getValue());
         $this->assertEquals(5, $d->getVerticalVisibility());
         $this->assertEquals(17, $d->getAirTemperature()->getValue());
         $this->assertEquals(10, $d->getDewPointTemperature()->getValue());
@@ -94,7 +94,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $cs = $d->getClouds();
         $c = $cs[0];
         $this->assertEquals('OVC', $c->getAmount());
-        $this->assertEquals(24, $c->getBaseHeight());
+        $this->assertEquals(2400, $c->getBaseHeight()->getValue());
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1032, $d->getPressure()->getValue());
