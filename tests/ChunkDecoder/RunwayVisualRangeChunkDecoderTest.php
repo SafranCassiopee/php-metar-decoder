@@ -29,7 +29,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $visual_range = $runways[0];
         $this->assertEquals($nb_runways, count($runways));
         $this->assertEquals($rwy1_name, $visual_range->getRunway());
-        $this->assertEquals($rwy1_vis, $visual_range->getVisualRange());
+        $this->assertEquals($rwy1_vis, $visual_range->getVisualRange()->getValue());
+        $this->assertEquals('m', $visual_range->getVisualRange()->getUnit());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 

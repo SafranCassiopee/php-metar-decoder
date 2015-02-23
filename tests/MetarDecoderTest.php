@@ -47,11 +47,11 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $rs = $d->getRunwaysVisualRange();
         $r1 = $rs[0];
         $this->assertEquals('32', $r1->getRunway());
-        $this->assertEquals(400, $r1->getVisualRange());
+        $this->assertEquals(400, $r1->getVisualRange()->getValue());
         $this->assertEquals('', $r1->getPastTendency());
         $r2 = $rs[1];
         $this->assertEquals('08C', $r2->getRunway());
-        $this->assertEquals(4, $r2->getVisualRange());
+        $this->assertEquals(4, $r2->getVisualRange()->getValue());
         $this->assertEquals('D', $r2->getPastTendency());
         $pw = $d->getPresentWeather();
         $this->assertEquals(array('FZRA', '+SN'), $pw->getPrecipitations());
