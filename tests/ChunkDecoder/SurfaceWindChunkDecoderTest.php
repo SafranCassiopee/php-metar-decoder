@@ -29,7 +29,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $decoded = $this->decoder->parse($chunk);
         $wind = $decoded['result']['surfaceWind'];
-        if(!$variable_direction){
+        if (!$variable_direction) {
             $this->assertEquals($direction, $wind->getDirection()->getValue());
             $this->assertEquals('°', $wind->getDirection()->getUnit());
         }

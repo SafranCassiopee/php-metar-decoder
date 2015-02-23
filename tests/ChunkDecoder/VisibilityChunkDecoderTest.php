@@ -37,7 +37,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
-    
+
     /**
      * Test parsing of invalid surface wind chunks
      * @param $chunk

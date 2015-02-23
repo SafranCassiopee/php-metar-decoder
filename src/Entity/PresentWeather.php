@@ -7,7 +7,7 @@ class PresentWeather
     // precipitations phenomenon
     private $precipitations;
 
-    // obscurations phenomenon 
+    // obscurations phenomenon
     private $obscurations;
 
     // vicinity phenomenon

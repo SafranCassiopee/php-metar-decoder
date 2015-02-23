@@ -6,10 +6,10 @@ class SurfaceWind
 {
     // wind direction
     private $direction;
-    
+
     // wind variability (if true, direction is null)
     private $variable_direction;
-    
+
     // wind speed
     private $speed;
 
@@ -23,12 +23,12 @@ class SurfaceWind
     {
         return $this->variable_direction;
     }
-    
+
     public function setVariableDirection($is_variable)
     {
         $this->variable_direction = $is_variable;
     }
-    
+
     public function getDirection()
     {
         return $this->direction;

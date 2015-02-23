@@ -46,9 +46,9 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                     if ($found[$i] != null) {
                         $layer = new CloudLayer();
                         $layer_height = Value::toInt($found[$i+2]);
-                        if($layer_height != null){
+                        if ($layer_height != null) {
                             $layer_height_ft = $layer_height * 100;
-                        }else{
+                        } else {
                             $layer_height_ft = null;
                         }
                         $layer->setAmount($found[$i+1])

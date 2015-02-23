@@ -271,16 +271,6 @@ class DecodedMetar
         $this->pressure = $pressure;
     }
 
-    public function getPressureUnit()
-    {
-        return $this->pressure_unit;
-    }
-
-    public function setPressureUnit($unit)
-    {
-        $this->pressure_unit = $unit;
-    }
-
     public function getRecentWeather()
     {
         return $this->recent_weather;
