@@ -6,19 +6,29 @@ class SurfaceWind
 {
     // wind direction
     private $direction;
-
+    
+    // wind variability (if true, direction is null)
+    private $variable_direction;
+    
     // wind speed
     private $speed;
 
     // wind speed variation (gusts)
     private $speed_variations;
 
-    // speed unit (KT or MPS)
-    private $speed_unit;
-
     // boundaries for wind direction variation
     private $direction_variations;
 
+    public function withVariableDirection()
+    {
+        return $this->variable_direction;
+    }
+    
+    public function setVariableDirection($is_variable)
+    {
+        $this->variable_direction = $is_variable;
+    }
+    
     public function getDirection()
     {
         return $this->direction;
@@ -51,18 +61,6 @@ class SurfaceWind
     public function setSpeedVariations($speed_variations)
     {
         $this->speed_variations = $speed_variations;
-
-        return $this;
-    }
-
-    public function getSpeedUnit()
-    {
-        return $this->speed_unit;
-    }
-
-    public function setSpeedUnit($unit)
-    {
-        $this->speed_unit = $unit;
 
         return $this;
     }

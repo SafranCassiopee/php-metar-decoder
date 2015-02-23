@@ -31,14 +31,27 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         if ($found == null) {
             throw new ChunkDecoderException($remaining_metar, 'Bad format for surface wind information, applied regexp is "'.$this->getRegexp().'"', $this);
         }
-
+        
+        // get unit used
+        if($found[5] == 'KT'){
+            $speed_unit = Value::KNOT;
+        }else{
+            $speed_unit = Value::METERS_PER_SECOND;
+        }
+        
+        
         // retrieve found params
         $surface_wind = new SurfaceWind();
-        $surface_wind->setDirection($found[1])
-                     ->setSpeed(Value::toInt($found[2]))
-                     ->setSpeedVariations(Value::toInt($found[4]))
-                     ->setSpeedUnit($found[5])
-                     ->setDirectionVariations(Value::toInt($found[7]), Value::toInt($found[8]));
+        if($found[1] == 'VRB' || $found[1] == 'RB'){
+            $surface_wind->setVariableDirection(true);
+            $surface_wind->setDirection(null);
+        }else{
+            $surface_wind->setVariableDirection(false);
+            $surface_wind->setDirection(Value::newIntValue($found[1],Value::DEGREE));
+        }
+        $surface_wind->setDirectionVariations(Value::newIntValue($found[7],Value::DEGREE), Value::newIntValue($found[8],Value::DEGREE))
+                     ->setSpeed(Value::newIntValue($found[2],$speed_unit))
+                     ->setSpeedVariations(Value::newIntValue($found[4], $speed_unit));
 
         // return result + remaining metar
         return array(

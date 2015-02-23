@@ -9,7 +9,10 @@ class Value
     private $unit;
 
     const DEGREE_CELSIUS = '°C';
-
+    CONST DEGREE = '°';
+    CONST KNOT = 'kt';
+    const METERS_PER_SECOND = 'm/s';
+    
     public function __construct($value, $unit)
     {
         $this->value = $value;
