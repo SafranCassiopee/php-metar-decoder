@@ -4,13 +4,13 @@ namespace MetarDecoder\Entity;
 
 class PresentWeather
 {
-    // precipitations weather
+    // precipitations phenomenon
     private $precipitations;
 
-    // obstacle weather
-    private $obstacles;
+    // obscurations phenomenon 
+    private $obscurations;
 
-    // vicinity weather
+    // vicinity phenomenon
     private $vicinities;
 
     public function getPrecipitations()
@@ -18,21 +18,21 @@ class PresentWeather
         return $this->precipitations;
     }
 
-    public function addPrecipitation($precipitation)
+    public function addPrecipitation($precipitation_phenomenon)
     {
-        $this->precipitations[] = $precipitation;
+        $this->precipitations[] = $precipitation_phenomenon;
 
         return $this;
     }
 
-    public function getObstacles()
+    public function getObscurations()
     {
-        return $this->obstacles;
+        return $this->obscurations;
     }
 
-    public function addObstacle($obstacle)
+    public function addObscuration($obscuration_phenomenon)
     {
-        $this->obstacles[] = $obstacle;
+        $this->obscurations[] = $obscuration_phenomenon;
 
         return $this;
     }

@@ -55,7 +55,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('D', $r2->getPastTendency());
         $pw = $d->getPresentWeather();
         $this->assertEquals(array('FZRA', '+SN'), $pw->getPrecipitations());
-        $this->assertEquals(array('//'), $pw->getObstacles());
+        $this->assertEquals(array('//'), $pw->getObscurations());
         $this->assertEquals(array('BLSA'), $pw->getVicinities());
         $cs = $d->getClouds();
         $c = $cs[0];

@@ -47,17 +47,13 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
             $result = null;
         } else {
             // manually split the string into phenomenons and group them by categories
-            $precipitations = array();
-            $obstacles = array();
-            $vicinity = array();
             $present_weather = new PresentWeather();
             $weather_chunks = explode(' ', trim($found[0]));
             foreach ($weather_chunks as $chunk) {
                 if (in_array(trim($chunk, '+-'), $this->pre_dic)) {
-                    $precipitations[] = $chunk;
                     $present_weather->addPrecipitation($chunk);
                 } elseif (in_array($chunk, $this->obs_dic)) {
-                    $present_weather->addObstacle($chunk);
+                    $present_weather->addObscuration($chunk);
                 } elseif (in_array($chunk, $this->vic_dic)) {
                     $present_weather->addVicinity(substr($chunk, 2));
                 } else {

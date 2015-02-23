@@ -17,17 +17,17 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * Test parsing of valid present weather chunks
      * @param $chunk
      * @param $precipitations
-     * @param $obstacles
+     * @param $obscurations
      * @param $vicinities
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $precipitations, $obstacles, $vicinities, $remaining)
+    public function testParse($chunk, $precipitations, $obscurations, $vicinities, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $present_weather = $decoded['result']['presentWeather'];
         $this->assertEquals($precipitations, implode(' ', $present_weather->getPrecipitations()));
-        $this->assertEquals($obstacles, implode(' ', $present_weather->getObstacles()));
+        $this->assertEquals($obscurations, implode(' ', $present_weather->getObscurations()));
         $this->assertEquals($vicinities, implode(' ', $present_weather->getVicinities()));
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
@@ -38,14 +38,14 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "chunk" => "FZRA +SN BCFG VCFG AAA",
                 "precipitations" => "FZRA +SN",
-                "obstacles" => "BCFG",
+                "obscurations" => "BCFG",
                 "vicinities" => "FG",
                 "remaining" => "AAA",
             ),
             array(
                 "chunk" => "TSUP -SG BR DU VCFC VCBLSA BBB",
                 "precipitations" => "TSUP -SG",
-                "obstacles" => "BR DU",
+                "obscurations" => "BR DU",
                 "vicinities" => "FC BLSA",
                 "remaining" => "BBB",
             ),
