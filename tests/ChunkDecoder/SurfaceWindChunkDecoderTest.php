@@ -34,8 +34,9 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals('°', $wind->getDirection()->getUnit());
         }
         $this->assertEquals($variable_direction, $wind->withVariableDirection());
-        $this->assertEquals($direction_variations[0], $wind->getDirectionVariations()[0]->getValue());
-        $this->assertEquals($direction_variations[1], $wind->getDirectionVariations()[1]->getValue());
+        $dir_var = $wind->getDirectionVariations();
+        $this->assertEquals($direction_variations[0], $dir_var[0]->getValue());
+        $this->assertEquals($direction_variations[1], $dir_var[1]->getValue());
         $this->assertEquals('°', $wind->getDirectionVariations()[0]->getUnit());
         $this->assertEquals($speed, $wind->getSpeed()->getValue());
         $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
