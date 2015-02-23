@@ -41,8 +41,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(9, $w->getSpeedVariations()->getValue());
         $this->assertEquals('m/s', $w->getSpeed()->getUnit());
         $v = $d->getVisibility();
-        $this->assertEquals(2500, $v->getVisibility());
-        $this->assertEquals(1000, $v->getMinimumVisibility());
+        $this->assertEquals(2500, $v->getVisibility()->getValue());
+        $this->assertEquals(1000, $v->getMinimumVisibility()->getValue());
         $this->assertEquals('NW', $v->getMinimumVisibilityDirection());
         $rs = $d->getRunwaysVisualRange();
         $r1 = $rs[0];
@@ -90,7 +90,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $w->getSpeed()->getValue());
         $this->assertEquals('kt', $w->getSpeed()->getUnit());
         $v = $d->getVisibility();
-        $this->assertEquals(6000, $v->getVisibility());
+        $this->assertEquals(6000, $v->getVisibility()->getValue());
         $cs = $d->getClouds();
         $c = $cs[0];
         $this->assertEquals('OVC', $c->getAmount());

@@ -30,13 +30,14 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($decoded['result']['cavok']);
         } else {
             $vis = $decoded['result']['visibility'];
-            $this->assertEquals($visibility, $vis->getVisibility());
-            $this->assertEquals($minimum, $vis->getMinimumVisibility());
+            $this->assertEquals($visibility, $vis->getVisibility()->getValue());
+            $this->assertEquals($minimum, $vis->getMinimumVisibility()->getValue());
+            $this->assertEquals('m', $vis->getVisibility()->getUnit());
             $this->assertEquals($minimum_direction, $vis->getMinimumVisibilityDirection());
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
-
+    
     /**
      * Test parsing of invalid surface wind chunks
      * @param $chunk

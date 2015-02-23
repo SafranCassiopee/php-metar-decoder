@@ -36,7 +36,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         if($found[5] == 'KT'){
             $speed_unit = Value::KNOT;
         }else{
-            $speed_unit = Value::METERS_PER_SECOND;
+            $speed_unit = Value::METER_PER_SECOND;
         }
         
         

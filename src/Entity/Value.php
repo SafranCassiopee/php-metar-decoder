@@ -11,7 +11,8 @@ class Value
     const DEGREE_CELSIUS = '°C';
     CONST DEGREE = '°';
     CONST KNOT = 'kt';
-    const METERS_PER_SECOND = 'm/s';
+    const METER_PER_SECOND = 'm/s';
+    const METER = 'm';
     
     public function __construct($value, $unit)
     {
