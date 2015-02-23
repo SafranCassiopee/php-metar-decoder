@@ -2,12 +2,13 @@
 
 namespace MetarDecoder\Entity;
 
-
 class Value
 {
     private $value;
 
     private $unit;
+
+    const DEGREE_CELSIUS = '°C';
 
     public function __construct($value, $unit)
     {
@@ -27,11 +28,11 @@ class Value
     }
 
     /**
-     * Create new temperature value (°C)
+     * Create new integer value
      */
-    public static function newTemperatureValue($value)
+    public static function newIntValue($value, $unit)
     {
-        return new Value(self::toInt($value), '°C');
+        return new Value(self::toInt($value), $unit);
     }
 
     /**
