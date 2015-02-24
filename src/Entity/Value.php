@@ -33,6 +33,18 @@ class Value
     }
 
     /**
+     * Create a new value, possibly null
+     */
+    public static function newValue($value, $unit)
+    {
+        if($value != null){
+            return new Value($value, $unit);
+        }else{
+            return null;
+        }
+    }
+    
+    /**
      * Create new integer value
      */
     public static function newIntValue($value, $unit)
