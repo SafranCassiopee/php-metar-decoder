@@ -4,6 +4,11 @@
 
 require_once dirname(__FILE__) . '/../src/MetarDecoder.inc.php';
 use MetarDecoder\MetarDecoder;
+
+$raw_metar = $_GET['metar'];
+$decoder = new MetarDecoder();
+$decoded_metar = $decoder->parse($raw_metar);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +34,13 @@ use MetarDecoder\MetarDecoder;
             <br>
             
             <!-- metar form -->
-            <form class="form-inline" action="index.php" >
+            <form class="form-inline" action="index.php" method="get">
               <div class="form-group" >
                 <div class="input-group">
                   <div class="input-group-addon input-lg">METAR</div>
-                  <input type="text" class="form-control input-lg" style='width:600px'>
+                  <input type="text" name="metar" class="form-control input-lg" style="width:600px" value="<?php echo($raw_metar);?>">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Decode</button>
+                <input type="submit" class="btn btn-primary btn-lg" value="Decode">
               </div>
             </form>
             
@@ -47,7 +52,16 @@ use MetarDecoder\MetarDecoder;
             
             <!-- decoded metar -->
             <pre>
-            TODO
+TODO
+
+<?php
+    echo('Report type: '.$decoded_metar->getType().'<br>'); 
+    echo('ICAO: '.$decoded_metar->getIcao().'<br>');
+    echo('Day: '.$decoded_metar->getDay().'<br>');
+    echo('Time: '.$decoded_metar->getTime()->format('H:i').' UTC'.'<br>');
+?>
+
+
             </pre>
           </div>
         </div>
