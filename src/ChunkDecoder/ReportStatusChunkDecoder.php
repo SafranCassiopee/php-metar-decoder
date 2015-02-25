@@ -11,8 +11,9 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
 {
     public function getRegexp()
     {
-        return '#^((AUTO|NIL){0,1}) #';
+        return '#^([A-Z]+) #';
     }
+    
 
     public function parse($remaining_metar, $cavok = false)
     {
@@ -23,9 +24,15 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
             $result = null;
         } else {
             // retrieve found params
-            $result = array(
-                'status' => $found[1],
-            );
+            $status = $found[1];
+            if($status == 'AUTO' || $status == 'NIL'){
+                $result = array(
+                    'status' => $status
+                );
+            }else{
+                throw new ChunkDecoderException($remaining_metar, 'Invalid report status, AUTO or NIL expected', $this);
+            }
+            
         }
         $next_remaining_metar = $this->getRemainingMetar($remaining_metar);
 

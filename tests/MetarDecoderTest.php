@@ -127,9 +127,9 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParseErrors()
     {
         $error_dataset = array(
-            array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC '),
-            array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234 '),
-            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ','PresentWeatherChunkDecoder','FZRAA FEW015 '),
+            array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC'),
+            array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234'),
+            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ','PresentWeatherChunkDecoder','FZRAA FEW015'),
         );
 
         foreach ($error_dataset as $metar_error) {
