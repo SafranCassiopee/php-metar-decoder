@@ -56,8 +56,8 @@ $d = $decoder->parse($raw_metar);
                     <? echo($d->getException()->getMessage()); 
                        echo(', on chunk "'.$d->getException()->getChunk().'"');?>
                 </div>
-            <? }else {?>  
-                <table class="table table-bordered" style="font-size: 1.3em">
+            <? } ?>  
+            <table class="table table-bordered" style="font-size: 1.3em">
                 <tr>
                     <td>Report type</td>
                     <td class="success"><? echo($d->getType()); ?></td>
@@ -74,9 +74,16 @@ $d = $decoder->parse($raw_metar);
                     <td>Time</td>
                     <td class="success"><? echo($d->getTime()->format('H:i').' UTC'); ?></td>
                 </tr>
+                <tr>
+                    <td>Status</td>
+                    <? if($d->getStatus() != null){?>
+                        <td class="success"><? echo($d->getStatus()); ?></td>
+                    <? }else {?>
+                        <td class="active"></td>
+                    <? } ?>
+                </tr>
                 <!-- other tags for td: danger(red) / active (grey) / warning (orange)-->
             </table>
-            <?php }?>
           </div>
         </div>
     
