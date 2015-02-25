@@ -10,7 +10,7 @@ class ChunkDecoderException extends \Exception
 
     public function __construct($metar_chunk, $message, $chunk_decoder)
     {
-        parent::__construct($message.' for chunk "'.$metar_chunk.'"');
+        parent::__construct($message);
         $this->metar_chunk = $metar_chunk;
         $this->chunk_decoder_class = get_class($chunk_decoder);
     }
