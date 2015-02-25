@@ -7,7 +7,7 @@ use MetarDecoder\MetarDecoder;
 
 $raw_metar = $_GET['metar'];
 $decoder = new MetarDecoder();
-$decoded_metar = $decoder->parse($raw_metar);
+$d = $decoder->parse($raw_metar);
 
 ?>
 
@@ -23,7 +23,7 @@ $decoded_metar = $decoder->parse($raw_metar);
         <div class="container">
           <div class="header">
             <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="#">Live demo</a></li>
+                <li class="active">Live demo</li>
             </ul>
             <h3 class="text-muted">php-metar-decoder</h3>
             <br>
@@ -50,19 +50,33 @@ $decoded_metar = $decoder->parse($raw_metar);
             </div>
             <br>
             
-            <!-- decoded metar -->
-            <pre>
-TODO
-
-<?php
-    echo('Report type: '.$decoded_metar->getType().'<br>'); 
-    echo('ICAO: '.$decoded_metar->getIcao().'<br>');
-    echo('Day: '.$decoded_metar->getDay().'<br>');
-    echo('Time: '.$decoded_metar->getTime()->format('H:i').' UTC'.'<br>');
-?>
-
-
-            </pre>
+            <? if(!$d->isValid()){ ?>
+                <div class="alert alert-danger">
+                    <b>Invalid format:</b>
+                    <? echo($d->getException()->getMessage()); 
+                       echo(', on chunk "'.$d->getException()->getChunk().'"');?>
+                </div>
+            <? }else {?>  
+                <table class="table table-bordered" style="font-size: 1.3em">
+                <tr>
+                    <td>Report type</td>
+                    <td class="success"><? echo($d->getType()); ?></td>
+                </tr>
+               <tr>
+                    <td>ICAO</td>
+                    <td class="success"><? echo($d->getIcao()); ?></td>
+                </tr>
+                <tr>
+                    <td>Day of month</td>
+                    <td class="success"><? echo($d->getDay()); ?></td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td class="success"><? echo($d->getTime()->format('H:i').' UTC'); ?></td>
+                </tr>
+                <!-- other tags for td: danger(red) / active (grey) / warning (orange)-->
+            </table>
+            <?php }?>
           </div>
         </div>
     
