@@ -24,8 +24,12 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $pressure, $pressure_unit, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($pressure, $decoded['result']['pressure']->getValue());
-        $this->assertEquals($pressure_unit, $decoded['result']['pressure']->getUnit());
+        if($pressure != null){
+            $this->assertEquals($pressure, $decoded['result']['pressure']->getValue());
+            $this->assertEquals($pressure_unit, $decoded['result']['pressure']->getUnit());
+        }else{
+            $this->assertNull($decoded['result']['pressure']);
+        }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
@@ -58,7 +62,7 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "input" => "Q//// CCC",
                 "pressure" => null,
-                "pressure_unit" => 'hPA',
+                "pressure_unit" => null,
                 "remaining" => "CCC",
             ),
         );

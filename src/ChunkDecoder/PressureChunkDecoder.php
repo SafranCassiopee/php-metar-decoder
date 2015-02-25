@@ -35,7 +35,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
         if ($type == 'A') {
             $raw_value = $raw_value / 10;
         }
-        $value = new Value($raw_value, $this->units[$type]);
+        $value = Value::newValue($raw_value, $this->units[$type]);
 
         // retrieve found params
         $result = array(

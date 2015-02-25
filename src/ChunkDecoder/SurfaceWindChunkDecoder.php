@@ -29,7 +29,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // handle the case where nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'Bad format for surface wind information, applied regexp is "'.$this->getRegexp().'"', $this);
+            throw new ChunkDecoderException($remaining_metar, 'Bad format for surface wind information', $this);
         }
 
         // get unit used
