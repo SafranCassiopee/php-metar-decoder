@@ -12,7 +12,7 @@ class ChunkDecoderException extends \Exception
     {
         parent::__construct($message.' for chunk "'.$metar_chunk.'"');
         $this->metar_chunk = $metar_chunk;
-        $this->chunk_decoder_class = get_class($chunk_decoder);
+        $this->chunk_decoder_class = (new \ReflectionClass($chunk_decoder))->getShortName();
     }
 
     /**

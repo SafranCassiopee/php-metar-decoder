@@ -8,8 +8,8 @@ class Value
 
     private $unit;
 
-    const DEGREE_CELSIUS = '°C';
-    CONST DEGREE = '°';
+    const DEGREE_CELSIUS = 'deg C';
+    CONST DEGREE = 'deg';
     CONST KNOT = 'kt';
     const METER_PER_SECOND = 'm/s';
     const METER = 'm';
