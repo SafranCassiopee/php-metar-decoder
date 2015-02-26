@@ -3,9 +3,12 @@
 // This is a page to try the decoder through a web browser
 
 require_once dirname(__FILE__) . '/../src/MetarDecoder.inc.php';
+include('util.php');
 use MetarDecoder\MetarDecoder;
+use utilphp\util;
 
-$raw_metar = $_GET['metar'];
+
+$raw_metar = htmlspecialchars(trim($_GET['metar']));
 $decoder = new MetarDecoder();
 $d = $decoder->parse($raw_metar);
 
@@ -21,6 +24,7 @@ $d = $decoder->parse($raw_metar);
     </head>
     <body>
         <div class="container">
+          
           <div class="header">
             <ul class="nav nav-pills pull-right">
                 <li class="active">Live demo</li>
@@ -43,49 +47,32 @@ $d = $decoder->parse($raw_metar);
                 <input type="submit" class="btn btn-primary btn-lg" value="Decode">
               </div>
             </form>
-            
-            <br>
-            <div style="text-align:center">
-                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-            </div>
-            <br>
-            
-            <? if(!$d->isValid()){ ?>
-                <div class="alert alert-danger">
-                    <b>Invalid format:</b>
-                    <? echo($d->getException()->getMessage()); 
-                       echo(', on chunk "'.$d->getException()->getChunk().'"');?>
+
+            <? if(strlen($raw_metar) > 0) { ?>
+                <br>
+                <div style="text-align:center">
+                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                 </div>
-            <? } ?>  
-            <table class="table table-bordered" style="font-size: 1.3em">
-                <tr>
-                    <td>Report type</td>
-                    <td class="success"><? echo($d->getType()); ?></td>
-                </tr>
-               <tr>
-                    <td>ICAO</td>
-                    <td class="success"><? echo($d->getIcao()); ?></td>
-                </tr>
-                <tr>
-                    <td>Day of month</td>
-                    <td class="success"><? echo($d->getDay()); ?></td>
-                </tr>
-                <tr>
-                    <td>Time</td>
-                    <td class="success"><? echo($d->getTime()->format('H:i').' UTC'); ?></td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <? if($d->getStatus() != null){?>
-                        <td class="success"><? echo($d->getStatus()); ?></td>
-                    <? }else {?>
-                        <td class="active"></td>
-                    <? } ?>
-                </tr>
-                <!-- other tags for td: danger(red) / active (grey) / warning (orange)-->
-            </table>
+                <br>
+                <? if ($d->isValid()){ ?>
+                     <div class="alert alert-success">
+                        <b>Valid format</b>
+                    </div>
+                <? }else{ ?>
+                   <div class="alert alert-danger">
+                        <b>Invalid format:</b>
+                        <? echo($d->getException()->getMessage());
+                           echo(', on chunk "'.$d->getException()->getChunk().'"');
+                           $d->setException(null);
+                        ?>
+                    </div>
+                <? } ?>
+                <div><? util::var_dump($d,false,-1); ?></div>
+            <? } ?>
+
           </div>
         </div>
+
     
     </body>
 </html>
