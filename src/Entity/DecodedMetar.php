@@ -2,9 +2,6 @@
 
 namespace MetarDecoder\Entity;
 
-use DateTime;
-use MetarDecoder\Exception\ChunkDecoderException;
-
 class DecodedMetar
 {
     // raw METAR
@@ -22,7 +19,7 @@ class DecodedMetar
     // day of this observation
     private $day;
 
-    // time of the observation
+    // time of the observation, as a string
     private $time;
 
     // report status (AUTO or NIL)
@@ -133,7 +130,7 @@ class DecodedMetar
         return $this->day;
     }
 
-    public function setTime(DateTime $time)
+    public function setTime($time)
     {
         $this->time = $time;
 

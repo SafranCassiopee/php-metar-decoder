@@ -33,7 +33,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
         $this->assertEquals(23, $d->getDay());
-        $this->assertEquals(DateTime::createFromFormat('H:i', '10:27', new DateTimeZone('UTC')), $d->getTime());
+        $this->assertEquals('10:27 UTC', $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
         $w = $d->getSurfaceWind();
         $this->assertEquals(240, $w->getDirection()->getValue());
@@ -83,7 +83,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPB', $d->getIcao());
         $this->assertEquals(19, $d->getDay());
-        $this->assertEquals(DateTime::createFromFormat('H:i', '07:30', new DateTimeZone('UTC')), $d->getTime());
+        $this->assertEquals('07:30 UTC', $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
         $w = $d->getSurfaceWind();
         $this->assertEquals(170, $w->getDirection()->getValue());

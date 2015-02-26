@@ -24,7 +24,7 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $day, $time, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $expected_time = \DateTime::createFromFormat('H:i', $time, new \DateTimeZone('UTC'));
+        $expected_time = $time.' UTC';
         $this->assertEquals($day, $decoded['result']['day']);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
         $this->assertEquals($expected_time, $decoded['result']['time']);

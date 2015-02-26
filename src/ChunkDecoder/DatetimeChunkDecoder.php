@@ -2,8 +2,6 @@
 
 namespace MetarDecoder\ChunkDecoder;
 
-use DateTime;
-use DateTimeZone;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
@@ -33,7 +31,7 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
             }
             $result = array(
                 'day' => $day,
-                'time' => DateTime::createFromFormat('H:i', $found[2].':'.$found[3], new DateTimeZone('UTC')),
+                'time' => $found[2].':'.$found[3].' UTC',
             );
         }
 
