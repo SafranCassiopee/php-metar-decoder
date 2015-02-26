@@ -49,10 +49,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
             $surface_wind->setVariableDirection(false);
             $surface_wind->setDirection(Value::newIntValue($found[1], Value::DEGREE));
         }
-        if($found[7] !== null){
+        if(strlen($found[7]) > 0){
             $surface_wind->setDirectionVariations(Value::newIntValue($found[7], Value::DEGREE), Value::newIntValue($found[8], Value::DEGREE));
         }
-        if($found[4] !== null){
+        if(strlen($found[4]) > 0){
             $surface_wind->setSpeedVariations(Value::newIntValue($found[4], $speed_unit));
         }
 

@@ -39,13 +39,16 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $dir_var_min = $dir_var_min[0];
         $dir_var_max = $wind->getDirectionVariations();
         $dir_var_max = $dir_var_max[1];
-        $this->assertEquals($direction_variations[0], $dir_var_min->getValue());
-        $this->assertEquals($direction_variations[1], $dir_var_max->getValue());
-        $this->assertEquals('deg', $dir_var_min->getUnit());
+        if($direction_variations != null){
+            $this->assertEquals($direction_variations[0], $dir_var_min->getValue());
+            $this->assertEquals($direction_variations[1], $dir_var_max->getValue());
+            $this->assertEquals('deg', $dir_var_min->getUnit());
+        }
         $this->assertEquals($speed, $wind->getSpeed()->getValue());
-        $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
+        if($speed_variations != null){
+            $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
+        }
         $this->assertEquals($speed_unit, $wind->getSpeed()->getUnit());
-
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
