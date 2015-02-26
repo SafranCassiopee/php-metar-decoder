@@ -62,29 +62,9 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "remaining" => "AUTO",
             ),
             array(
-                "chunk" => "BBB BBB",
-                "status" => "",
-                "remaining" => "BBB BBB",
-            ),
-            array(
-                "chunk" => "NUL CCC",
-                "status" => "",
-                "remaining" => "NUL CCC",
-            ),
-            array(
-                "chunk" => "AUT DDD",
-                "status" => "",
-                "remaining" => "AUT DDD",
-            ),
-            array(
-                "chunk" => "AUTOM EEE",
-                "status" => "",
-                "remaining" => "AUTOM EEE",
-            ),
-            array(
-                "chunk" => "NILL FFF",
-                "status" => "",
-                "remaining" => "NILL FFF",
+                "chunk" => "1234 BBB",
+                "status" => null,
+                "remaining" => "1234 BBB",
             ),
         );
     }
@@ -94,6 +74,8 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array("chunk" => "NIL BBB"),
             array("chunk" => "NIL NIL"),
+            array("chunk" => "AUTIO 234"),
+            array("chunk" => "AUT 234"),
         );
     }
 }

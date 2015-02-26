@@ -14,7 +14,7 @@ class Value
     const METER_PER_SECOND = 'm/s';
     const METER = 'm';
     const FEET = 'ft';
-    
+
     public function __construct($value, $unit)
     {
         $this->value = $value;
@@ -32,6 +32,18 @@ class Value
         return $this->unit;
     }
 
+    /**
+     * Create a new value, possibly null
+     */
+    public static function newValue($value, $unit)
+    {
+        if($value != null){
+            return new Value($value, $unit);
+        }else{
+            return null;
+        }
+    }
+    
     /**
      * Create new integer value
      */

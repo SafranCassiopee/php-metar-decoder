@@ -61,6 +61,8 @@ class DecodedMetar
     public function __construct($raw_metar)
     {
         $this->raw_metar = $raw_metar;
+        
+        $this->cavok = false;
     }
 
     /**
@@ -269,16 +271,6 @@ class DecodedMetar
     public function setPressure($pressure)
     {
         $this->pressure = $pressure;
-    }
-
-    public function getPressureUnit()
-    {
-        return $this->pressure_unit;
-    }
-
-    public function setPressureUnit($unit)
-    {
-        $this->pressure_unit = $unit;
     }
 
     public function getRecentWeather()

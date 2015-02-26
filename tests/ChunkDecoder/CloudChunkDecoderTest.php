@@ -33,8 +33,12 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nb_layers, count($clouds));
         if ($cloud != null) {
             $this->assertEquals($layer1_amount, $cloud->getAmount());
-            $this->assertEquals($layer1_base_height, $cloud->getBaseHeight()->getValue());
-            $this->assertEquals('ft', $cloud->getBaseHeight()->getUnit());
+            if($layer1_base_height != null){
+                $this->assertEquals($layer1_base_height, $cloud->getBaseHeight()->getValue());
+                $this->assertEquals('ft', $cloud->getBaseHeight()->getUnit());
+            }else{
+                $this->assertNull($cloud->getBaseHeight());
+            }
             $this->assertEquals($layer1_type, $cloud->getType());
         }
         if ($vis != null) {
