@@ -76,7 +76,7 @@ class DecodedMetar
     /**
      * Set the exception that occured during metar decoding
      */
-    public function setException(ChunkDecoderException $exception)
+    public function setException($exception)
     {
         $this->decoding_exception = $exception;
 
