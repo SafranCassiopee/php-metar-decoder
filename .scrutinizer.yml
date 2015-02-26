@@ -1,3 +1,5 @@
 filter:
-    paths: []
-    excluded_paths: [demo/*]
+    excluded_paths:
+        - tests/*
+        - demo/*
+        - devops/*
