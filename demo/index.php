@@ -67,7 +67,18 @@ $d = $decoder->parse($raw_metar);
                         ?>
                     </div>
                 <? } ?>
-                <div><? util::var_dump($d,false,-1); ?></div>
+                <div><?
+                    $raw_dump = util::var_dump($d,true,2);
+
+                    $to_delete=array(
+                        'private:MetarDecoder\\Entity\\DecodedMetar:',
+                        'private:MetarDecoder\\Entity\\',
+                        'MetarDecoder\\Entity\\',
+                        'Value:'
+                    );
+                    $clean_dump = str_replace($to_delete,'',$raw_dump);
+                    echo $clean_dump;
+                ?></div>
             <? } ?>
 
           </div>
