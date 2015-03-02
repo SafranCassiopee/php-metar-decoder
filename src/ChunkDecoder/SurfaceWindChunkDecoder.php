@@ -16,7 +16,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         $direction = "([/0-9]{3}|V?RB)";
         $speed = "(P?[0-9]{2,3})";
         $speed_variations = "(GP?([0-9]{2,3}))?"; // optionnal
-        $unit = "(KT|MPS)";
+        $unit = "(KT|MPS|KPH)";
         $direction_variations = "( ([0-9]{3})V([0-9]{3}))?"; // optionnal
 
         return "#^$direction$speed$speed_variations$unit$direction_variations( )#";
@@ -33,10 +33,16 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         }
 
         // get unit used
-        if ($found[5] == 'KT') {
-            $speed_unit = Value::KNOT;
-        } else {
-            $speed_unit = Value::METER_PER_SECOND;
+        switch($found[5]){
+            case "KT":
+                $speed_unit = Value::KNOT;
+                break;
+            case "KPH":
+                $speed_unit = Value::KILOMETER_PER_HOUR;
+                break;
+            case "MPS":
+                $speed_unit = Value::METER_PER_SECOND;
+                break;
         }
 
         // retrieve and validate found params

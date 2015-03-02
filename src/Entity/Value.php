@@ -12,6 +12,7 @@ class Value
     CONST DEGREE = 'deg';
     CONST KNOT = 'kt';
     const METER_PER_SECOND = 'm/s';
+    const KILOMETER_PER_HOUR = 'km/h';
     const METER = 'm';
     const FEET = 'ft';
 

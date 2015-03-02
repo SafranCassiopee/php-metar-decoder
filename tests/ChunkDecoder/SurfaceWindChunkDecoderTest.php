@@ -107,14 +107,14 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "remaining" => "DDD",
             ),
             array(
-                "chunk" => "12003G09MPS EEE",
+                "chunk" => "12003KPH FFF",
                 "direction" => 120,
                 "variable_direction" => false,
                 "speed" => 3,
-                "speed_variations" => 9,
-                "speed_unit" => "m/s",
+                "speed_variations" => null,
+                "speed_unit" => "km/h",
                 "direction_variations" => null,
-                "remaining" => "EEE",
+                "remaining" => "FFF",
             ),
         );
     }
@@ -125,7 +125,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array("chunk" => "12003G09 AAA"),
             array("chunk" => "VRB01MP BBB"),
             array("chunk" => "38003G12MPS CCC"),
-
+            array("chunk" => "12003KPA DDD"),
         );
     }
 }
