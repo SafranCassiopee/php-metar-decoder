@@ -124,6 +124,8 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array("chunk" => "12003G09 AAA"),
             array("chunk" => "VRB01MP BBB"),
+            array("chunk" => "38003G12MPS CCC"),
+
         );
     }
 }

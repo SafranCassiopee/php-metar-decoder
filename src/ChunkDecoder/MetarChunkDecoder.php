@@ -24,4 +24,5 @@ abstract class MetarChunkDecoder
     {
         return preg_replace($this->getRegexp(), '', $remaining_metar, 1);
     }
+
 }
