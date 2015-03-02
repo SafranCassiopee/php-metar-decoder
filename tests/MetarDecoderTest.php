@@ -36,10 +36,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('10:27 UTC', $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
         $w = $d->getSurfaceWind();
-        $this->assertEquals(240, $w->getDirection()->getValue());
-        $this->assertEquals(4, $w->getSpeed()->getValue());
+        $this->assertEquals(240, $w->getMeanDirection()->getValue());
+        $this->assertEquals(4, $w->getMeanSpeed()->getValue());
         $this->assertEquals(9, $w->getSpeedVariations()->getValue());
-        $this->assertEquals('m/s', $w->getSpeed()->getUnit());
+        $this->assertEquals('m/s', $w->getMeanSpeed()->getUnit());
         $v = $d->getVisibility();
         $this->assertEquals(2500, $v->getVisibility()->getValue());
         $this->assertEquals(1000, $v->getMinimumVisibility()->getValue());
@@ -86,9 +86,9 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('07:30 UTC', $d->getTime());
         $this->assertEquals('AUTO', $d->getStatus());
         $w = $d->getSurfaceWind();
-        $this->assertEquals(170, $w->getDirection()->getValue());
-        $this->assertEquals(5, $w->getSpeed()->getValue());
-        $this->assertEquals('kt', $w->getSpeed()->getUnit());
+        $this->assertEquals(170, $w->getMeanDirection()->getValue());
+        $this->assertEquals(5, $w->getmeanSpeed()->getValue());
+        $this->assertEquals('kt', $w->getMeanSpeed()->getUnit());
         $v = $d->getVisibility();
         $this->assertEquals(6000, $v->getVisibility()->getValue());
         $cs = $d->getClouds();

@@ -30,8 +30,8 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $decoded = $this->decoder->parse($chunk);
         $wind = $decoded['result']['surfaceWind'];
         if (!$variable_direction) {
-            $this->assertEquals($direction, $wind->getDirection()->getValue());
-            $this->assertEquals('deg', $wind->getDirection()->getUnit());
+            $this->assertEquals($direction, $wind->getMeanDirection()->getValue());
+            $this->assertEquals('deg', $wind->getMeanDirection()->getUnit());
         }
         $this->assertEquals($variable_direction, $wind->withVariableDirection());
         // the next 4 lines are to be compatible with PHP 5.3
@@ -44,11 +44,11 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($direction_variations[1], $dir_var_max->getValue());
             $this->assertEquals('deg', $dir_var_min->getUnit());
         }
-        $this->assertEquals($speed, $wind->getSpeed()->getValue());
+        $this->assertEquals($speed, $wind->getMeanSpeed()->getValue());
         if($speed_variations != null){
             $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
         }
-        $this->assertEquals($speed_unit, $wind->getSpeed()->getUnit());
+        $this->assertEquals($speed_unit, $wind->getMeanSpeed()->getUnit());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 

@@ -5,13 +5,13 @@ namespace MetarDecoder\Entity;
 class SurfaceWind
 {
     // wind direction
-    private $direction;
+    private $mean_direction;
 
     // wind variability (if true, direction is null)
     private $variable_direction;
 
     // wind speed
-    private $speed;
+    private $mean_speed;
 
     // wind speed variation (gusts)
     private $speed_variations;
@@ -29,26 +29,26 @@ class SurfaceWind
         $this->variable_direction = $is_variable;
     }
 
-    public function getDirection()
+    public function getMeanDirection()
     {
-        return $this->direction;
+        return $this->mean_direction;
     }
 
-    public function setDirection($direction)
+    public function setMeanDirection($direction)
     {
-        $this->direction = $direction;
+        $this->mean_direction = $direction;
 
         return $this;
     }
 
-    public function getSpeed()
+    public function getMeanSpeed()
     {
-        return $this->speed;
+        return $this->mean_speed;
     }
 
-    public function setSpeed($speed)
+    public function setMeanSpeed($speed)
     {
-        $this->speed = $speed;
+        $this->mean_speed = $speed;
 
         return $this;
     }
