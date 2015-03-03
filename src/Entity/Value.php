@@ -15,6 +15,7 @@ class Value
     const KILOMETER_PER_HOUR = 'km/h';
     const METER = 'm';
     const FEET = 'ft';
+    const STATUTE_MILE = 'SM';
 
     public function __construct($value, $unit)
     {
