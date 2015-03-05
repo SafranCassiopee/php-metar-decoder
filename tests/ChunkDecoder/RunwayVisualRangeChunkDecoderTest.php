@@ -33,6 +33,17 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('m', $visual_range->getVisualRange()->getUnit());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
+    
+    /**
+     * Test parsing of invalid runway visual range chunks
+     * @param $chunk
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testParseInvalidChunk($chunk)
+    {
+        $this->decoder->parse($chunk);
+    }
 
     public function getChunk()
     {
@@ -48,7 +59,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "R20C/M1200 BBB",
                 "nb_runways" => 1,
                 "rwy1_name" => "20C",
-                "rwy1_vis" => -1200,
+                "rwy1_vis" => 1200,
                 "remaining" => "BBB",
             ),
             array(
@@ -58,6 +69,14 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "rwy1_vis" => 800,
                 "remaining" => "CCC",
             ),
+        );
+    }
+    
+    public function getInvalidChunk()
+    {
+        return array(
+            array("chunk" => "R42L/0500 AAA"),
+            array("chunk" => "R00C/0050 BBB")
         );
     }
 }
