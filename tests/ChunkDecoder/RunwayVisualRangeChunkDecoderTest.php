@@ -19,10 +19,11 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $nb_runways
      * @param $rwy1_name
      * @param $rwy1_vis
+     * @param $rwy1_unit
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $remaining)
+    public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $rwy1_unit, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $runways = $decoded['result']['runwaysVisualRange'];
@@ -30,7 +31,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nb_runways, count($runways));
         $this->assertEquals($rwy1_name, $visual_range->getRunway());
         $this->assertEquals($rwy1_vis, $visual_range->getVisualRange()->getValue());
-        $this->assertEquals('m', $visual_range->getVisualRange()->getUnit());
+        $this->assertEquals($rwy1_unit, $visual_range->getVisualRange()->getUnit());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
     
@@ -53,6 +54,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 1,
                 "rwy1_name" => "18L",
                 "rwy1_vis" => 800,
+                "rwy1_unit" => "m",
                 "remaining" => "AAA",
             ),
             array(
@@ -60,6 +62,7 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 1,
                 "rwy1_name" => "20C",
                 "rwy1_vis" => 1200,
+                "rwy1_unit" => "m",
                 "remaining" => "BBB",
             ),
             array(
@@ -67,7 +70,16 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 2,
                 "rwy1_name" => "12",
                 "rwy1_vis" => 800,
+                "rwy1_unit" => "m",
                 "remaining" => "CCC",
+            ),
+            array(
+                "chunk" => "R30/5000FT R26/3000FTU DDD",
+                "nb_runways" => 2,
+                "rwy1_name" => "30",
+                "rwy1_vis" => 5000,
+                "rwy1_unit" => "ft",
+                "remaining" => "DDD",
             ),
         );
     }

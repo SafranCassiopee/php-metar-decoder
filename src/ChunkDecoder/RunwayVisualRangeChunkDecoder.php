@@ -14,7 +14,7 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
 
     public function getRegexp()
     {
-        $runway = "R([0-9]{2}[LCR]?)/[PM]?([0-9]{4})([UDN]?)";
+        $runway = "R([0-9]{2}[LCR]?)/[PM]?([0-9]{4})(FT)?([UDN]?)";
 
         return "#^($runway)( $runway)?( $runway)?( $runway)?( )#";
     }
@@ -29,17 +29,23 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
         } else {
             // iterate on the results to get all runways visual range found
             $runways = array();
-            for ($i = 1; $i <= 16; $i += 4) {
+            for ($i = 1; $i <= 20; $i += 5) {
                 if ($found[$i] != null) {
                     // check runway qfu validity
                     $qfu_as_int = Value::toInt($found[$i+1]);
                     if( $qfu_as_int > 36 || $qfu_as_int < 1){
                         throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
                     }
+                    // get distance unit
+                    if($found[$i+3] == "FT"){
+                        $range_unit = Value::FEET;
+                    }else{
+                        $range_unit = Value::METER;
+                    }
                     $observation = new RunwayVisualRange();
                     $observation->setRunway($found[$i+1])
-                                ->setVisualRange(Value::newIntValue($found[$i+2], Value::METER))
-                                ->setPastTendency($found[$i+3]);
+                                ->setVisualRange(Value::newIntValue($found[$i+2], $range_unit))
+                                ->setPastTendency($found[$i+4]);
                     $runways[] = $observation;
                 }
             }
