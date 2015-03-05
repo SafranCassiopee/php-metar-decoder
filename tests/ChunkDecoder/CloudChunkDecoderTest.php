@@ -108,6 +108,24 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "visibility" => null,
                 "remaining" => "DDD",
             ),
+            array(
+                "chunk" => "SKC EEE",
+                "nb_layers" => 0,
+                "layer1_amount" => null,
+                "layer1_base_height" => null,
+                "layer1_type" => null,
+                "visibility" => null,
+                "remaining" => "EEE",
+            ),
+            array(
+                "chunk" => "NCD FFF",
+                "nb_layers" => 0,
+                "layer1_amount" => null,
+                "layer1_base_height" => null,
+                "layer1_type" => null,
+                "visibility" => null,
+                "remaining" => "FFF",
+            ),
         );
     }
 
