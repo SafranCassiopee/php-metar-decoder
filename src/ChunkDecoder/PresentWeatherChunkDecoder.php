@@ -2,7 +2,7 @@
 
 namespace MetarDecoder\ChunkDecoder;
 
-use MetarDecoder\Entity\PresentWeather;
+use MetarDecoder\Entity\WeatherPhenomenon;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
@@ -10,57 +10,49 @@ use MetarDecoder\Exception\ChunkDecoderException;
  */
 class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-    private $pre_dic = array(
+    private static $carac_dic = array(
+        'TS','FZ','SH','BL','DR','MI','BC','PR'
+    );
+    private static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
-        'PL', 'DS', 'SS', 'FZDZ',
-        'FZRA', 'FZUP', 'FC', 'SHGR',
-        'SHGS', 'SHRA', 'SHSN', 'SHUP',
-        'TSGR', 'TSGS', 'SHRA', 'SHSN',
-        'SHUP', 'TSGR', 'TSGS', 'TSRA',
-        'TSSN', 'TSUP', 'UP', 'IC',
-    );
-    private $obs_dic = array(
-        'FG', 'BR', 'SA', 'DU',
-        'HZ', 'FU', 'VA', 'SQ',
-        'PO', 'TS', 'BCFG', 'BLDU',
-        'BLSA', 'BLSN', 'DRDU', 'DRSA',
-        'DRSN', 'FZFG', 'MIFG', 'PRFG',
-        '//',
-    );
-    private $vic_dic = array(
-        'VCFG', 'VCPO', 'VCFC', 'VCDS',
-        'VCSS', 'VCTS', 'VCSH', 'VCBLSN',
-        'VCBLSA', 'VCBLDU', 'VCVA',
+        'PL', 'DS', 'GR', 'GS',
+        'UP', 'IC', 'FG', 'BL',
+        'SA', 'DU', 'HZ', 'FU',
+        'VA', 'PY', 'DU', 'PO',
+        'SQ', 'FC', 'DS', 'SS',
+        '//'
     );
 
     public function getRegexp()
     {
-        return "#^([+-]?([A-Z]{2,6}|//) ){1,}#";
+        $carac_regexp = implode(self::$carac_dic, '|');
+        $type_regexp = implode(self::$type_dic, '|');
+        $pw_regexp = "([-+]|VC)?($carac_regexp)?($type_regexp)?($type_regexp)?($type_regexp)?";
+        return "#^($pw_regexp )?($pw_regexp )?($pw_regexp )?()?#";
     }
 
     public function parse($remaining_metar, $cavok = false)
-    {
+    {   
         $found = $this->applyRegexp($remaining_metar);
-
+        
         // handle the case where nothing has been found
         if ($found == null) {
             $result = null;
         } else {
-            // manually split the string into phenomenons and group them by categories
-            $present_weather = new PresentWeather();
-            $weather_chunks = explode(' ', trim($found[0]));
-            foreach ($weather_chunks as $chunk) {
-                if (in_array(trim($chunk, '+-'), $this->pre_dic)) {
-                    $present_weather->addPrecipitation($chunk);
-                } elseif (in_array($chunk, $this->obs_dic)) {
-                    $present_weather->addObscuration($chunk);
-                } elseif (in_array($chunk, $this->vic_dic)) {
-                    $present_weather->addVicinity(substr($chunk, 2));
-                } else {
-                    throw new ChunkDecoderException($remaining_metar, 'Bad format for present weather information, unknown weather phenomenon "'.$chunk.'"', $this);
+            $present_weather = array();
+            for ($i = 1; $i <= 13; $i += 6) {
+                if ($found[$i] != null) {
+                    $weather = new WeatherPhenomenon();
+                    $weather->setIntensity($found[$i+1]);
+                    $weather->setCaracterisation($found[$i+2]);
+                    for($k = 3; $k<= 5; $k++){
+                        if($found[$i+$k] != null){
+                            $weather->addType($found[$i+$k]);
+                        }
+                    }
+                    $present_weather[] = $weather;
                 }
             }
-
             $result = array(
                 'presentWeather' => $present_weather,
             );

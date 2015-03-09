@@ -62,7 +62,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $this->decoder->parse($chunk);
     }
-
+        
     public function getChunk()
     {
         return array(

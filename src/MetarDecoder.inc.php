@@ -15,7 +15,7 @@ $to_include = array(
     'Entity/SurfaceWind.php',
     'Entity/RunwayVisualRange.php',
     'Entity/Visibility.php',
-    'Entity/PresentWeather.php',
+    'Entity/WeatherPhenomenon.php',
     'Entity/CloudLayer.php',
     'Entity/Value.php',
 
