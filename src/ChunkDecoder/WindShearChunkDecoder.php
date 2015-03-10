@@ -24,13 +24,13 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
             $result = null;
         } else {
             // detect if we have windshear on all runway or only one
-            if(empty($found[3])){
+            if (empty($found[3])) {
                 $runway = 'all';
-            }else{
+            } else {
                 // check runway qfu validity
                 $runway = $found[3];
                 $qfu_as_int = Value::toInt($runway);
-                if( $qfu_as_int > 36 || $qfu_as_int < 1){
+                if ($qfu_as_int > 36 || $qfu_as_int < 1) {
                     throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
                 }
             }

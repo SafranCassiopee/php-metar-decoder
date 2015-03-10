@@ -23,7 +23,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
     public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
-        
+
         // handle the case where nothing has been found
         if ($found == null) {
             throw new ChunkDecoderException($remaining_metar, 'Bad format for visibility information', $this);
@@ -36,21 +36,21 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         } else {
             $cavok = false;
             $visibility = new Visibility();
-            if($found[2] != null) { // icao visibility
+            if ($found[2] != null) { // icao visibility
                 $visibility->setVisibility(Value::newIntValue($found[2], Value::METER))
                            ->setMinimumVisibility(Value::newIntValue($found[4], Value::METER))
                            ->setMinimumVisibilityDirection($found[5]);
-            }else{ // us visibility
+            } else { // us visibility
                 //var_dump($found);
                 $main = intval($found[6]);
                 $frac_top = intval($found[8]);
                 $frac_bot = intval($found[9]);
-                if($frac_bot != 0){
+                if ($frac_bot != 0) {
                     $vis_value = $main + $frac_top / $frac_bot;
-                }else{
+                } else {
                     $vis_value = $main;
                 }
-                
+
                 //var_dump($vis_value);
                 $visibility->setVisibility(Value::newValue($vis_value, Value::STATUTE_MILE));
             }

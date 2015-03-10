@@ -58,7 +58,7 @@ class DecodedMetar
     public function __construct($raw_metar)
     {
         $this->raw_metar = $raw_metar;
-        
+
         $this->cavok = false;
     }
 

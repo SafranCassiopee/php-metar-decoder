@@ -22,19 +22,19 @@ class WeatherPhenomenon
     {
         return $this->caracterisation;
     }
-    
+
     public function getTypes()
     {
         return $this->types;
     }
-    
+
     public function setIntensity($intensity)
     {
         $this->intensity = $intensity;
-        
+
         return $this;
     }
-    
+
     public function setCaracterisation($carac)
     {
         $this->caracterisation = $carac;
@@ -45,6 +45,4 @@ class WeatherPhenomenon
 
         return $this;
     }
-
-  
 }

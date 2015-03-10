@@ -48,7 +48,7 @@ class ReportTypeChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "chunk" => "SPECI COR PPP",
                 "type" => "SPECI COR",
-                "remaining" => "PPP"
+                "remaining" => "PPP",
             ),
             array(
                 "chunk" => "META LFPG",

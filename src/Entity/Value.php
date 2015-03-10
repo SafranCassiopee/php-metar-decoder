@@ -9,8 +9,8 @@ class Value
     private $unit;
 
     const DEGREE_CELSIUS = 'deg C';
-    CONST DEGREE = 'deg';
-    CONST KNOT = 'kt';
+    const DEGREE = 'deg';
+    const KNOT = 'kt';
     const METER_PER_SECOND = 'm/s';
     const KILOMETER_PER_HOUR = 'km/h';
     const METER = 'm';
@@ -41,13 +41,13 @@ class Value
      */
     public static function newValue($value, $unit)
     {
-        if($value != null){
+        if ($value != null) {
             return new Value($value, $unit);
-        }else{
-            return null;
+        } else {
+            return;
         }
     }
-    
+
     /**
      * Create new integer value
      */

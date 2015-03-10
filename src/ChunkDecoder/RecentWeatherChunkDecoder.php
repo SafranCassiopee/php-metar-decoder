@@ -13,6 +13,7 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
     {
         $carac_regexp = implode(PresentWeatherChunkDecoder::$carac_dic, '|');
         $type_regexp = implode(PresentWeatherChunkDecoder::$type_dic, '|');
+
         return "#^RE($carac_regexp)?($type_regexp) #";
     }
 
@@ -27,7 +28,7 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
             $weather = new WeatherPhenomenon();
             $weather->setCaracterisation($found[1]);
             $weather->addType($found[2]);
-            
+
             // retrieve found params
             $result = array(
                 'recentWeather' => $weather,

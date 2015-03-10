@@ -39,13 +39,13 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $dir_var_min = $dir_var_min[0];
         $dir_var_max = $wind->getDirectionVariations();
         $dir_var_max = $dir_var_max[1];
-        if($direction_variations != null){
+        if ($direction_variations != null) {
             $this->assertEquals($direction_variations[0], $dir_var_min->getValue());
             $this->assertEquals($direction_variations[1], $dir_var_max->getValue());
             $this->assertEquals('deg', $dir_var_min->getUnit());
         }
         $this->assertEquals($speed, $wind->getMeanSpeed()->getValue());
-        if($speed_variations != null){
+        if ($speed_variations != null) {
             $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
         }
         $this->assertEquals($speed_unit, $wind->getMeanSpeed()->getUnit());
@@ -62,7 +62,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $this->decoder->parse($chunk);
     }
-        
+
     public function getChunk()
     {
         return array(

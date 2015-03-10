@@ -51,7 +51,7 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($decoded['result']);
         $this->assertEquals($chunk, $decoded['remaining_metar']);
     }
-    
+
     public function getChunk()
     {
         return array(
@@ -83,16 +83,16 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array("chunk" => "W RWY AAA"),
             array("chunk" => "WS ALL BBB"),
-            array("chunk" => "WS R12P CCC")
+            array("chunk" => "WS R12P CCC"),
         );
     }
-    
+
     public function getInvalidChunk()
     {
         return array(
             array("chunk" => "WS RWY00 AAA"),
             array("chunk" => "WS R40 BBB"),
-            array("chunk" => "WS R50C CCC")
+            array("chunk" => "WS R50C CCC"),
         );
     }
 }

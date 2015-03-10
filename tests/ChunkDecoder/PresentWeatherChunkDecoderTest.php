@@ -28,16 +28,16 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $decoded = $this->decoder->parse($chunk);
         $pw = $decoded['result']['presentWeather'];
-        
+
         $this->assertEquals($nb_phenoms, count($pw));
-        if($nb_phenoms > 0){
-            $phenom1 = $pw[0]; 
+        if ($nb_phenoms > 0) {
+            $phenom1 = $pw[0];
             $this->assertEquals($intensity1, $phenom1->getIntensity());
             $this->assertEquals($carac1, $phenom1->getCaracterisation());
             $this->assertEquals($type1, $phenom1->getTypes());
         }
-        if($nb_phenoms > 1){
-            $phenom2 = $pw[1]; 
+        if ($nb_phenoms > 1) {
+            $phenom2 = $pw[1];
             $this->assertEquals($type2, $phenom2->getTypes());
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);

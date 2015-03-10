@@ -3,7 +3,6 @@
 namespace MetarDecoder\ChunkDecoder;
 
 use MetarDecoder\Entity\WeatherPhenomenon;
-use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
  * Chunk decoder for present weather section
@@ -11,7 +10,7 @@ use MetarDecoder\Exception\ChunkDecoderException;
 class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     public static $carac_dic = array(
-        'TS','FZ','SH','BL','DR','MI','BC','PR'
+        'TS','FZ','SH','BL','DR','MI','BC','PR',
     );
     public static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
@@ -20,7 +19,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         'SA', 'DU', 'HZ', 'FU',
         'VA', 'PY', 'DU', 'PO',
         'SQ', 'FC', 'DS', 'SS',
-        '//'
+        '//',
     );
 
     public function getRegexp()
@@ -28,21 +27,22 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         $carac_regexp = implode(self::$carac_dic, '|');
         $type_regexp = implode(self::$type_dic, '|');
         $pw_regexp = "([-+]|VC)?($carac_regexp)?($type_regexp)?($type_regexp)?($type_regexp)?";
+
         return "#^($pw_regexp )?($pw_regexp )?($pw_regexp )?()?#";
     }
 
     public function parse($remaining_metar, $cavok = false)
-    {   
+    {
         $found = $this->applyRegexp($remaining_metar);
-        
+
         $present_weather = array();
         for ($i = 1; $i <= 13; $i += 6) {
             if ($found[$i] != null) {
                 $weather = new WeatherPhenomenon();
                 $weather->setIntensity($found[$i+1]);
                 $weather->setCaracterisation($found[$i+2]);
-                for($k = 3; $k<= 5; $k++){
-                    if($found[$i+$k] != null){
+                for ($k = 3; $k <= 5; $k++) {
+                    if ($found[$i+$k] != null) {
                         $weather->addType($found[$i+$k]);
                     }
                 }

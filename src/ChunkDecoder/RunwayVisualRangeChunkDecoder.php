@@ -11,7 +11,6 @@ use MetarDecoder\Exception\ChunkDecoderException;
  */
 class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-
     public function getRegexp()
     {
         $runway = "R([0-9]{2}[LCR]?)/[PM]?([0-9]{4})(FT)?([UDN]?)";
@@ -33,13 +32,13 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
                 if ($found[$i] != null) {
                     // check runway qfu validity
                     $qfu_as_int = Value::toInt($found[$i+1]);
-                    if( $qfu_as_int > 36 || $qfu_as_int < 1){
+                    if ($qfu_as_int > 36 || $qfu_as_int < 1) {
                         throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
                     }
                     // get distance unit
-                    if($found[$i+3] == "FT"){
+                    if ($found[$i+3] == "FT") {
                         $range_unit = Value::FEET;
-                    }else{
+                    } else {
                         $range_unit = Value::METER;
                     }
                     $observation = new RunwayVisualRange();

@@ -33,7 +33,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         }
 
         // get unit used
-        switch($found[5]){
+        switch ($found[5]) {
             case "KT":
                 $speed_unit = Value::KNOT;
                 break;
@@ -47,35 +47,35 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // retrieve and validate found params
         $surface_wind = new SurfaceWind();
-        
+
         // mean speed
         $surface_wind->setMeanSpeed(Value::newIntValue($found[2], $speed_unit));
-        
+
         // mean direction
         if ($found[1] == 'VRB' || $found[1] == 'RB') {
             $surface_wind->setVariableDirection(true);
             $surface_wind->setMeanDirection(null);
         } else {
             $mean_dir = Value::newIntValue($found[1], Value::DEGREE);
-            if($mean_dir->getValue() < 0 || $mean_dir->getValue() > 360){
+            if ($mean_dir->getValue() < 0 || $mean_dir->getValue() > 360) {
                 throw new ChunkDecoderException($remaining_metar, 'Wind direction should be in [0,360]', $this);
             }
             $surface_wind->setVariableDirection(false);
             $surface_wind->setMeanDirection($mean_dir);
         }
-        
+
         // direction variations
-        if(strlen($found[7]) > 0){
+        if (strlen($found[7]) > 0) {
             $min_dir_var = Value::newIntValue($found[7], Value::DEGREE);
             $max_dir_var = Value::newIntValue($found[8], Value::DEGREE);
-            if($min_dir_var->getValue() < 0 || $min_dir_var->getValue() > 360
-            || $max_dir_var->getValue() < 0 || $max_dir_var->getValue() > 360 ){
+            if ($min_dir_var->getValue() < 0 || $min_dir_var->getValue() > 360
+            || $max_dir_var->getValue() < 0 || $max_dir_var->getValue() > 360) {
                 throw new ChunkDecoderException($remaining_metar, 'Wind direction variations should be in [0,360]', $this);
             }
             $surface_wind->setDirectionVariations($min_dir_var, $max_dir_var);
         }
         // speed variations
-        if(strlen($found[4]) > 0){
+        if (strlen($found[4]) > 0) {
             $surface_wind->setSpeedVariations(Value::newIntValue($found[4], $speed_unit));
         }
 

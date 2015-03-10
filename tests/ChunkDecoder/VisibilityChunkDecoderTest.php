@@ -33,11 +33,10 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $vis = $decoded['result']['visibility'];
             $this->assertEquals($visibility, $vis->getVisibility()->getValue());
             $this->assertEquals($visibility_unit, $vis->getVisibility()->getUnit());
-            if($visibility_unit == 'm'){
+            if ($visibility_unit == 'm') {
                 $this->assertEquals($minimum, $vis->getMinimumVisibility()->getValue());
                 $this->assertEquals($minimum_direction, $vis->getMinimumVisibilityDirection());
             }
-            
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }

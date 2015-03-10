@@ -3,8 +3,6 @@
 namespace MetarDecoder\Test;
 
 use MetarDecoder\MetarDecoder;
-use DateTime;
-use DateTimeZone;
 
 class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 {
