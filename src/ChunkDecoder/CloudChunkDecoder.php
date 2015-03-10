@@ -58,7 +58,8 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                     }
                 }
                 if ($found[19] != null) {
-                    $visibility = Value::toInt($found[20]);
+                    $vvis = intval($found[20]) * 100;
+                    $visibility = Value::newValue($vvis, Value::FEET);
                 }
             }
             $result = array(

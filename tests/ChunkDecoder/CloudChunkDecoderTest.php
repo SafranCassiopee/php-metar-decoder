@@ -42,7 +42,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($layer1_type, $cloud->getType());
         }
         if ($vis != null) {
-            $this->assertEquals($visibility, $vis);
+            $this->assertEquals($visibility, $vis->getValue());
+            $this->assertEquals('ft', $vis->getUnit());
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
@@ -78,7 +79,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_amount" => "FEW",
                 "layer1_base_height" => 10000,
                 "layer1_type" => null,
-                "visibility" => 85,
+                "visibility" => 8500,
                 "remaining" => "AAA",
             ),
             array(
