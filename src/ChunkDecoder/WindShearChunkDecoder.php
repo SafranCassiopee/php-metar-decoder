@@ -9,7 +9,7 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
 {
     public function getRegexp()
     {
-        return "#^WS (R([0-9]{2}[LCR]?)|(ALL) RWY)( )#";
+        return "#^WS (R(WY)?([0-9]{2}[LCR]?)|(ALL) RWY)( )#";
     }
 
     public function parse($remaining_metar, $cavok = false)
@@ -21,7 +21,11 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
             $result = null;
         } else {
             // detect if we have windshear on all runway or only one
-            empty($found[2]) ? $runway = 'all' : $runway = $found[2];
+            if(empty($found[3])){
+                $runway = 'all';
+            }else{
+                $runway = $found[3];
+            }
             $result = array(
                 'windshearRunway' => $runway,
             );

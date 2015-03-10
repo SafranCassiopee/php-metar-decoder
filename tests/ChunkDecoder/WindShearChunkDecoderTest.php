@@ -57,6 +57,11 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "runway" => "all",
                 "remaining" => "CCC",
             ),
+            array(
+                "input" => "WS RWY22 DDD",
+                "runway" => "22",
+                "remaining" => "DDD",
+            ),
         );
     }
 
