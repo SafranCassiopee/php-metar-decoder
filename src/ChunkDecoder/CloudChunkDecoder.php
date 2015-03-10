@@ -30,7 +30,7 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
             if ($cavok) {
                 $result = null;
             } else {
-                throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information, applied regexp is "'.$this->getRegexp().'"', $this);
+                throw new ChunkDecoderException($remaining_metar, 'Bad format for clouds information', $this);
             }
         } else {
             $layers = null;
