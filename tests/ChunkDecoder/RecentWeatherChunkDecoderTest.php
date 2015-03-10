@@ -24,9 +24,8 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $decoded = $this->decoder->parse($chunk);
         $recent = $decoded['result']['recentWeather'];
-        
         $this->assertEquals($weather_carac, $recent->getCaracterisation());
-        $this->assertEquals($weather_type, $recent->getTypes()[0]);
+        $this->assertEquals($weather_type, current($recent->getTypes()));
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
