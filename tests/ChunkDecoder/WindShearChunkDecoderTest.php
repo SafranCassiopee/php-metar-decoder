@@ -28,17 +28,30 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid wind shear chunks
+     * Test parsing of invalid wind shear chunks (bad format)
      * @param string $chunk
-     * @dataProvider getInvalidChunk
+     * @dataProvider getBadFormatChunk
      */
-    public function testParseInvalidIcaoChunk($chunk)
+    public function testParseBadFormatChunk($chunk)
     {
         $decoded = $this->decoder->parse($chunk);
         $this->assertNull($decoded['result']);
         $this->assertEquals($chunk, $decoded['remaining_metar']);
     }
 
+    /**
+     * Test parsing of invalid wind shear chunks (invalid QFU)
+     * @param string $chunk
+      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @dataProvider getInvalidChunk
+     */
+    public function testInvalidChunk($chunk)
+    {
+        $decoded = $this->decoder->parse($chunk);
+        $this->assertNull($decoded['result']);
+        $this->assertEquals($chunk, $decoded['remaining_metar']);
+    }
+    
     public function getChunk()
     {
         return array(
@@ -65,12 +78,21 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function getInvalidChunk()
+    public function getBadFormatChunk()
     {
         return array(
             array("chunk" => "W RWY AAA"),
             array("chunk" => "WS ALL BBB"),
-            array("chunk" => "WS R12P CCC"),
+            array("chunk" => "WS R12P CCC")
+        );
+    }
+    
+    public function getInvalidChunk()
+    {
+        return array(
+            array("chunk" => "WS RWY00 AAA"),
+            array("chunk" => "WS R40 BBB"),
+            array("chunk" => "WS R50C CCC")
         );
     }
 }
