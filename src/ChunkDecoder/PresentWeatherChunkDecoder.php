@@ -35,28 +35,23 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
     {   
         $found = $this->applyRegexp($remaining_metar);
         
-        // handle the case where nothing has been found
-        if ($found == null) {
-            $result = null;
-        } else {
-            $present_weather = array();
-            for ($i = 1; $i <= 13; $i += 6) {
-                if ($found[$i] != null) {
-                    $weather = new WeatherPhenomenon();
-                    $weather->setIntensity($found[$i+1]);
-                    $weather->setCaracterisation($found[$i+2]);
-                    for($k = 3; $k<= 5; $k++){
-                        if($found[$i+$k] != null){
-                            $weather->addType($found[$i+$k]);
-                        }
+        $present_weather = array();
+        for ($i = 1; $i <= 13; $i += 6) {
+            if ($found[$i] != null) {
+                $weather = new WeatherPhenomenon();
+                $weather->setIntensity($found[$i+1]);
+                $weather->setCaracterisation($found[$i+2]);
+                for($k = 3; $k<= 5; $k++){
+                    if($found[$i+$k] != null){
+                        $weather->addType($found[$i+$k]);
                     }
-                    $present_weather[] = $weather;
                 }
+                $present_weather[] = $weather;
             }
-            $result = array(
-                'presentWeather' => $present_weather,
-            );
         }
+        $result = array(
+            'presentWeather' => $present_weather,
+        );
 
         // return result + remaining metar
         return array(
