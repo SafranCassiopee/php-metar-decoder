@@ -2,6 +2,8 @@
 
 namespace MetarDecoder\ChunkDecoder;
 
+use MetarDecoder\Entity\WeatherPhenomenon;
+
 /**
  * Chunk decoder for recent weather section
  */
@@ -9,7 +11,9 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
 {
     public function getRegexp()
     {
-        return '#^RE([A-Z]+) #';
+        $carac_regexp = implode(PresentWeatherChunkDecoder::$carac_dic, '|');
+        $type_regexp = implode(PresentWeatherChunkDecoder::$type_dic, '|');
+        return "#^RE($carac_regexp)?($type_regexp) #";
     }
 
     public function parse($remaining_metar, $cavok = false)
@@ -20,9 +24,13 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
         if ($found == null) {
             $result = null;
         } else {
+            $weather = new WeatherPhenomenon();
+            $weather->setCaracterisation($found[1]);
+            $weather->addType($found[2]);
+            
             // retrieve found params
             $result = array(
-                'recentWeather' => $found[1],
+                'recentWeather' => $weather,
             );
         }
 

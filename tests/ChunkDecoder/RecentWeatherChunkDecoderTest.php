@@ -16,14 +16,17 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     /**
      * Test parsing of valid recent weather chunks
      * @param $chunk
-     * @param $recent_weather
-     * @param $remaining
+     * @param $weather_carac
+     * @param $weather_type
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $recent_weather, $remaining)
+    public function testParse($chunk, $weather_carac, $weather_type, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($recent_weather, $decoded['result']['recentWeather']);
+        $recent = $decoded['result']['recentWeather'];
+        
+        $this->assertEquals($weather_carac, $recent->getCaracterisation());
+        $this->assertEquals($weather_type, $recent->getTypes()[0]);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
@@ -32,17 +35,20 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 "chunk" => "REBLSN AAA",
-                "recent_weather" => "BLSN",
+                "weather_carac" => "BL",
+                "weather_type" => "SN",
                 "remaining" => "AAA",
             ),
             array(
                 "chunk" => "REPL BBB",
-                "recent_weather" => "PL",
+                "weather_carac" => "",
+                "weather_type" => "PL",
                 "remaining" => "BBB",
             ),
             array(
                 "chunk" => "RETSRA CCC",
-                "recent_weather" => "TSRA",
+                "weather_carac" => "TS",
+                "weather_type" => "RA",
                 "remaining" => "CCC",
             ),
         );

@@ -10,10 +10,10 @@ use MetarDecoder\Exception\ChunkDecoderException;
  */
 class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
-    private static $carac_dic = array(
+    public static $carac_dic = array(
         'TS','FZ','SH','BL','DR','MI','BC','PR'
     );
-    private static $type_dic = array(
+    public static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
         'PL', 'DS', 'GR', 'GS',
         'UP', 'IC', 'FG', 'BL',
