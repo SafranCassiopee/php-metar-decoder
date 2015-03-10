@@ -24,10 +24,12 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 VV005 17/10 Q1009 REFZRA WS R03');
+        $raw_metar = 'METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 VV005 17/10 Q1009 REFZRA WS R03';
+        $d = $this->decoder->parse($raw_metar);
 
         // compare results
         $this->assertTrue($d->isValid());
+        $this->assertEquals('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 VV005 17/10 Q1009 REFZRA WS R03', $d->getRawMetar());
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
         $this->assertEquals(23, $d->getDay());

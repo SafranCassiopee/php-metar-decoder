@@ -91,7 +91,7 @@ class DecodedMetar
 
     public function getRawMetar()
     {
-        return $this->raw_metar;
+        return trim($this->raw_metar);
     }
 
     public function setType($type)
