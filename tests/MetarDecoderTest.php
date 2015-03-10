@@ -75,7 +75,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(17, $d->getAirTemperature()->getValue());
         $this->assertEquals(10, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1009, $d->getPressure()->getValue());
-        $this->assertEquals('hPA', $d->getPressure()->getUnit());
+        $this->assertEquals('hPa', $d->getPressure()->getUnit());
         $rw = $d->getRecentWeather();
         $this->assertEquals('FZ', $rw->getCaracterisation());
         $this->assertEquals('RA', current($rw->getTypes()));
@@ -110,7 +110,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1032, $d->getPressure()->getValue());
-        $this->assertEquals('hPA', $d->getPressure()->getUnit());
+        $this->assertEquals('hPa', $d->getPressure()->getUnit());
     }
 
     /**

@@ -11,8 +11,8 @@ use MetarDecoder\Entity\Value;
 class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     private $units = array(
-        'Q' => 'hPA',
-        'A' => 'inHg',
+        'Q' => Value::HECTO_PASCAL,
+        'A' => Value::MERCURY_INCH,
     );
 
     public function getRegexp()

@@ -16,6 +16,8 @@ class Value
     const METER = 'm';
     const FEET = 'ft';
     const STATUTE_MILE = 'SM';
+    const HECTO_PASCAL = 'hPa';
+    const MERCURY_INCH = 'inHg';
 
     public function __construct($value, $unit)
     {

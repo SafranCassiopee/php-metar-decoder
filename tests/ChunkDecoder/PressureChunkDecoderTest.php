@@ -50,7 +50,7 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "input" => "Q1000 AAA",
                 "pressure" => 1000,
-                "pressure_unit" => 'hPA',
+                "pressure_unit" => 'hPa',
                 "remaining" => "AAA",
             ),
             array(
