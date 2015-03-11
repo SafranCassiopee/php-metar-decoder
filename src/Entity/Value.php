@@ -18,6 +18,7 @@ class Value
     const STATUTE_MILE = 'SM';
     const HECTO_PASCAL = 'hPa';
     const MERCURY_INCH = 'inHg';
+    const UNKNOWN_UNIT = 'N/A';
 
     public function __construct($value, $unit)
     {
