@@ -9,7 +9,7 @@ class ReportTypeChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
 {
     public function getRegexp()
     {
-        return '#^((METAR|SPECI){1}( COR){0,1}) #';
+        return '#^((METAR|SPECI)( COR){0,1}) #';
     }
 
     public function parse($remaining_metar, $cavok = false)
