@@ -20,7 +20,7 @@ class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInt
 
         // throw error if nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'ICAO code not found', $this);
+            throw new ChunkDecoderException($remaining_metar, 'Station ICAO code not found (4 char expected)', $this);
         }
 
         // retrieve found params
