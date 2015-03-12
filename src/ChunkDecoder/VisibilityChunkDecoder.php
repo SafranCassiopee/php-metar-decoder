@@ -41,7 +41,6 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
                            ->setMinimumVisibility(Value::newIntValue($found[4], Value::METER))
                            ->setMinimumVisibilityDirection($found[5]);
             } else { // us visibility
-                //var_dump($found);
                 $main = intval($found[6]);
                 $frac_top = intval($found[8]);
                 $frac_bot = intval($found[9]);
@@ -50,8 +49,6 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
                 } else {
                     $vis_value = $main;
                 }
-
-                //var_dump($vis_value);
                 $visibility->setVisibility(Value::newValue($vis_value, Value::STATUTE_MILE));
             }
         }
