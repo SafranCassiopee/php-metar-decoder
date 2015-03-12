@@ -59,7 +59,7 @@ class MetarDecoder
                 $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
             } catch (ChunkDecoderException $cde) {
                 // log error in decoded metar and abort decoding
-                $decoded_metar->setException($cde);
+                $decoded_metar->setDecodingException($cde);
                 break;
             }
 

@@ -73,7 +73,7 @@ class DecodedMetar
     /**
      * Set the exception that occured during metar decoding
      */
-    public function setException($exception)
+    public function setDecodingException($exception)
     {
         $this->decoding_exception = $exception;
 
@@ -84,7 +84,7 @@ class DecodedMetar
      * If the decoded metar is invalid, get the exception that occured during decoding
      * Else return null;
      */
-    public function getException()
+    public function getDecodingException()
     {
         return $this->decoding_exception;
     }

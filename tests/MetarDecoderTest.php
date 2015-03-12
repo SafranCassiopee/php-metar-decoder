@@ -153,7 +153,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
             // check the error triggered
             $this->assertFalse($d->isValid());
-            $error = $d->getException();
+            $error = $d->getDecodingException();
             $this->assertEquals($metar_error[1], $error->getChunkDecoder());
             $this->assertEquals($metar_error[2], $error->getChunk());
         }
