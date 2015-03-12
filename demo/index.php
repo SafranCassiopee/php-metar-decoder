@@ -61,9 +61,9 @@ $d = $decoder->parse($raw_metar);
                 <? }else{ ?>
                    <div class="alert alert-danger">
                         <b>Invalid format:</b>
-                        <? echo($d->getException()->getMessage());
-                           echo(', on chunk "'.$d->getException()->getChunk().'"');
-                           $d->setException(null);
+                        <? echo($d->getDecodingException()->getMessage());
+                           echo(', on chunk "'.$d->getDecodingException()->getChunk().'"');
+                           $d->setDecodingException(null);
                         ?>
                     </div>
                 <? } ?>
