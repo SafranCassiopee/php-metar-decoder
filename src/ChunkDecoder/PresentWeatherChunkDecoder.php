@@ -15,7 +15,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
     public static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
         'PL', 'DS', 'GR', 'GS',
-        'UP', 'IC', 'FG', 'BL',
+        'UP', 'IC', 'FG', 'BR',
         'SA', 'DU', 'HZ', 'FU',
         'VA', 'PY', 'DU', 'PO',
         'SQ', 'FC', 'DS', 'SS',
