@@ -25,7 +25,7 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $decoded = $this->decoder->parse($chunk);
         $recent = $decoded['result']['recentWeather'];
         $this->assertEquals($weather_carac, $recent->getCharacteristics());
-        $this->assertEquals($weather_type, current($recent->getTypes()));
+        $this->assertEquals($weather_type, $recent->getTypes());
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
@@ -35,20 +35,26 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 "chunk" => "REBLSN AAA",
                 "weather_carac" => "BL",
-                "weather_type" => "SN",
+                "weather_types" => array("SN"),
                 "remaining" => "AAA",
             ),
             array(
                 "chunk" => "REPL BBB",
                 "weather_carac" => "",
-                "weather_type" => "PL",
+                "weather_type" => array("PL"),
                 "remaining" => "BBB",
             ),
             array(
                 "chunk" => "RETSRA CCC",
                 "weather_carac" => "TS",
-                "weather_type" => "RA",
+                "weather_type" => array("RA"),
                 "remaining" => "CCC",
+            ),
+            array(
+                "chunk" => "RETSRABR DDD",
+                "weather_carac" => "TS",
+                "weather_type" => array("RA","BR"),
+                "remaining" => "DDD",
             ),
         );
     }
