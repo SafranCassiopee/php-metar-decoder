@@ -33,7 +33,7 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
         if ($nb_phenoms > 0) {
             $phenom1 = $pw[0];
             $this->assertEquals($intensity1, $phenom1->getIntensityProximity());
-            $this->assertEquals($carac1, $phenom1->getCaracterisation());
+            $this->assertEquals($carac1, $phenom1->getCharacteristics());
             $this->assertEquals($type1, $phenom1->getTypes());
         }
         if ($nb_phenoms > 1) {

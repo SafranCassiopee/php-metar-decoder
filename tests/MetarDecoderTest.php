@@ -57,15 +57,15 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($pw));
         $pw1 = $pw[0];
         $this->assertEquals('+', $pw1->getIntensityProximity());
-        $this->assertEquals('FZ', $pw1->getCaracterisation());
+        $this->assertEquals('FZ', $pw1->getCharacteristics());
         $this->assertEquals(array('RA'), $pw1->getTypes());
         $pw2 = $pw[1];
         $this->assertEquals('VC', $pw2->getIntensityProximity());
-        $this->assertEquals(null, $pw2->getCaracterisation());
+        $this->assertEquals(null, $pw2->getCharacteristics());
         $this->assertEquals(array('SN'), $pw2->getTypes());
         $pw3 = $pw[2];
         $this->assertEquals(null, $pw3->getIntensityProximity());
-        $this->assertEquals(null, $pw3->getCaracterisation());
+        $this->assertEquals(null, $pw3->getCharacteristics());
         $this->assertEquals(array('//'), $pw3->getTypes());
         $cs = $d->getClouds();
         $c = $cs[0];
@@ -77,7 +77,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1009, $d->getPressure()->getValue());
         $this->assertEquals('hPa', $d->getPressure()->getUnit());
         $rw = $d->getRecentWeather();
-        $this->assertEquals('FZ', $rw->getCaracterisation());
+        $this->assertEquals('FZ', $rw->getCharacteristics());
         $this->assertEquals('RA', current($rw->getTypes()));
         $this->assertEquals('03', $d->getWindshearRunway());
     }

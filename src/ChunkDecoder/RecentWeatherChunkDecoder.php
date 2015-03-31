@@ -26,7 +26,7 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
             $result = null;
         } else {
             $weather = new WeatherPhenomenon();
-            $weather->setCaracterisation($found[1]);
+            $weather->setCharacteristics($found[1]);
             $weather->addType($found[2]);
 
             // retrieve found params

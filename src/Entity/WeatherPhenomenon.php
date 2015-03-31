@@ -7,8 +7,8 @@ class WeatherPhenomenon
     // intensity/proximity of the phenomenon + / - / VC (=vicinity)
     private $intensity_proximity;
 
-    // caracterisation of phenomenon
-    private $caracterisation;
+    // characteristics of the phenomenon
+    private $characteristics;
 
     // types of phenomenon
     private $types;
@@ -18,9 +18,9 @@ class WeatherPhenomenon
         return $this->intensity_proximity;
     }
 
-    public function getCaracterisation()
+    public function getCharacteristics()
     {
-        return $this->caracterisation;
+        return $this->characteristics;
     }
 
     public function getTypes()
@@ -35,9 +35,9 @@ class WeatherPhenomenon
         return $this;
     }
 
-    public function setCaracterisation($carac)
+    public function setCharacteristics($carac)
     {
-        $this->caracterisation = $carac;
+        $this->characteristics = $carac;
     }
     public function addType($phenomenon)
     {
