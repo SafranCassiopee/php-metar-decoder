@@ -5,7 +5,7 @@ namespace MetarDecoder\Entity;
 class WeatherPhenomenon
 {
     // intensity/proximity of the phenomenon + / - / VC (=vicinity)
-    private $intensity;
+    private $intensity_proximity;
 
     // caracterisation of phenomenon
     private $caracterisation;
@@ -13,9 +13,9 @@ class WeatherPhenomenon
     // types of phenomenon
     private $types;
 
-    public function getIntensity()
+    public function getIntensityProximity()
     {
-        return $this->intensity;
+        return $this->intensity_proximity;
     }
 
     public function getCaracterisation()
@@ -28,9 +28,9 @@ class WeatherPhenomenon
         return $this->types;
     }
 
-    public function setIntensity($intensity)
+    public function setIntensityProximity($intensity_proximity)
     {
-        $this->intensity = $intensity;
+        $this->intensity_proximity = $intensity_proximity;
 
         return $this;
     }

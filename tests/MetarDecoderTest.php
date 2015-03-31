@@ -56,15 +56,15 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $pw = $d->getPresentWeather();
         $this->assertEquals(3, count($pw));
         $pw1 = $pw[0];
-        $this->assertEquals('+', $pw1->getIntensity());
+        $this->assertEquals('+', $pw1->getIntensityProximity());
         $this->assertEquals('FZ', $pw1->getCaracterisation());
         $this->assertEquals(array('RA'), $pw1->getTypes());
         $pw2 = $pw[1];
-        $this->assertEquals('VC', $pw2->getIntensity());
+        $this->assertEquals('VC', $pw2->getIntensityProximity());
         $this->assertEquals(null, $pw2->getCaracterisation());
         $this->assertEquals(array('SN'), $pw2->getTypes());
         $pw3 = $pw[2];
-        $this->assertEquals(null, $pw3->getIntensity());
+        $this->assertEquals(null, $pw3->getIntensityProximity());
         $this->assertEquals(null, $pw3->getCaracterisation());
         $this->assertEquals(array('//'), $pw3->getTypes());
         $cs = $d->getClouds();

@@ -39,7 +39,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         for ($i = 1; $i <= 13; $i += 6) {
             if ($found[$i] != null) {
                 $weather = new WeatherPhenomenon();
-                $weather->setIntensity($found[$i+1]);
+                $weather->setIntensityProximity($found[$i+1]);
                 $weather->setCaracterisation($found[$i+2]);
                 for ($k = 3; $k <= 5; $k++) {
                     if ($found[$i+$k] != null) {
