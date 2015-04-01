@@ -15,7 +15,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
     public static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
         'PL', 'DS', 'GR', 'GS',
-        'UP', 'IC', 'FG', 'BL',
+        'UP', 'IC', 'FG', 'BR',
         'SA', 'DU', 'HZ', 'FU',
         'VA', 'PY', 'DU', 'PO',
         'SQ', 'FC', 'DS', 'SS',
@@ -39,8 +39,8 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         for ($i = 1; $i <= 13; $i += 6) {
             if ($found[$i] != null) {
                 $weather = new WeatherPhenomenon();
-                $weather->setIntensity($found[$i+1]);
-                $weather->setCaracterisation($found[$i+2]);
+                $weather->setIntensityProximity($found[$i+1]);
+                $weather->setCharacteristics($found[$i+2]);
                 for ($k = 3; $k <= 5; $k++) {
                     if ($found[$i+$k] != null) {
                         $weather->addType($found[$i+$k]);

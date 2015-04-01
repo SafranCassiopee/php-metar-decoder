@@ -32,8 +32,8 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nb_phenoms, count($pw));
         if ($nb_phenoms > 0) {
             $phenom1 = $pw[0];
-            $this->assertEquals($intensity1, $phenom1->getIntensity());
-            $this->assertEquals($carac1, $phenom1->getCaracterisation());
+            $this->assertEquals($intensity1, $phenom1->getIntensityProximity());
+            $this->assertEquals($carac1, $phenom1->getCharacteristics());
             $this->assertEquals($type1, $phenom1->getTypes());
         }
         if ($nb_phenoms > 1) {
@@ -74,11 +74,11 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "remaining" => "BBB",
             ),
             array(
-                "chunk" => "+GSBLFU VCDRFCPY CCC",
+                "chunk" => "+GSBRFU VCDRFCPY CCC",
                 "nb_phenoms" => 2,
                 "intensity1" => "+",
                 "carac1" => null,
-                "type1" => array("GS","BL","FU"),
+                "type1" => array("GS","BR","FU"),
                 "type2" => array("FC","PY"),
                 "remaining" => "CCC",
             ),
