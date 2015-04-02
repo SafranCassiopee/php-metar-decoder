@@ -16,14 +16,15 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     /**
      * Test parsing of valid windshear chunks
      * @param string $chunk
-     * @param string $runway
-     * @param string $remaining
+     * @param boolean $all_runways
+     * @param array $runways
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $runway, $remaining)
+    public function testParse($chunk, $all_runways, $runways, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($runway, $decoded['result']['windshearRunway']);
+        $this->assertEquals($all_runways, $decoded['result']['windshearAllRunways']);
+        $this->assertEquals($runways, $decoded['result']['windshearRunways']);
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
@@ -56,23 +57,27 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "input" => "WS R03 AAA",
-                "runway" => "03",
+                "input" => "WS R03L WS R32 WS R25C AAA",
+                "all_runways" => false,
+                "runways" => array("03L", "32", "25C"),
                 "remaining" => "AAA",
             ),
             array(
                 "input" => "WS R18C BBB",
-                "runway" => "18C",
+                "all_runways" => false,
+                "runways" => array("18C"),
                 "remaining" => "BBB",
             ),
             array(
                 "input" => "WS ALL RWY CCC",
-                "runway" => "all",
+                "all_runways" => true,
+                "runways" => null,
                 "remaining" => "CCC",
             ),
             array(
                 "input" => "WS RWY22 DDD",
-                "runway" => "22",
+                "all_runways" => false,
+                "runways" => array("22"),
                 "remaining" => "DDD",
             ),
         );

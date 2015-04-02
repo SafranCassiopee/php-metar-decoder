@@ -12,10 +12,11 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
 {
     public function getRegexp()
     {
-        return "#^WS (R(WY)?([0-9]{2}[LCR]?)|(ALL) RWY)( )#";
+        $runway = 'WS R(WY)?([0-9]{2}[LCR]?)';
+        return "#^(WS ALL RWY|($runway)( $runway)?( $runway)?)( )#";
     }
 
-    public function parse($remaining_metar, $cavok = false)
+   public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 
@@ -24,18 +25,28 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
             $result = null;
         } else {
             // detect if we have windshear on all runway or only one
-            if (empty($found[3])) {
-                $runway = 'all';
+            if ($found[1] == 'WS ALL RWY') {
+                $all = true;
+                $runways = null;
             } else {
-                // check runway qfu validity
-                $runway = $found[3];
-                $qfu_as_int = Value::toInt($runway);
-                if ($qfu_as_int > 36 || $qfu_as_int < 1) {
-                    throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
+                // one or more runways, build array
+                $runways = array();
+                $all = false;
+                for($k = 2; $k < 9 ; $k+= 3){
+                    if($found[$k] != null){
+                        $runway = $found[$k+2];
+                        $qfu_as_int = Value::toInt($runway);
+                        // check runway qfu validity                       
+                        if ($qfu_as_int > 36 || $qfu_as_int < 1) {
+                            throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
+                        }
+                        $runways[] = $runway;
+                    }
                 }
             }
             $result = array(
-                'windshearRunway' => $runway,
+                'windshearAllRunways' => $all,
+                'windshearRunways' => $runways,
             );
         }
 

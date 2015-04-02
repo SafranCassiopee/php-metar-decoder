@@ -79,7 +79,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $rw = $d->getRecentWeather();
         $this->assertEquals('FZ', $rw->getCharacteristics());
         $this->assertEquals('RA', current($rw->getTypes()));
-        $this->assertEquals('03', $d->getWindshearRunway());
+        $this->assertEquals(array('03'), $d->getWindshearRunways());
     }
 
     /**
