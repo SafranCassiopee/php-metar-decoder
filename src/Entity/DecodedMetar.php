@@ -40,7 +40,6 @@ class DecodedMetar
 
     // cloud layers information
     private $clouds;
-    private $vertical_visibility;
 
     // temperature information
     private $air_temperature;
@@ -222,18 +221,6 @@ class DecodedMetar
     public function setClouds(array $clouds)
     {
         $this->clouds = $clouds;
-
-        return $this;
-    }
-
-    public function getVerticalVisibility()
-    {
-        return $this->vertical_visibility;
-    }
-
-    public function setVerticalVisibility($vertical_visibility)
-    {
-        $this->vertical_visibility = $vertical_visibility;
 
         return $this;
     }

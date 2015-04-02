@@ -14,10 +14,9 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
     public function getRegexp()
     {
         $no_cloud = "(NSC|NCD|CLR|SKC)";
-        $layer = "(FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
-        $vertical_visibility = "VV([0-9]{3}|///)";
-
-        return "#^($no_cloud|($layer)( $layer)?( $layer)?( $layer)?( $vertical_visibility)?)( )#";
+        $layer = "(VV|FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
+        // vertical visibility VV is handled as a regular cloud layer
+        return "#^($no_cloud|($layer)( $layer)?( $layer)?( $layer)?)( )#";
     }
 
     public function parse($remaining_metar, $cavok = false)
@@ -34,8 +33,7 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
             }
         } else {
             $layers = null;
-            $visibility = null;
-
+        
             if ($found[2] != null) {
                 // handle the case where no clouds observed
                 // TODO what fields to map ?
@@ -57,14 +55,9 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                         $layers[] = $layer;
                     }
                 }
-                if ($found[19] != null) {
-                    $vvis = intval($found[20]) * 100;
-                    $visibility = Value::newValue($vvis, Value::FEET);
-                }
             }
             $result = array(
                 'clouds' => $layers,
-                'verticalVisibility' => $visibility,
             );
         }
 
