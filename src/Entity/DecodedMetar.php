@@ -270,7 +270,7 @@ class DecodedMetar
         return $this;
     }
 
-    public function isWindshearAllRunways()
+    public function getWindshearAllRunways()
     {
         return $this->windshear_all_runways;
     }
