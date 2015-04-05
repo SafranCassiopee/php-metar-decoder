@@ -67,7 +67,7 @@ class MetarDecoder
             $result = $decoded['result'];
             if ($result != null) {
                 foreach ($result as $key => $value) {
-                    if ($value != null) {
+                    if ($value !== null) {
                         $setter_name = 'set'.ucfirst($key);
                         $decoded_metar->$setter_name($value);
                     }

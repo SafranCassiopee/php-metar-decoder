@@ -24,12 +24,12 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         // launch decoding
-        $raw_metar = 'METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 VV005 17/10 Q1009 REFZRA WS R03';
+        $raw_metar = 'METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 17/10 Q1009 REFZRA WS R03';
         $d = $this->decoder->parse($raw_metar);
 
         // compare results
         $this->assertTrue($d->isValid());
-        $this->assertEquals('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 VV005 17/10 Q1009 REFZRA WS R03', $d->getRawMetar());
+        $this->assertEquals('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 17/10 Q1009 REFZRA WS R03', $d->getRawMetar());
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPO', $d->getIcao());
         $this->assertEquals(23, $d->getDay());
@@ -71,7 +71,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $c = $cs[0];
         $this->assertEquals('FEW', $c->getAmount());
         $this->assertEquals(1500, $c->getBaseHeight()->getValue());
-        $this->assertEquals(500, $d->getVerticalVisibility()->getValue());
+        $this->assertEquals('ft', $c->getBaseHeight()->getUnit());
         $this->assertEquals(17, $d->getAirTemperature()->getValue());
         $this->assertEquals(10, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1009, $d->getPressure()->getValue());
@@ -79,7 +79,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $rw = $d->getRecentWeather();
         $this->assertEquals('FZ', $rw->getCharacteristics());
         $this->assertEquals('RA', current($rw->getTypes()));
-        $this->assertEquals('03', $d->getWindshearRunway());
+        $this->assertEquals(array('03'), $d->getWindshearRunways());
     }
 
     /**
@@ -131,7 +131,6 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($d->getCavok());
         $this->assertNull($d->getVisibility());
         $this->assertNull($d->getClouds());
-        $this->assertNull($d->getVerticalVisibility());
         // check that we went to the end of the decoding though
         $this->assertEquals(995, $d->getPressure()->getValue());
     }

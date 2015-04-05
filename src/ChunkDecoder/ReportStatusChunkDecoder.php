@@ -22,15 +22,14 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
         if ($found == null) {
             $result = null;
         } else {
-            // retrieve found params
             $status = $found[1];
-            if ($status == 'AUTO' || $status == 'NIL') {
-                $result = array(
-                    'status' => $status,
-                );
-            } else {
-                throw new ChunkDecoderException($remaining_metar, 'Invalid report status, AUTO or NIL expected', $this);
+            if(strlen($status) != 3 && $status != "AUTO" ){
+                throw new ChunkDecoderException($remaining_metar, 'Invalid report status, expecting AUTO, NIL, or any other 3 letter word', $this);
             }
+            // retrieve found params
+            $result = array(
+                'status' => $status,
+            );
         }
         $next_remaining_metar = $this->getRemainingMetar($remaining_metar);
 

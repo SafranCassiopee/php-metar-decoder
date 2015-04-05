@@ -40,7 +40,6 @@ class DecodedMetar
 
     // cloud layers information
     private $clouds;
-    private $vertical_visibility;
 
     // temperature information
     private $air_temperature;
@@ -52,8 +51,9 @@ class DecodedMetar
     // recent weather
     private $recent_weather;
 
-    // windshear runway information (which runway, or "all")
-    private $windshear_runway;
+    // windshear runway information (which runways, or "all")
+    private $windshear_all_runways;
+    private $windshear_runways;
 
     public function __construct($raw_metar)
     {
@@ -226,18 +226,6 @@ class DecodedMetar
         return $this;
     }
 
-    public function getVerticalVisibility()
-    {
-        return $this->vertical_visibility;
-    }
-
-    public function setVerticalVisibility($vertical_visibility)
-    {
-        $this->vertical_visibility = $vertical_visibility;
-
-        return $this;
-    }
-
     public function getAirTemperature()
     {
         return $this->air_temperature;
@@ -282,14 +270,26 @@ class DecodedMetar
         return $this;
     }
 
-    public function getWindshearRunway()
+    public function getWindshearAllRunways()
     {
-        return $this->windshear_runway;
+        return $this->windshear_all_runways;
+    }
+    
+    public function setWindshearAllRunways($all)
+    {
+        $this->windshear_all_runways = $all;
+        
+        return $this;
+    }
+    
+    public function getWindshearRunways()
+    {
+        return $this->windshear_runways;
     }
 
-    public function setWindShearRunway($runway)
+    public function setWindShearRunways($runways)
     {
-        $this->windshear_runway = $runway;
+        $this->windshear_runways = $runways;
 
         return $this;
     }

@@ -20,16 +20,14 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $layer1_amount
      * @param $layer1_base_height
      * @param $layer1_type
-     * @param $visibility
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_layers, $layer1_amount, $layer1_base_height, $layer1_type, $visibility, $remaining)
+    public function testParse($chunk, $nb_layers, $layer1_amount, $layer1_base_height, $layer1_type, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $clouds = $decoded['result']['clouds'];
         $cloud = $clouds[0];
-        $vis = $decoded['result']['verticalVisibility'];
         $this->assertEquals($nb_layers, count($clouds));
         if ($cloud != null) {
             $this->assertEquals($layer1_amount, $cloud->getAmount());
@@ -40,10 +38,6 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 $this->assertNull($cloud->getBaseHeight());
             }
             $this->assertEquals($layer1_type, $cloud->getType());
-        }
-        if ($vis != null) {
-            $this->assertEquals($visibility, $vis->getValue());
-            $this->assertEquals('ft', $vis->getUnit());
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
@@ -74,21 +68,19 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "FEW100 VV085 AAA",
+                "chunk" => "VV085 AAA",
                 "nb_layers" => 1,
-                "layer1_amount" => "FEW",
-                "layer1_base_height" => 10000,
+                "layer1_amount" => "VV",
+                "layer1_base_height" => 8500,
                 "layer1_type" => null,
-                "visibility" => 8500,
                 "remaining" => "AAA",
             ),
             array(
                 "chunk" => "BKN200TCU OVC250 VV/// BBB",
-                "nb_layers" => 2,
+                "nb_layers" => 3,
                 "layer1_amount" => "BKN",
                 "layer1_base_height" => 20000,
                 "layer1_type" => "TCU",
-                "visibility" => null,
                 "remaining" => "BBB",
             ),
             array(
@@ -97,7 +89,6 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_amount" => "OVC",
                 "layer1_base_height" => null,
                 "layer1_type" => "///",
-                "visibility" => null,
                 "remaining" => "CCC",
             ),
             array(
@@ -106,7 +97,6 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_amount" => null,
                 "layer1_base_height" => null,
                 "layer1_type" => null,
-                "visibility" => null,
                 "remaining" => "DDD",
             ),
             array(
@@ -115,7 +105,6 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_amount" => null,
                 "layer1_base_height" => null,
                 "layer1_type" => null,
-                "visibility" => null,
                 "remaining" => "EEE",
             ),
             array(
@@ -124,7 +113,6 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "layer1_amount" => null,
                 "layer1_base_height" => null,
                 "layer1_type" => null,
-                "visibility" => null,
                 "remaining" => "FFF",
             ),
         );
