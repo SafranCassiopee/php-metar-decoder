@@ -1,7 +1,7 @@
 PHP METAR decoder
 =================
 
-A PHP library to decode METAR strings (under construction, progress around 90%)
+A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
 [![License](https://poser.pugx.org/inouire/php-metar-decoder/license.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
 [![Build Status](https://travis-ci.org/inouire/php-metar-decoder.svg?branch=master)](https://travis-ci.org/inouire/php-metar-decoder)
@@ -19,8 +19,8 @@ Raw METAR format is highly standardized through the International Civil Aviation
 *    METAR format specification(link needed)
 *    [METAR documentation](http://meteocentre.com/doc/metar.html)
 
-Requirement
------------
+Requirements
+------------
 
 This library package requires PHP 5.3 or later.
 
@@ -32,7 +32,7 @@ Setup
 
 - With composer *(recommended)*
 
-Add the following line to the `composer.json` of your project and launch composer install command
+Add the following line to the `composer.json` of your project
 
 ```json
 {
@@ -45,24 +45,24 @@ Add the following line to the `composer.json` of your project and launch compose
 Launch install from your project root with:
 
 ```shell
-composer install --no-dev --prefer-dist
+composer install --no-dev
 ```
 
 - By hand
 
-TODO
+Download the latest release from [github](https://github.com/inouire/php-metar-decoder/releases) and extract it wherever you want in your project.
 
 Usage
 -----
 
-Load the library thanks to autoloading:
+If you used composer, load the library thanks to autoloading:
 
 ```php
 <?php
 require_once 'vendor/autoload.php';
 ```
 
-Or if you didn't use composer, use the static import file:
+If you didn't use composer, use the static import file instead:
 
 ```php
 <?php
@@ -89,7 +89,7 @@ $result->getDatetime();
 Contribute
 ----------
 
-If you find a valid METAR that is badly parsed by this library, you can open a github issue
+If you find a valid METAR that is badly parsed by this library, please open a github issue
 
 Tests and coverage
 ------------------
