@@ -15,9 +15,9 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test parsing of valid windshear chunks
-     * @param string $chunk
+     * @param string  $chunk
      * @param boolean $all_runways
-     * @param array $runways
+     * @param array   $runways
      * @dataProvider getChunk
      */
     public function testParse($chunk, $all_runways, $runways, $remaining)

@@ -23,7 +23,7 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
             $result = null;
         } else {
             $status = $found[1];
-            if(strlen($status) != 3 && $status != "AUTO" ){
+            if (strlen($status) != 3 && $status != "AUTO") {
                 throw new ChunkDecoderException($remaining_metar, 'Invalid report status, expecting AUTO, NIL, or any other 3 letter word', $this);
             }
             // retrieve found params

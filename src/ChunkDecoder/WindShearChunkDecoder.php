@@ -13,10 +13,11 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
     public function getRegexp()
     {
         $runway = 'WS R(WY)?([0-9]{2}[LCR]?)';
+
         return "#^(WS ALL RWY|($runway)( $runway)?( $runway)?)( )#";
     }
 
-   public function parse($remaining_metar, $cavok = false)
+    public function parse($remaining_metar, $cavok = false)
     {
         $found = $this->applyRegexp($remaining_metar);
 
@@ -32,8 +33,8 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
                 // one or more runways, build array
                 $all = false;
                 $runways = array();
-                for($k = 2; $k < 9 ; $k+= 3){
-                    if($found[$k] != null){
+                for ($k = 2; $k < 9; $k += 3) {
+                    if ($found[$k] != null) {
                         $runway = $found[$k+2];
                         $qfu_as_int = Value::toInt($runway);
                         // check runway qfu validity

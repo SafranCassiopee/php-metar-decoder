@@ -12,7 +12,8 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
     public function getRegexp()
     {
         $carac_regexp = implode(PresentWeatherChunkDecoder::$carac_dic, '|');
-        $type_regexp = implode(PresentWeatherChunkDecoder::$type_dic, '|');     
+        $type_regexp = implode(PresentWeatherChunkDecoder::$type_dic, '|');
+
         return "#^RE($carac_regexp)?($type_regexp)?($type_regexp)?($type_regexp)?()? #";
     }
 

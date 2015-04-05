@@ -33,13 +33,13 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nb_runways, count($runways));
         $this->assertEquals($rwy1_name, $visual_range->getRunway());
         $this->assertEquals($rwy1_variable, $visual_range->isVariable());
-        if($rwy1_variable){
+        if ($rwy1_variable) {
             $interval = $visual_range->getVisualRangeInterval();
             $min = $interval[0];
             $max = $interval[1];
             $this->assertEquals($rwy1_interval, array($min->getValue(), $max->getValue()));
             $this->assertEquals($rwy1_unit, $min->getUnit());
-        }else{
+        } else {
             $this->assertEquals($rwy1_vis, $visual_range->getVisualRange()->getValue());
             $this->assertEquals($rwy1_unit, $visual_range->getVisualRange()->getUnit());
         }
