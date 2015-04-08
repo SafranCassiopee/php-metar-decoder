@@ -48,26 +48,28 @@ Launch install from your project root with:
 composer install --no-dev
 ```
 
-- By hand
-
-Download the latest release from [github](https://github.com/inouire/php-metar-decoder/releases) and extract it wherever you want in your project.
-
-Usage
------
-
-If you used composer, load the library thanks to autoloading:
+Load the library thanks to composer autoloading:
 
 ```php
 <?php
 require_once 'vendor/autoload.php';
 ```
 
-If you didn't use composer, use the static import file instead:
+- By hand
+
+Download the latest release from [github](https://github.com/inouire/php-metar-decoder/releases)
+
+Extract it wherever you want in your project. The library itself is in the src/ directory, the other directories are not mandatory for the library to work.
+
+Load the library with the static import file:
 
 ```php
 <?php
 require_once 'path/to/MetarDecoder/MetarDecoder.inc.php';
 ```
+
+Usage
+-----
 
 Instantiate the decoder and launch it on a METAR string.
 The returned object is a DecodedMetar object from which you can retrieve all the weather properties that have been decoded.
@@ -89,14 +91,25 @@ $result->getDatetime();
 Contribute
 ----------
 
-If you find a valid METAR that is badly parsed by this library, please open a github issue
+If you find a valid METAR that is badly parsed by this library, please open a github issue with all possible details:
+
+- the full METAR causing problem
+- parsing exception returned by the library
+- how you expected the decoder to behave
+- links to support your proposal
+
+If you want to improve or enrich the test suite, fork the repository and submit your changes with a pull request.
+
+If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more confortable with.
 
 Tests and coverage
 ------------------
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
-If you want to run the tests, first install dev dependencies ([composer](http://getcomposer.org) needed)
+Travis CI is used for continuous integration, which triggers tests for PHP 5.3, 5.4, 5.5 for each push to the repo.
+
+To run the tests by yourself, you must first install the dev dependencies ([composer](http://getcomposer.org) needed)
 
 ```shell
 composer install --dev
