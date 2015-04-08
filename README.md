@@ -113,10 +113,10 @@ To run the tests by yourself, you must first install the dev dependencies ([comp
 
 ```shell
 composer install --dev
-apt-get install php5-xdebug #only needed if you're interested in code coverage)
+apt-get install php5-xdebug # only needed if you're interested in code coverage
 ```
 
-Once you installed the dev dependencies, launch the test suite with the following command:
+Launch the test suite with the following command:
     
 ```shell
 ./vendor/bin/phpunit tests
