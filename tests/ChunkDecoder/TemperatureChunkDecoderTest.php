@@ -24,20 +24,20 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParse($chunk, $air_temperature, $dew_point_temperature, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
-        $this->assertEquals($air_temperature, $decoded['result']['airTemperature']->getValue());
-        $this->assertEquals($dew_point_temperature, $decoded['result']['dewPointTemperature']->getValue());
+        //var_dump($decoded);
+        if($air_temperature == null){
+            $this->assertNull($decoded['result']['airTemperature']);
+        }else{
+            $this->assertEquals($air_temperature, $decoded['result']['airTemperature']->getValue());
+            $this->assertEquals('deg C', $decoded['result']['airTemperature']->getUnit());
+        }
+        if($dew_point_temperature == null){
+            $this->assertNull($decoded['result']['dewPointTemperature']);
+        }else{
+            $this->assertEquals($dew_point_temperature, $decoded['result']['dewPointTemperature']->getValue());
+            $this->assertEquals('deg C', $decoded['result']['dewPointTemperature']->getUnit());
+        }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
-    }
-
-    /**
-     * Test parsing of invalid temperature chunks
-     * @param string $chunk
-     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
-     * @dataProvider getInvalidChunk
-     */
-    public function testParseInvalidIcaoChunk($chunk)
-    {
-        $this->decoder->parse($chunk);
     }
 
     public function getChunk()
@@ -61,15 +61,32 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "dew_point_temperature" => -1,
                 "remaining" => "CCC",
             ),
-        );
-    }
-
-    public function getInvalidChunk()
-    {
-        return array(
-            array("chunk" => "M01//10 AAA"),
-            array("chunk" => "M1/05 BBB"),
-            array("chunk" => "10/120 CCC"),
+            // partial information
+            array(
+                "input" => "M15/ DDD",
+                "air_temperature" => -15,
+                "dew_point_temperature" => null,
+                "remaining" => "DDD",
+            ),
+            array(
+                "input" => "NOTHING EEE",
+                "air_temperature" => null,
+                "dew_point_temperature" => null,
+                "remaining" => "NOTHING EEE",
+            ),
+            // invalid formats
+            array(
+                "input" => "M01//10 FFF",
+                "air_temperature" => null,
+                "dew_point_temperature" => null,
+                "remaining" => "M01//10 FFF",
+            ),
+            array(
+                "input" => "M1/10 GGG",
+                "air_temperature" => null,
+                "dew_point_temperature" => null,
+                "remaining" => "M1/10 GGG",
+            ),
         );
     }
 }
