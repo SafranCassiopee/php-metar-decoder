@@ -74,13 +74,22 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "remaining" => "BBB",
             ),
             array(
-                "chunk" => "+GSBRFU VCDRFCPY CCC",
+                "chunk" => "+GSBRFU VCDRFCPY // CCC",
                 "nb_phenoms" => 2,
                 "intensity1" => "+",
                 "carac1" => null,
                 "type1" => array("GS","BR","FU"),
                 "type2" => array("FC","PY"),
                 "remaining" => "CCC",
+            ),
+            array(
+                "chunk" => "// DDD",
+                "nb_phenoms" => 0,
+                "intensity1" => null,
+                "carac1" => null,
+                "type1" => null,
+                "type2" => null,
+                "remaining" => "DDD",
             ),
         );
     }

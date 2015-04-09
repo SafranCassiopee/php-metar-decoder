@@ -19,7 +19,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         'SA', 'DU', 'HZ', 'FU',
         'VA', 'PY', 'DU', 'PO',
         'SQ', 'FC', 'DS', 'SS',
-        '//',
+        '//'
     );
 
     public function getRegexp()
@@ -27,7 +27,6 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         $carac_regexp = implode(self::$carac_dic, '|');
         $type_regexp = implode(self::$type_dic, '|');
         $pw_regexp = "([-+]|VC)?($carac_regexp)?($type_regexp)?($type_regexp)?($type_regexp)?";
-
         return "#^($pw_regexp )?($pw_regexp )?($pw_regexp )?()?#";
     }
 
@@ -37,7 +36,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
 
         $present_weather = array();
         for ($i = 1; $i <= 13; $i += 6) {
-            if ($found[$i] != null) {
+            if ($found[$i] != null && $found[$i+3] != '//') {
                 $weather = new WeatherPhenomenon();
                 $weather->setIntensityProximity($found[$i+1]);
                 $weather->setCharacteristics($found[$i+2]);
