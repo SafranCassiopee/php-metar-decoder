@@ -17,7 +17,8 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         $visibility = "([0-9]{4})";
         $us_visibility = "M?([0-9]{0,2}) ?(([1357])/(2|4|8|16))?SM";
         $minimum_visibility = "( ([0-9]{4})(N|NE|E|SE|S|SW|W|NW)?)?";// optional
-        return "#^($cavok|$visibility$minimum_visibility|$us_visibility)( )#";
+        $no_info = "////";
+        return "#^($cavok|$visibility$minimum_visibility|$us_visibility|$no_info)( )#";
     }
 
     public function parse($remaining_metar, $cavok = false)
@@ -29,9 +30,11 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
             throw new ChunkDecoderException($remaining_metar, 'Bad format for visibility information', $this);
         }
 
-        if ($found[1] ==  'CAVOK') {
-            // handle the CAVOK case
+        if ($found[1] ==  'CAVOK') { // cloud and visibilty OK
             $cavok = true;
+            $visibility = null;
+        } elseif($found[1] == '////') { // information not available
+            $cavok = false;
             $visibility = null;
         } else {
             $cavok = false;
