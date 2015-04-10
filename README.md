@@ -22,9 +22,11 @@ Raw METAR format is highly standardized through the International Civil Aviation
 Requirements
 ------------
 
-This library package requires PHP 5.3 or later.
+This library package only requires PHP >= 5.3 
 
-If you want to use it very easily, you should consider installing [composer](http://getcomposer.org) on your system.
+It is currently tested automatically for PHP 5.3, 5.4 and 5.5.
+
+If you want to integrate it easily in your project, you should consider installing [composer](http://getcomposer.org) on your system.
 It is not mandatory though.
 
 Setup
@@ -74,17 +76,81 @@ Usage
 Instantiate the decoder and launch it on a METAR string.
 The returned object is a DecodedMetar object from which you can retrieve all the weather properties that have been decoded.
 
+All values who have a unit are based on the `Value` object which provides the methods `getValue()` and `getUnit()`
+
+*TODO: full documentation of the structure of the DecodedMetar object*
+
 ```php
 <?php
 
 require_once 'vendor/autoload.php';
 
 $decoder = new MetarDecoder\MetarDecoder();
-$result = $decoder->parse('PAPO 131156Z 31014KT 5SM +DZ BR OVC042 M23/M27 A2959 RMK A01 11200 21230 52010')
+$d = $decoder->parse('PAPO 131156Z 31014KT 5SM +DZ BR OVC042 M23/M27 A2959 RMK A01 11200 21230 52010')
 
-$result->getIcao();
-$result->getDatetime();
-// to be completed
+//context information
+$d->isValid()); //true
+$d->getRawMetar(); //'METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03'
+$d->getType(); //'METAR'
+$d->getIcao(); //'LFPO'
+$d->getDay(); //23
+$d->getTime(); //'10:27 UTC'
+$d->getStatus(); //'AUTO'
+
+//surface wind
+$sw = $d->getSurfaceWind(); //SurfaceWind object
+$sw->getMeanDirection()->getValue(); //240
+$sw->getMeanSpeed()->getValue(); //4
+$sw->getSpeedVariations()->getValue(); //9
+$sw->getMeanSpeed()->getUnit(); //'m/s'
+
+//visibility
+$v = $d->getVisibility(); //Visibility object
+$v->getVisibility()->getValue(); //2500
+$v->getVisibility()->getUnit(); //'m'
+$v->getMinimumVisibility()->getValue(); //1000
+$v->getMinimumVisibilityDirection(); //'NW'
+
+//runway visual range
+$rvr = $d->getRunwaysVisualRange(); //RunwayVisualRange array
+$rvr[0]->getRunway(); //'32'
+$rvr[0]->getVisualRange()->getValue(); //400
+$rvr[0]->getPastTendency(); //''
+$rvr[1]->getRunway(); //'08C'
+$rvr[1]->getVisualRange()->getValue(); //4
+$rvr[1]->getPastTendency(); //'D'
+
+//present weather
+$pw = $d->getPresentWeather(); WeatherPhenomenon array
+$pw[0]->getIntensityProximity(); //'+'
+$pw[0]->getCharacteristics(); //'FZ'
+$pw[0]->getTypes(); //array('RA')
+$pw[1]->getIntensityProximity(); //'VC'
+$pw[1]->getCharacteristics(); //null
+$pw[1]->getTypes(); //array('SN')
+
+// clouds
+$cld = $d->getClouds(); //CloudLayer array
+$cld[0]->getAmount(); //'FEW'
+$cld[0]->getBaseHeight()->getValue(); //1500
+$cld[0]->getBaseHeight()->getUnit(); //'ft'
+
+// temperature
+$d->getAirTemperature()->getValue(); //17
+$d->getAirTemperature()->getUnit(); //'deg C'
+$d->getDewPointTemperature()->getValue(); //10
+
+// pressure
+$d->getPressure()->getValue(); //1009
+$d->getPressure()->getUnit(); //'hPa'
+
+// recent weather
+$rw = $d->getRecentWeather();
+$rw->getCharacteristics(); //'FZ'
+current($rw->getTypes()); //'RA'
+
+// windshears
+$d->getWindshearRunways(); //array('03')
 
 ```
 
@@ -94,9 +160,9 @@ Contribute
 If you find a valid METAR that is badly parsed by this library, please open a github issue with all possible details:
 
 - the full METAR causing problem
-- parsing exception returned by the library
+- the parsing exception returned by the library
 - how you expected the decoder to behave
-- links to support your proposal
+- anything to support your proposal (links to official websites appreciated)
 
 If you want to improve or enrich the test suite, fork the repository and submit your changes with a pull request.
 
