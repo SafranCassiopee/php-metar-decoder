@@ -2,7 +2,6 @@
 
 namespace MetarDecoder\ChunkDecoder;
 
-use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\Value;
 
 /**
@@ -24,25 +23,25 @@ class TemperatureChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         // handle the case where nothing has been found
         if ($found == null) {
             $result = null;
-        }else{
+        } else {
             // retrieve found params
             $air_temp = Value::newIntValue($found[1], Value::DEGREE_CELSIUS);
-            if($found[2] == null){
+            if ($found[2] == null) {
                 $dew_point_temp = null;
-            }else{
+            } else {
                 $dew_point_temp = Value::newIntValue($found[2], Value::DEGREE_CELSIUS);
             }
-            
+
             $result = array(
                 'airTemperature' => $air_temp,
-                'dewPointTemperature' => $dew_point_temp
+                'dewPointTemperature' => $dew_point_temp,
             );
         }
-        
+
         // return result + remaining metar
         return array(
             'result' => $result,
             'remaining_metar' => $this->getRemainingMetar($remaining_metar),
         );
     }
-}   
+}

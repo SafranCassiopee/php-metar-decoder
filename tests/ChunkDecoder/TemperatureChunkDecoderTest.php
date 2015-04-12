@@ -25,15 +25,15 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         $decoded = $this->decoder->parse($chunk);
         //var_dump($decoded);
-        if($air_temperature == null){
+        if ($air_temperature == null) {
             $this->assertNull($decoded['result']['airTemperature']);
-        }else{
+        } else {
             $this->assertEquals($air_temperature, $decoded['result']['airTemperature']->getValue());
             $this->assertEquals('deg C', $decoded['result']['airTemperature']->getUnit());
         }
-        if($dew_point_temperature == null){
+        if ($dew_point_temperature == null) {
             $this->assertNull($decoded['result']['dewPointTemperature']);
-        }else{
+        } else {
             $this->assertEquals($dew_point_temperature, $decoded['result']['dewPointTemperature']->getValue());
             $this->assertEquals('deg C', $decoded['result']['dewPointTemperature']->getUnit());
         }

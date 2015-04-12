@@ -29,10 +29,10 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $decoded = $this->decoder->parse($chunk);
         if ($cavok) {
             $this->assertTrue($decoded['result']['cavok']);
-        } elseif ($visibility == null){
+        } elseif ($visibility == null) {
             $this->assertNull($decoded['result']['visibility']);
             $this->assertFalse($decoded['result']['cavok']);
-       } else {
+        } else {
             $vis = $decoded['result']['visibility'];
             $this->assertEquals($visibility, $vis->getVisibility()->getValue());
             $this->assertEquals($visibility_unit, $vis->getVisibility()->getUnit());
