@@ -13,18 +13,18 @@ abstract class MetarChunkDecoder
         $chunk_regexp = $this->getRegexp();
         
         // try to match chunk's regexp on remaining metar
+        if (preg_match($chunk_regexp, $remaining_metar, $matches)) {
             $found = $matches;
         }else{
             $found = null;
         }
-    }
-
-    /**
-     * Build new remaining metar from current remaining metar
-     * @return string original remaining metar amputed from the matched chunk
-     */
-    public function getRemainingMetar($remaining_metar)
-    {
-        return preg_replace($this->getRegexp(), '', $remaining_metar, 1);
+        
+        // consume what has been previously found with the same regexp
+        $new_remaining_metar = preg_replace($chunk_regexp, '', $remaining_metar, 1);
+        
+        return array(
+            'found' => $found,
+            'remaining' => $new_remaining_metar
+        );
     }
 }
