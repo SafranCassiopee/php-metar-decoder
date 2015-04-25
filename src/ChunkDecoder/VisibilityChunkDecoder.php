@@ -24,8 +24,10 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
 
     public function parse($remaining_metar, $cavok = false)
     {
-        $found = $this->applyRegexp($remaining_metar);
-
+        $result = $this->consume($remaining_metar);
+        $found = $result['found'];
+        $new_remaining_metar = $result['remaining'];
+        
         // handle the case where nothing has been found
         if ($found == null) {
             throw new ChunkDecoderException($remaining_metar, 'Bad format for visibility information', $this);
@@ -63,7 +65,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
                 'cavok' => $cavok,
                 'visibility' => $visibility,
             ),
-            'remaining_metar' => $this->getRemainingMetar($remaining_metar),
+            'remaining_metar' => $new_remaining_metar,
         );
     }
 }

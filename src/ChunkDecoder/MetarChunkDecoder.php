@@ -5,14 +5,17 @@ namespace MetarDecoder\ChunkDecoder;
 abstract class MetarChunkDecoder
 {
     /**
-     * Apply regexp on remaining metar string
-     * @return array matches array if any match, null if no match
+     * Extract the corresponding chunk from the remaining metar
+     * @return matches array if any match (null if no match), + updated remaining metar
      */
-    public function applyRegexp($remaining_metar)
+    public function consume($remaining_metar)
     {
-        // match regexp on remaining metar string and return matches if any
-        if (preg_match($this->getRegexp(), $remaining_metar, $matches)) {
-            return $matches;
+        $chunk_regexp = $this->getRegexp();
+        
+        // try to match chunk's regexp on remaining metar
+            $found = $matches;
+        }else{
+            $found = null;
         }
     }
 

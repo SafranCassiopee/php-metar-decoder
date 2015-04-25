@@ -33,7 +33,9 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
 
     public function parse($remaining_metar, $cavok = false)
     {
-        $found = $this->applyRegexp($remaining_metar);
+        $result = $this->consume($remaining_metar);
+        $found = $result['found'];
+        $new_remaining_metar = $result['remaining'];
 
         $present_weather = array();
         for ($i = 1; $i <= 13; $i += 6) {
@@ -56,7 +58,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         // return result + remaining metar
         return array(
             'result' => $result,
-            'remaining_metar' => $this->getRemainingMetar($remaining_metar),
+            'remaining_metar' => $new_remaining_metar,
         );
     }
 }
