@@ -31,7 +31,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // handle the case where nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'Bad format for surface wind information', $this);
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'Bad format for surface wind information',
+                                            $this);
         }
 
         // get unit used
@@ -63,7 +66,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         } else {
             $mean_dir = Value::newIntValue($found[1], Value::DEGREE);
             if ($mean_dir->getValue() < 0 || $mean_dir->getValue() > 360) {
-                throw new ChunkDecoderException($remaining_metar, 'Wind direction should be in [0,360]', $this);
+                throw new ChunkDecoderException($remaining_metar,
+                                                $new_remaining_metar,
+                                                'Wind direction should be in [0,360]',
+                                                $this);
             }
             $surface_wind->setVariableDirection(false);
             $surface_wind->setMeanDirection($mean_dir);
@@ -75,7 +81,10 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
             $max_dir_var = Value::newIntValue($found[8], Value::DEGREE);
             if ($min_dir_var->getValue() < 0 || $min_dir_var->getValue() > 360
             || $max_dir_var->getValue() < 0 || $max_dir_var->getValue() > 360) {
-                throw new ChunkDecoderException($remaining_metar, 'Wind direction variations should be in [0,360]', $this);
+                throw new ChunkDecoderException($remaining_metar,
+                                                $new_remaining_metar,
+                                                'Wind direction variations should be in [0,360]',
+                                                $this);
             }
             $surface_wind->setDirectionVariations($min_dir_var, $max_dir_var);
         }

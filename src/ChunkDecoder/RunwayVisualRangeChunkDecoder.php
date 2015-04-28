@@ -35,7 +35,10 @@ class RunwayVisualRangeChunkDecoder extends MetarChunkDecoder implements MetarCh
                     // check runway qfu validity
                     $qfu_as_int = Value::toInt($found[$i+1]);
                     if ($qfu_as_int > 36 || $qfu_as_int < 1) {
-                        throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
+                        throw new ChunkDecoderException($remaining_metar,
+                                                        $new_remaining_metar,
+                                                        'Invalid runway QFU runway visual range information',
+                                                        $this);
                     }
                     // get distance unit
                     if ($found[$i+5] == "FT") {

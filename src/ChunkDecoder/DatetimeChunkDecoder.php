@@ -22,14 +22,20 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 
         // handle the case where nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'Missing or badly formatted day/hour/minute information ("ddhhmmZ" expected)', $this);
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'Missing or badly formatted day/hour/minute information ("ddhhmmZ" expected)',
+                                            $this);
         } else {
             // retrieve found params and check them
             $day = intval($found[1]);
             $hour = $found[2];
             $minute = $found[3];
             if (!$this->checkValidity($day, $hour, $minute)) {
-                throw new ChunkDecoderException($remaining_metar, 'Invalid values for day/hour/minute', $this);
+                throw new ChunkDecoderException($remaining_metar,
+                                                $new_remaining_metar,
+                                                'Invalid values for day/hour/minute',
+                                                $this);
             }
             $result = array(
                 'day' => $day,

@@ -7,8 +7,8 @@ class DecodedMetar
     // raw METAR
     private $raw_metar;
 
-    // decoding exception, if any
-    private $decoding_exception;
+    // decoding exceptions, if any
+    private $decoding_exceptions = array();
 
     // report type (METAR, METAR COR or SPECI)
     private $type;
@@ -67,26 +67,27 @@ class DecodedMetar
      */
     public function isValid()
     {
-        return ($this->decoding_exception == null);
+        return (count($this->decoding_exceptions) == 0);
     }
 
     /**
-     * Set the exception that occured during metar decoding
+     * Add an exception that occured during metar decoding
      */
-    public function setDecodingException($exception)
+    public function addDecodingException($exception)
     {
-        $this->decoding_exception = $exception;
+        $this->decoding_exceptions[] = $exception;
 
         return $this;
     }
 
     /**
-     * If the decoded metar is invalid, get the exception that occured during decoding
+     * If the decoded metar is invalid, get all the exceptions that occurred during decoding
+     * Note that in strict mode, only the first encountered exception will be reported as parsing stops on error
      * Else return null;
      */
-    public function getDecodingException()
+    public function getDecodingExceptions()
     {
-        return $this->decoding_exception;
+        return $this->decoding_exceptions;
     }
 
     public function getRawMetar()

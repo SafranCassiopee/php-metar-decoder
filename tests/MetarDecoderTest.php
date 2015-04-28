@@ -25,7 +25,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     {
         // launch decoding
         $raw_metar = 'METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 17/10 Q1009 REFZRA WS R03';
-        $d = $this->decoder->parse($raw_metar);
+        $d = $this->decoder->parseStrict($raw_metar);
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -84,7 +84,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParseShort()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ');
+        $d = $this->decoder->parseStrict('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ');
 
         // compare results
         $this->assertTrue($d->isValid());
@@ -110,6 +110,37 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test parsing of a short, invalid METAR, without strict option activated
+     */
+    public function testParseInvalid()
+    {
+        // launch decoding
+        $d = $this->decoder->parse('METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ');
+
+        // compare results
+        $this->assertFalse($d->isValid());
+        $this->assertEquals(2, count($d->getDecodingExceptions()));
+        $this->assertEquals('METAR', $d->getType());
+        $this->assertEquals('LFPB', $d->getIcao());
+        $this->assertEquals(19, $d->getDay());
+        $this->assertEquals('07:30 UTC', $d->getTime());
+        $this->assertNull($d->getStatus());
+        $w = $d->getSurfaceWind();
+        $this->assertEquals(170, $w->getMeanDirection()->getValue());
+        $this->assertEquals(5, $w->getmeanSpeed()->getValue());
+        $this->assertEquals('kt', $w->getMeanSpeed()->getUnit());
+        $v = $d->getVisibility();
+        $this->assertEquals(6000, $v->getVisibility()->getValue());
+        $cs = $d->getClouds();
+        $c = $cs[0];
+        $this->assertEquals('OVC', $c->getAmount());
+        $this->assertEquals(2400, $c->getBaseHeight()->getValue());
+        $this->assertEquals(2, $d->getAirTemperature()->getValue());
+        $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
+        $this->assertNull($d->getPressure());
+    }
+    
+    /**
      * Test parsing of an empty METAR, which is valid
      */
     public function testParseNil()
@@ -133,6 +164,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test parsing of invalid METARs
+     * TODO improve this now that strict option exists
      */
     public function testParseErrors()
     {
@@ -148,9 +180,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
             // check the error triggered
             $this->assertFalse($d->isValid());
-            $error = $d->getDecodingException();
-            $this->assertEquals($metar_error[1], $error->getChunkDecoder());
-            $this->assertEquals($metar_error[2], $error->getChunk());
+            $errors = $d->getDecodingExceptions();
+            $first_error = $errors[0];
+            $this->assertEquals($metar_error[1], $first_error->getChunkDecoder());
+            $this->assertEquals($metar_error[2], $first_error->getChunk());
         }
     }
 }

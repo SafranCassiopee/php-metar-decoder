@@ -30,7 +30,10 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         
         // handle the case where nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'Bad format for visibility information', $this);
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'Bad format for visibility information',
+                                            $this);
         }
 
         if ($found[1] ==  'CAVOK') { // cloud and visibilty OK

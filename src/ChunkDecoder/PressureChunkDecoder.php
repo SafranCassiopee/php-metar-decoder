@@ -28,7 +28,10 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 
         // throw error if nothing has been found
         if ($found == null) {
-            throw new ChunkDecoderException($remaining_metar, 'Atmospheric pressure not found', $this);
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'Atmospheric pressure not found',
+                                            $this);
         }
 
         $raw_value = Value::toInt($found[2]);

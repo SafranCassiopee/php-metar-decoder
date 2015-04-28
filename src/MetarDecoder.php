@@ -49,7 +49,7 @@ class MetarDecoder
      */
     public function parseStrict($raw_metar)
     {
-        return parseWithMode($raw_metar, true);
+        return $this->parseWithMode($raw_metar, true);
     }
     
     /**
@@ -58,7 +58,7 @@ class MetarDecoder
      */    
     public function parse($raw_metar)
     {
-        return $this->parseWithMode($raw_metar, true);
+        return $this->parseWithMode($raw_metar, false);
     }
     
     /**
@@ -94,7 +94,8 @@ class MetarDecoder
                 $remaining_metar = $decoded['remaining_metar'];
             } catch (ChunkDecoderException $cde) {
                 // log error in decoded metar and abort decoding if in strict mode
-                $decoded_metar->setDecodingException($cde);
+                $decoded_metar->addDecodingException($cde);
+                // abort decoding if strict mode is activated, continue otherwise
                 if($strict){
                     break;
                 }

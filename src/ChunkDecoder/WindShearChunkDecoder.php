@@ -41,7 +41,10 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
                         $qfu_as_int = Value::toInt($runway);
                         // check runway qfu validity
                         if ($qfu_as_int > 36 || $qfu_as_int < 1) {
-                            throw new ChunkDecoderException($remaining_metar, 'Invalid runway QFU runway visual range information', $this);
+                            throw new ChunkDecoderException($remaining_metar,
+                                                            $new_remaining_metar,
+                                                            'Invalid runway QFU runway visual range information',
+                                                            $this);
                         }
                         $runways[] = $runway;
                     }
