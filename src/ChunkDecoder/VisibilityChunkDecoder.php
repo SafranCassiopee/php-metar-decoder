@@ -27,7 +27,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         $result = $this->consume($remaining_metar);
         $found = $result['found'];
         $new_remaining_metar = $result['remaining'];
-        
+
         // handle the case where nothing has been found
         if ($found == null) {
             throw new ChunkDecoderException($remaining_metar,

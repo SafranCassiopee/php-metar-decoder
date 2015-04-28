@@ -23,7 +23,7 @@ class MetarDecoder
     private $decoder_chain;
 
     private $strict_parsing = false;
-    
+
     public function __construct()
     {
         $this->decoder_chain = array(
@@ -45,22 +45,22 @@ class MetarDecoder
 
     /**
      * Decode a full metar string into a complete metar object
-     * with strict option, meaning that non-compliant metar will be 
+     * with strict option, meaning that non-compliant metar will be
      */
     public function parseStrict($raw_metar)
     {
         return $this->parseWithMode($raw_metar, true);
     }
-    
+
     /**
      * Decode a full metar string into a complete metar object
-     * without strict option, which means that parsing will continue even if some chunks are invalid 
-     */    
+     * without strict option, which means that parsing will continue even if some chunks are invalid
+     */
     public function parse($raw_metar)
     {
         return $this->parseWithMode($raw_metar, false);
     }
-    
+
     /**
      * Decode a full metar string into a complete metar object
      */
@@ -74,11 +74,10 @@ class MetarDecoder
 
         // call each decoder in the chain and use results to populate decoded metar
         foreach ($this->decoder_chain as $chunk_decoder) {
- 
             try {
-                // try to parse a chunk with current chunk decoder 
+                // try to parse a chunk with current chunk decoder
                 $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
-                
+
                 // map obtained fields (if any) to the final decoded object
                 $result = $decoded['result'];
                 if ($result != null) {
@@ -89,18 +88,18 @@ class MetarDecoder
                         }
                     }
                 }
-                
+
                 // update remaining metar for next round
                 $remaining_metar = $decoded['remaining_metar'];
             } catch (ChunkDecoderException $cde) {
                 // log error in decoded metar and abort decoding if in strict mode
                 $decoded_metar->addDecodingException($cde);
                 // abort decoding if strict mode is activated, continue otherwise
-                if($strict){
+                if ($strict) {
                     break;
                 }
                 // update remaining metar for next round
-                $remaining_metar = $cde->getRemainingMetar();                
+                $remaining_metar = $cde->getRemainingMetar();
             }
 
             // hook for report status decoder, abort if nil, but decoded metar is valid though

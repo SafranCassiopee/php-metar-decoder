@@ -7,7 +7,7 @@ class ChunkDecoderException extends \Exception
     private $metar_chunk;
 
     private $remaining_metar;
-    
+
     private $chunk_decoder_class;
 
     public function __construct($metar_chunk, $remaining_metar, $message, $chunk_decoder)
@@ -34,7 +34,7 @@ class ChunkDecoderException extends \Exception
     {
         return $this->metar_chunk;
     }
-    
+
     /**
      * Get remaining metar after the chunk decoder consumed it
      * In the cases where the exception is triggered because

@@ -139,7 +139,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertNull($d->getPressure());
     }
-    
+
     /**
      * Test parsing of an empty METAR, which is valid
      */
