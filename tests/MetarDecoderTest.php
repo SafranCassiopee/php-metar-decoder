@@ -115,7 +115,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParseInvalid()
     {
         // launch decoding
-        $d = $this->decoder->parse('METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ');
+        $d = $this->decoder->parseNotStrict('METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ');
 
         // compare results
         $this->assertFalse($d->isValid());
@@ -145,7 +145,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseNil()
     {
-        $d = $this->decoder->parse('METAR LFPO 231027Z NIL');
+        $d = $this->decoder->parseStrict('METAR LFPO 231027Z NIL');
         $this->assertEquals('NIL', $d->getStatus());
     }
 
@@ -154,7 +154,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseCAVOK()
     {
-        $d = $this->decoder->parse('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
+        $d = $this->decoder->parseStrict('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
         $this->assertTrue($d->getCavok());
         $this->assertNull($d->getVisibility());
         $this->assertNull($d->getClouds());
@@ -176,7 +176,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
         foreach ($error_dataset as $metar_error) {
             // launch decoding
-            $d = $this->decoder->parse($metar_error[0]);
+            $d = $this->decoder->parseNotStrict($metar_error[0]);
 
             // check the error triggered
             $this->assertFalse($d->isValid());
@@ -185,5 +185,21 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($metar_error[1], $first_error->getChunkDecoder());
             $this->assertEquals($metar_error[2], $first_error->getChunk());
         }
+    }
+    
+    /**
+     * Test object-wide strict option
+     */
+    public function testParseDefaultStrictMode()
+    {
+        // strict mode, max 1 error triggered
+        $this->decoder->setStrictParsing(true);
+        $d = $this->decoder->parse('LFPG aaa bbb cccc');
+        $this->assertEquals(1, count($d->getDecodingExceptions()));
+        
+        // not strict: several errors triggered
+        $this->decoder->setStrictParsing(false);
+        $d = $this->decoder->parse('LFPG aaa bbb cccc');
+        $this->assertEquals(5, count($d->getDecodingExceptions()));
     }
 }

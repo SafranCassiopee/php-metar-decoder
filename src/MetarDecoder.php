@@ -20,10 +20,13 @@ use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
 {
+
     private $decoder_chain;
 
     private $strict_parsing = false;
 
+    protected $global_strict_parsing = false;
+    
     public function __construct()
     {
         $this->decoder_chain = array(
@@ -44,8 +47,26 @@ class MetarDecoder
     }
 
     /**
+     * Set global parsing mode (strict/not strict) for the whole object
+     */
+    public function setStrictParsing($is_strict)
+    {
+        $this->global_strict_parsing = $is_strict;
+    }
+    
+    /**
      * Decode a full metar string into a complete metar object
-     * with strict option, meaning that non-compliant metar will be
+     * while using global strict option
+     */
+    public function parse($raw_metar)
+    {
+        return $this->parseWithMode($raw_metar, $this->global_strict_parsing);
+    }
+    
+    /**
+     * Decode a full metar string into a complete metar object
+     * with strict option, meaning decoding will stop as soon as
+     * a non-compliance is detected
      */
     public function parseStrict($raw_metar)
     {
@@ -54,13 +75,14 @@ class MetarDecoder
 
     /**
      * Decode a full metar string into a complete metar object
-     * without strict option, which means that parsing will continue even if some chunks are invalid
+     * with strict option disabled, meaning that decoding will
+     * continue even if metar is not compliant
      */
-    public function parse($raw_metar)
+    public function parseNotStrict($raw_metar)
     {
         return $this->parseWithMode($raw_metar, false);
     }
-
+   
     /**
      * Decode a full metar string into a complete metar object
      */
