@@ -60,6 +60,8 @@ class DecodedMetar
         $this->raw_metar = $raw_metar;
 
         $this->cavok = false;
+        
+        $this->decoding_exceptions = array();
     }
 
     /**
@@ -90,6 +92,11 @@ class DecodedMetar
         return $this->decoding_exceptions;
     }
 
+    public function resetDecodingExceptions()
+    {
+        $this->decoding_exceptions = array();
+    }
+    
     public function getRawMetar()
     {
         return trim($this->raw_metar);
