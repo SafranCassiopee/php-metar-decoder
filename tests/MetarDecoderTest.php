@@ -186,7 +186,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($metar_error[2], $first_error->getChunk());
         }
     }
-    
+
     /**
      * Test object-wide strict option
      */
@@ -196,7 +196,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->decoder->setStrictParsing(true);
         $d = $this->decoder->parse('LFPG aaa bbb cccc');
         $this->assertEquals(1, count($d->getDecodingExceptions()));
-        
+
         // not strict: several errors triggered
         $this->decoder->setStrictParsing(false);
         $d = $this->decoder->parse('LFPG aaa bbb cccc');

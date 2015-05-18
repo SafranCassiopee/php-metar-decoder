@@ -20,13 +20,12 @@ use MetarDecoder\Exception\ChunkDecoderException;
 
 class MetarDecoder
 {
-
     private $decoder_chain;
 
     private $strict_parsing = false;
 
     protected $global_strict_parsing = false;
-    
+
     public function __construct()
     {
         $this->decoder_chain = array(
@@ -53,7 +52,7 @@ class MetarDecoder
     {
         $this->global_strict_parsing = $is_strict;
     }
-    
+
     /**
      * Decode a full metar string into a complete metar object
      * while using global strict option
@@ -62,7 +61,7 @@ class MetarDecoder
     {
         return $this->parseWithMode($raw_metar, $this->global_strict_parsing);
     }
-    
+
     /**
      * Decode a full metar string into a complete metar object
      * with strict option, meaning decoding will stop as soon as
@@ -82,7 +81,7 @@ class MetarDecoder
     {
         return $this->parseWithMode($raw_metar, false);
     }
-   
+
     /**
      * Decode a full metar string into a complete metar object
      */
