@@ -154,7 +154,8 @@ $d->getWindshearRunways(); //array('03')
 
 ```
 
-== About parsing errors ==
+About parsing errors
+--------------------
 
 When an unexpected format is encountered for a part of the METAR, the parsing error is logged into the DecodedMetar object itself.
 
@@ -169,17 +170,23 @@ The mode can be set globally for a MetarDecoder object, or just once as you can 
 
 $decoder = new MetarDecoder\MetarDecoder();
 
-$decoder->setStrictParsing(true); // change global parsing mode to "strict"
+// change global parsing mode to "strict"
+$decoder->setStrictParsing(true);
 
-$decoder->parse("..."); // this parsing will be made with strict mode
+// this parsing will be made with strict mode
+$decoder->parse("...");
 
-$decoder->parseNotStrict("..."); // but this one will ignore global mode and will be made with not-strict mode anyway
+// but this one will ignore global mode and will be made with not-strict mode anyway
+$decoder->parseNotStrict("...");
 
-$decoder->setStrictParsing(false); // change global parsing mode to "not-strict"
+// change global parsing mode to "not-strict"
+$decoder->setStrictParsing(false);
 
-$decoder->parse("..."); // this parsing will be made with no-strict mode
+// this parsing will be made with no-strict mode
+$decoder->parse("...");
 
-$decoder->parseStrict("..."); // but this one will ignore global mode and will be made with strict mode anyway
+// but this one will ignore global mode and will be made with strict mode anyway
+$decoder->parseStrict("...");
 
 ```
 
