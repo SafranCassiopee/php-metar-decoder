@@ -84,9 +84,20 @@ $d = $decoder->parse($raw_metar);
                     $clean_dump = str_replace($to_delete,'',$raw_dump);
                     echo $clean_dump;
                 ?></div>
-            <? } ?>
+            </div>
+            <? } else { ?>
+            </div>
+                <br>
+                <div class="alert alert-info">
+                Need inspiration ? What about:
+                <ul>
+                    <li><a href="./index.php?metar=CYFB+271515Z+32017KT+3SM+DRSN+BKN040+M29%2FM34+A2957+RMK+SC7+SLP019">CYFB 271515Z 32017KT 3SM DRSN BKN040 M29/M34 A2957 RMK SC7 SLP019</a></li>
+                    <li><a href="./index.php?metar=EETU+271450Z+05005KT+9000+OVC006+01%2FM00+Q1019">EETU 271450Z 05005KT 9000 OVC006 01/M00 Q1019</a></li>
+                    <li><a href="./index.php?metar=SBGU+271400Z+27006KT+8000+TS+VCSH+BKN020+FEW030CB+BKN080+25%2F20+Q1017">SBGU 271400Z 27006KT 8000 TS VCSH BKN020 FEW030CB BKN080 25/20 Q1017</a></li>
 
-          </div>
+                </ul>
+                </div>
+            <? } ?>
         </div>
 
     
