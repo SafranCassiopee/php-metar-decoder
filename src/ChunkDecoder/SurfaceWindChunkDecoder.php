@@ -13,8 +13,8 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 {
     public function getRegexp()
     {
-        $direction = "([/0-9]{3}|VRB)";
-        $speed = "P?([0-9]{2,3})";
+        $direction = "([0-9]{3}|VRB|///)";
+        $speed = "P?([/0-9]{2,3}|//)";
         $speed_variations = "(GP?([0-9]{2,3}))?"; // optionnal
         $unit = "(KT|MPS|KPH)";
         $direction_variations = "( ([0-9]{3})V([0-9]{3}))?"; // optionnal
@@ -34,6 +34,14 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
             throw new ChunkDecoderException($remaining_metar,
                                             $new_remaining_metar,
                                             'Bad format for surface wind information',
+                                            $this);
+        }
+
+        // handle the case where nothing is observed
+        if ($found[1] == '///' && $found[2] == '//') {
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'No information measured for surface wind',
                                             $this);
         }
 
@@ -88,6 +96,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
             }
             $surface_wind->setDirectionVariations($min_dir_var, $max_dir_var);
         }
+
         // speed variations
         if (strlen($found[4]) > 0) {
             $surface_wind->setSpeedVariations(Value::newIntValue($found[4], $speed_unit));

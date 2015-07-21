@@ -3,6 +3,7 @@
 namespace MetarDecoder\Test\ChunkDecoder;
 
 use MetarDecoder\ChunkDecoder\SurfaceWindChunkDecoder;
+use MetarDecoder\Exception\ChunkDecoderException;
 
 class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,6 +62,19 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParseInvalidChunk($chunk)
     {
         $this->decoder->parse($chunk);
+    }
+
+    /**
+     * Test parsing of chunk with no information
+     */
+    public function testEmptyInformationChunk()
+    {
+        try {
+            $this->decoder->parse('/////KT PPP');
+            $this->fail('An exception should have been thrown here');
+        } catch (ChunkDecoderException $cde) {
+            $this->assertEquals('PPP', $cde->getRemainingMetar());
+        }
     }
 
     public function getChunk()
