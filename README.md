@@ -156,6 +156,27 @@ $d->getWindshearRunways(); //array('03')
 
 ```
 
+About Value objects
+-------------------
+
+In the example above, it is assumed that all requested parameters are available. 
+In the real world, some fields are not mandatory thus it is important to check that the Value object (containing both the value and its unit) is not null before using it.
+What you do in case it's null is totally up to you.
+
+Here is an example:
+
+```php
+// check that the $dew_point is not null and give it a default value if it is
+$dew_point = $d->getDewPointTemperature();
+if($dew_point == null){
+    $dew_point = new Value(999, Value::DEGREE_CELSIUS)
+}
+
+// $dew_point object can now be accessed safely
+$dew_point->getValue();
+$dew_point->getUnit();
+```
+
 About parsing errors
 --------------------
 
