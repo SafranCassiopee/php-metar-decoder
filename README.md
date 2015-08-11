@@ -88,7 +88,7 @@ All values who have a unit are based on the `Value` object which provides the me
 require_once 'vendor/autoload.php';
 
 $decoder = new MetarDecoder\MetarDecoder();
-$d = $decoder->parse('PAPO 131156Z 31014KT 5SM +DZ BR OVC042 M23/M27 A2959 RMK A01 11200 21230 52010')
+$d = $decoder->parse('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10')
 
 //context information
 $d->isValid()); //true
@@ -149,7 +149,7 @@ $d->getPressure()->getUnit(); //'hPa'
 // recent weather
 $rw = $d->getRecentWeather();
 $rw->getCharacteristics(); //'FZ'
-current($rw->getTypes()); //'RA'
+$rw->getTypes(); //array('RA')
 
 // windshears
 $d->getWindshearRunways(); //array('03')
