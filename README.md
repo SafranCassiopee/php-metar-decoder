@@ -88,7 +88,7 @@ All values who have a unit are based on the `Value` object which provides the me
 require_once 'vendor/autoload.php';
 
 $decoder = new MetarDecoder\MetarDecoder();
-$d = $decoder->parse('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10')
+$d = $decoder->parse('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03')
 
 //context information
 $d->isValid()); //true
