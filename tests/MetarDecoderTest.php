@@ -76,6 +76,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('FZ', $rw->getCharacteristics());
         $this->assertEquals('RA', current($rw->getTypes()));
         $this->assertEquals(array('03'), $d->getWindshearRunways());
+        $this->assertFalse($d->getWindshearAllRunways());
     }
 
     /**
@@ -201,5 +202,13 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->decoder->setStrictParsing(false);
         $d = $this->decoder->parse('LFPG aaa bbb cccc');
         $this->assertEquals(5, count($d->getDecodingExceptions()));
+    }
+
+    public function testErrorReset()
+    {
+        $d = $this->decoder->parse('LFPG aaa bbb cccc');
+        $this->assertEquals(5, count($d->getDecodingExceptions()));
+        $d->resetDecodingExceptions();
+        $this->assertEquals(0, count($d->getDecodingExceptions()));
     }
 }
