@@ -1,9 +1,9 @@
 PHP METAR decoder
 =================
 
-[![License](https://poser.pugx.org/SagemCassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
-[![Build Status](https://travis-ci.org/SagemCassiopee/php-metar-decoder.svg](https://travis-ci.org/SagemCassiopee/php-metar-decoder)
-[![Latest Stable Version](https://poser.pugx.org/SagemCassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
+[![License](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
+[![Build Status](https://travis-ci.org/SagemCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SagemCassiopee/php-metar-decoder)
+[![Latest Stable Version](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/inouire/php-metar-decoder)
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
@@ -41,7 +41,7 @@ Add the following line to the `composer.json` of your project
 ```json
 {
     "require": {
-        "inouire/php-metar-decoder": "dev-master"
+        "sagem-cassiopee/php-metar-decoder": "dev-master"
     }
 }
 ```
@@ -61,7 +61,7 @@ require_once 'vendor/autoload.php';
 
 - By hand
 
-Download the latest release from [github](https://github.com/inouire/php-metar-decoder/releases)
+Download the latest release from [github](https://github.com/SagemCassiopee/php-metar-decoder/releases)
 
 Extract it wherever you want in your project. The library itself is in the src/ directory, the other directories are not mandatory for the library to work.
 
