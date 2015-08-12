@@ -1,5 +1,5 @@
 {
-    "name": "inouire/php-metar-decoder",
+    "name": "SagemCassiopee/php-metar-decoder",
     "type": "library",
     "license": "GPL-3.0+",
     "description": "METAR weather observation decoder",
