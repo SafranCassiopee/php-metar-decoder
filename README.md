@@ -9,6 +9,12 @@ A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
 Try it on the [demo website](http://php-metar-decoder.inouire.net)
 
+ :exclamation: **This repository ownership has been transfered on 2015/08/15 from inouire user to SagemCassiopee organisation. The people behind the project remain the same.**
+ 
+ This migration could break your composer requirements if you used the old package name, in this case just use this new package name in your composer.json file: `sagem-cassiopee/php-metar-decoder`
+
+
+ 
 Introduction
 ------------
 
