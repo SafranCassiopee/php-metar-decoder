@@ -10,7 +10,7 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - phpunit --bootstrap src/MetarDecoder.inc.php tests --coverage-clover build/logs/clover.xml tests
+  - phpunit --bootstrap src/MetarDecoder.inc.php --coverage-clover build/logs/clover.xml tests
 
 after_script:
   - php vendor/bin/coveralls
