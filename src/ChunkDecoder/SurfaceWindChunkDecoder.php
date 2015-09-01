@@ -56,9 +56,6 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
             case "MPS":
                 $speed_unit = Value::METER_PER_SECOND;
                 break;
-            default:
-                $speed_unit = Value::UNKNOWN_UNIT;
-                break;
         }
 
         // retrieve and validate found params
