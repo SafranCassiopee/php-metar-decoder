@@ -128,7 +128,7 @@ $rvr[1]->getVisualRange()->getValue(); //4
 $rvr[1]->getPastTendency(); //'D'
 
 //present weather
-$pw = $d->getPresentWeather(); WeatherPhenomenon array
+$pw = $d->getPresentWeather(); //WeatherPhenomenon array
 $pw[0]->getIntensityProximity(); //'+'
 $pw[0]->getCharacteristics(); //'FZ'
 $pw[0]->getTypes(); //array('RA')
