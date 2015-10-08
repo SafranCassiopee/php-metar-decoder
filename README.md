@@ -230,7 +230,7 @@ If you find a valid METAR that is badly parsed by this library, please open a gi
 
 If you want to improve or enrich the test suite, fork the repository and submit your changes with a pull request.
 
-If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more confortable with.
+If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more comfortable with.
 
 Tests and coverage
 ------------------
