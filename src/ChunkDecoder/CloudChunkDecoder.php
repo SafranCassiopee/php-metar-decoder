@@ -41,7 +41,7 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
 
             if ($found[2] != null) {
                 // handle the case where no clouds observed
-                // TODO what fields to map ?
+                $layers = array();
             } else {
                 // handle cloud layers and visibility
                 $layers = array();
