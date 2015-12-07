@@ -87,8 +87,10 @@ class MetarDecoder
      */
     private function parseWithMode($raw_metar, $strict)
     {
+        // remove 'end of message' and following characters
+        $clean_metar = preg_replace('#=.*$#', '', $raw_metar);
         // prepare decoding inputs/outputs (upper case + trim + no more than one space)
-        $clean_metar = preg_replace("#[ ]{2,}#", ' ', trim(strtoupper($raw_metar))).' ';
+        $clean_metar = preg_replace("#[ ]{2,}#", ' ', trim(strtoupper($clean_metar))).' ';
         $remaining_metar = $clean_metar;
         $decoded_metar = new DecodedMetar($clean_metar);
         $with_cavok = false;

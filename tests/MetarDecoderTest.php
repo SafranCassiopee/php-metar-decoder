@@ -151,6 +151,16 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test parsing of METAR with trailing end-of-message
+     */
+    public function testParseEOM()
+    {
+        $d = $this->decoder->parseStrict('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032=');
+        $this->assertTrue($d->isValid());
+        $this->assertEquals('METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032', $d->getRawMetar());
+    }
+
+    /**
      * Test parsing of a METAR with CAVOK
      */
     public function testParseCAVOK()
