@@ -50,7 +50,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function testParseCAVOKChunk($chunk)
     {
         $decoded = $this->decoder->parse($chunk, true);
-        $this->assertNull($decoded['result']);
+        $this->assertEquals(0, count($decoded['result']['clouds']));
     }
 
     /**
