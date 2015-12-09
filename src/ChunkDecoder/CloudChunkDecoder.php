@@ -25,45 +25,36 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
         $found = $result['found'];
         $new_remaining_metar = $result['remaining'];
 
-        // handle the case where nothing has been found
-        if ($found == null) {
-            // if cavok has been detected earlier in the metar, no problem
-            if ($cavok) {
-                $result = null;
-            } else {
-                throw new ChunkDecoderException($remaining_metar,
-                                                $new_remaining_metar,
-                                                'Bad format for clouds information',
-                                                $this);
-            }
-        } else {
-            $layers = null;
+        // handle the case where nothing has been found and metar is not cavok
+        if ($found == null && !$cavok) {
+            throw new ChunkDecoderException($remaining_metar,
+                                            $new_remaining_metar,
+                                            'Bad format for clouds information',
+                                            $this);
+        }
 
-            if ($found[2] != null) {
-                // handle the case where no clouds observed
-                // TODO what fields to map ?
-            } else {
-                // handle cloud layers and visibility
-                $layers = array();
-                for ($i = 3; $i <= 15; $i += 4) {
-                    if ($found[$i] != null) {
-                        $layer = new CloudLayer();
-                        $layer_height = Value::toInt($found[$i+2]);
-                        if ($layer_height !== null) {
-                            $layer_height_ft = $layer_height * 100;
-                        } else {
-                            $layer_height_ft = null;
-                        }
-                        $layer->setAmount($found[$i+1])
-                              ->setBaseHeight(Value::newValue($layer_height_ft, Value::FEET))
-                              ->setType($found[$i+3]);
-                        $layers[] = $layer;
+        // default case: CAVOK or clear sky, no cloud layer
+        $result = array(
+            'clouds' => array(),
+        );
+
+        // there are clouds, handle cloud layers and visibility
+        if($found != null && $found[2] == null){
+            for ($i = 3; $i <= 15; $i += 4) {
+                if ($found[$i] != null) {
+                    $layer = new CloudLayer();
+                    $layer_height = Value::toInt($found[$i+2]);
+                    if ($layer_height !== null) {
+                        $layer_height_ft = $layer_height * 100;
+                    } else {
+                        $layer_height_ft = null;
                     }
+                    $layer->setAmount($found[$i+1])
+                          ->setBaseHeight(Value::newValue($layer_height_ft, Value::FEET))
+                          ->setType($found[$i+3]);
+                    $result['clouds'][] = $layer;
                 }
             }
-            $result = array(
-                'clouds' => $layers,
-            );
         }
 
         // return result + remaining metar

@@ -158,7 +158,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = $this->decoder->parseStrict('METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995');
         $this->assertTrue($d->getCavok());
         $this->assertNull($d->getVisibility());
-        $this->assertNull($d->getClouds());
+        $this->assertEquals(0, count($d->getClouds()));
         // check that we went to the end of the decoding though
         $this->assertEquals(995, $d->getPressure()->getValue());
     }
