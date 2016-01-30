@@ -23,7 +23,7 @@ METAR is a format made for weather information reporting. METAR weather reports 
 Raw METAR format is highly standardized through the International Civil Aviation Organization (ICAO).
 
 *    [METAR definition on wikipedia](http://en.wikipedia.org/wiki/METAR)
-*    METAR format specification(link needed)
+*    [METAR format specification](http://www.wmo.int/pages/prog/www/WMOCodes/WMO306_vI1/VolumeI.1.html)
 *    [METAR documentation](http://meteocentre.com/doc/metar.html)
 
 Requirements
