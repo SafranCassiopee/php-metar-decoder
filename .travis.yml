@@ -5,7 +5,7 @@ php:
   - 5.3
   
 before_script:
-  - composer require --no-update satooshi/php-coveralls:dev-master@dev
+  - composer require --no-update satooshi/php-coveralls '~1.0'
   - composer update --no-interaction
 
 script:
