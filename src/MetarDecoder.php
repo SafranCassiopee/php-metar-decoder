@@ -26,6 +26,8 @@ class MetarDecoder
 
     protected $global_strict_parsing = false;
 
+    protected $discard_faulty_part_on_error = true;
+
     public function __construct()
     {
         $this->decoder_chain = array(
@@ -116,14 +118,16 @@ class MetarDecoder
                 // update remaining metar for next round
                 $remaining_metar = $decoded['remaining_metar'];
             } catch (ChunkDecoderException $cde) {
-                // log error in decoded metar and abort decoding if in strict mode
+                // log error in decoded metar
                 $decoded_metar->addDecodingException($cde);
+
                 // abort decoding if strict mode is activated, continue otherwise
                 if ($strict) {
                     break;
                 }
+
                 // update remaining metar for next round
-                $remaining_metar = $cde->getRemainingMetar();
+                $remaining_metar = $cde->getFreshRemainingMetar();
             }
 
             // hook for report status decoder, abort if nil, but decoded metar is valid though
@@ -141,4 +145,5 @@ class MetarDecoder
 
         return $decoded_metar;
     }
+
 }
