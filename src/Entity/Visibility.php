@@ -4,6 +4,9 @@ namespace MetarDecoder\Entity;
 
 class Visibility
 {
+    // visibility chunk
+    private $chunk;
+
     // prevailing visibility
     private $visibility;
 
@@ -12,6 +15,16 @@ class Visibility
 
     // direction of minimum visibility
     private $minimum_direction;
+
+    public function getChunk()
+    {
+        return $this->chunk;
+    }
+
+    public function setChunk($chunk)
+    {
+        $this->chunk = $chunk;
+    }
 
     public function getVisibility()
     {
