@@ -26,10 +26,11 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $direction, $variable_direction, $speed, $speed_variations, $speed_unit, $direction_variations, $remaining)
+    public function testParse($chunk, $return_chunk, $direction, $variable_direction, $speed, $speed_variations, $speed_unit, $direction_variations, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $wind = $decoded['result']['surfaceWind'];
+        $this->assertEquals($return_chunk, $wind->getChunk());
         if (!$variable_direction) {
             $this->assertEquals($direction, $wind->getMeanDirection()->getValue());
             $this->assertEquals('deg', $wind->getMeanDirection()->getUnit());
@@ -82,6 +83,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 "chunk" => "VRB01MPS AAA",
+                "return_chunk" => "VRB01MPS",
                 "direction" => null,
                 "variable_direction" => true,
                 "speed" => 1,
@@ -92,6 +94,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "chunk" => "24004MPS BBB",
+                "return_chunk" => "24004MPS",
                 "direction" => 240,
                 "variable_direction" => false,
                 "speed" => 4,
@@ -102,6 +105,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "chunk" => "140P99KT CCC",
+                "return_chunk" => "140P99KT",
                 "direction" => 140,
                 "variable_direction" => false,
                 "speed" => 99,
@@ -112,6 +116,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "chunk" => "02005MPS 350V070 DDD",
+                "return_chunk" => "02005MPS 350V070",
                 "direction" => 20,
                 "variable_direction" => false,
                 "speed" => 5,
@@ -122,6 +127,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 "chunk" => "12003KPH FFF",
+                "return_chunk" => "12003KPH",
                 "direction" => 120,
                 "variable_direction" => false,
                 "speed" => 3,

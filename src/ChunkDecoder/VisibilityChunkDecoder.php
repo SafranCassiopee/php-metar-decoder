@@ -46,7 +46,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
             $cavok = false;
             $visibility = new Visibility();
             if ($found[2] != null) { // icao visibility
-                $visibility->setChunk($found[1]);
+                $visibility->setChunk(trim($found[1]));
                 $visibility->setVisibility(Value::newIntValue($found[2], Value::METER));
                 if ($found[4] != null) {
                     $visibility->setMinimumVisibility(Value::newIntValue($found[4], Value::METER))
@@ -61,7 +61,7 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
                 } else {
                     $vis_value = $main;
                 }
-                $visibility->setChunk($found[1]);
+                $visibility->setChunk(trim($found[1]));
                 $visibility->setVisibility(Value::newValue($vis_value, Value::STATUTE_MILE));
             }
         }

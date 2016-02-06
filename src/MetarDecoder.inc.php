@@ -11,6 +11,7 @@
 $to_include = array(
     'MetarDecoder.php',
 
+    'Entity/InformationBase.php',
     'Entity/DecodedMetar.php',
     'Entity/SurfaceWind.php',
     'Entity/RunwayVisualRange.php',

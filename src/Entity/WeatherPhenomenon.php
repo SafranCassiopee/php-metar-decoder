@@ -2,7 +2,7 @@
 
 namespace MetarDecoder\Entity;
 
-class WeatherPhenomenon
+class WeatherPhenomenon extends InformationBase
 {
     // intensity/proximity of the phenomenon + / - / VC (=vicinity)
     private $intensity_proximity;
