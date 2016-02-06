@@ -117,6 +117,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     {
         // launch decoding
         $d = $this->decoder->parseNotStrict('METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ');
+        //                                                     here ^                              ^ and here
 
         // compare results
         $this->assertFalse($d->isValid());
@@ -139,6 +140,36 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertNull($d->getPressure());
+
+    }
+
+    /**
+     * Test parsing of an invalid METAR, where parsing can continue normally without strict option activated
+     */
+    public function testParseInvalidPart()
+    {
+        // launch decoding
+        $d = $this->decoder->parseNotStrict('METAR LFPB 190730Z AUTOP X17005KT 6000 OVC024 02/00 Q1032 ');
+        //                                                     here ^ ^ and here
+
+        // compare results
+        $this->assertFalse($d->isValid());
+        $this->assertEquals(2, count($d->getDecodingExceptions()));
+        $this->assertEquals('METAR', $d->getType());
+        $this->assertEquals('LFPB', $d->getIcao());
+        $this->assertEquals(19, $d->getDay());
+        $this->assertEquals('07:30 UTC', $d->getTime());
+        $this->assertNull($d->getStatus());
+        $this->assertNull($d->getSurfaceWind());
+        $v = $d->getVisibility();
+        $this->assertEquals(6000, $v->getVisibility()->getValue());
+        $cs = $d->getClouds();
+        $c = $cs[0];
+        $this->assertEquals('OVC', $c->getAmount());
+        $this->assertEquals(2400, $c->getBaseHeight()->getValue());
+        $this->assertEquals(2, $d->getAirTemperature()->getValue());
+        $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
+        $this->assertEquals(1032, $d->getPressure()->getValue());
     }
 
     /**

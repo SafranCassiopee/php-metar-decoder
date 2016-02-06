@@ -27,4 +27,5 @@ abstract class MetarChunkDecoder
             'remaining' => $new_remaining_metar,
         );
     }
+
 }

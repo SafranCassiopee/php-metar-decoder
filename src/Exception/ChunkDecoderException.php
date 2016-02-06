@@ -38,12 +38,32 @@ class ChunkDecoderException extends \Exception
     /**
      * Get remaining metar after the chunk decoder consumed it
      * In the cases where the exception is triggered because
-      * chunk's regexp didn't match, it will be the same.
-      * For other cases it won't, and having this information
-      * will allow to continue decoding
-     */
-    public function getRemainingMetar()
+      * chunk's regexp didn't match, one chunk will be eaten
+      * with whitespace separator.
+      * Having this information can allow the decoding to continue
+      */
+    public function getFreshRemainingMetar()
     {
-        return $this->remaining_metar;
+        if(trim($this->remaining_metar) == $this->metar_chunk){
+          return $this->consumeOneChunk($this->remaining_metar);
+        } else {
+          return $this->remaining_metar;
+        }
+    }
+
+
+    /**
+     * Consume one chunk blindly, without looking for the specific pattern
+     * (only whitespace)
+     */
+    private static function consumeOneChunk($remaining_metar)
+    {
+        $next_space = strpos($remaining_metar, ' ');
+        if($next_space > 0){
+            return substr($remaining_metar, $next_space + 1);
+        } else {
+            return $remaining_metar;
+        }
+
     }
 }
