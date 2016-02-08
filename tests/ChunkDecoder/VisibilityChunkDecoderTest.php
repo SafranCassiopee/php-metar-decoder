@@ -24,7 +24,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $cavok, $visibility, $visibility_unit, $minimum, $minimum_direction, $remaining)
+    public function testParse($chunk, $cavok, $visibility, $visibility_m, $visibility_SM,
+                              $visibility_unit, $minimum, $minimum_direction, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         if ($cavok) {
@@ -35,6 +36,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
         } else {
             $vis = $decoded['result']['visibility'];
             $this->assertEquals($visibility, $vis->getVisibility()->getValue());
+            $this->assertEquals($visibility_m, $vis->getVisibility()->getConvertedValue('m'));
+            $this->assertEquals($visibility_SM, $vis->getVisibility()->getConvertedValue('SM'));
             $this->assertEquals($visibility_unit, $vis->getVisibility()->getUnit());
             if ($minimum != null) {
                 $this->assertEquals($minimum, $vis->getMinimumVisibility()->getValue());
@@ -62,6 +65,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "0200 AAA",
                 "cavok" => false,
                 "visibility" => 200,
+                "visibility_m" => 200,
+                "visibility_SM" => 0.124,
                 "visibility_unit" => 'm',
                 "minimum" => null,
                 "minimum_direction" => null,
@@ -71,6 +76,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "CAVOK BBB",
                 "cavok" => true,
                 "visibility" => null,
+                "visibility_m" => null,
+                "visibility_SM" => null,
                 "visibility_unit" => 'm',
                 "minimum" => null,
                 "minimum_direction" => null,
@@ -80,6 +87,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "8000 1200N CCC",
                 "cavok" => false,
                 "visibility" => 8000,
+                "visibility_m" => 8000,
+                "visibility_SM" => 4.971,
                 "visibility_unit" => 'm',
                 "minimum" => 1200,
                 "minimum_direction" => "N",
@@ -89,6 +98,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "2500 2200 DDD",
                 "cavok" => false,
                 "visibility" => 2500,
+                "visibility_m" => 2500,
+                "visibility_SM" => 1.553,
                 "visibility_unit" => 'm',
                 "minimum" => 2200,
                 "minimum_direction" => null,
@@ -98,6 +109,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "1 1/4SM EEE",
                 "cavok" => false,
                 "visibility" => 1.25,
+                "visibility_m" => 2011.675,
+                "visibility_SM" => 1.25,
                 "visibility_unit" => 'SM',
                 "minimum" => null,
                 "minimum_direction" => null,
@@ -107,6 +120,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "10SM FFF",
                 "cavok" => false,
                 "visibility" => 10,
+                "visibility_m" => 16093.400,
+                "visibility_SM" => 10,
                 "visibility_unit" => 'SM',
                 "minimum" => null,
                 "minimum_direction" => null,
@@ -116,6 +131,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "3/4SM GGG",
                 "cavok" => false,
                 "visibility" => 0.75,
+                "visibility_m" => 1207.005,
+                "visibility_SM" => 0.75,
                 "visibility_unit" => 'SM',
                 "minimum" => null,
                 "minimum_direction" => null,
@@ -125,6 +142,8 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "chunk" => "//// HHH",
                 "cavok" => false,
                 "visibility" => null,
+                "visibility_m" => null,
+                "visibility_SM" => null,
                 "visibility_unit" => null,
                 "minimum" => null,
                 "minimum_direction" => null,
