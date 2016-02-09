@@ -48,6 +48,22 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test "Conversion rate not defined" Exception during unit conversion
+     * @param $chunk
+     * @dataProvider getChunk
+     */
+    public function testParseConverterException($chunk, $cavok, $visibility){
+
+        $decoded = $this->decoder->parse($chunk);
+        if(isset($visibility)){
+            $vis = $decoded['result']['visibility'];
+            $this->setExpectedException('Exception', 'Conversion rate between "m" and "aaa" is not defined.');
+            $this->assertEquals($visibility, $vis->getVisibility()->getConvertedValue('aaa'));
+        }
+
+    }
+
+    /**
      * Test parsing of invalid surface wind chunks
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
