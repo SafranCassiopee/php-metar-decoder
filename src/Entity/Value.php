@@ -20,10 +20,6 @@ class Value
     const MERCURY_INCH = 'inHg';
     const UNKNOWN_UNIT = 'N/A';
 
-    private $speedConst = array(self::KNOT, self::METER_PER_SECOND, self::KILOMETER_PER_HOUR);
-    private $distanceConst = array(self::METER, self::FEET, self::STATUTE_MILE);
-    private $pressureConst = array(self::HECTO_PASCAL, self::MERCURY_INCH);
-
     private $speedConversionMap = array(
         'base' => self::METER_PER_SECOND,
         self::METER_PER_SECOND => 1,
@@ -40,7 +36,7 @@ class Value
 
     private $pressureConversionMap = array(
         'base' => self::HECTO_PASCAL,
-        self::HECTO_PASCAL => 1,
+        self::HECTO_PASCAL => 100,
         self::MERCURY_INCH => 3.386389e3
     );
 
@@ -76,15 +72,15 @@ class Value
 
     private function getConversionMap()
     {
-        if(in_array($this->unit, $this->speedConst))
+        if(array_key_exists($this->unit, $this->speedConversionMap))
         {
             return $this->speedConversionMap;
         }
-        elseif(in_array($this->unit, $this->distanceConst))
+        elseif(array_key_exists($this->unit, $this->distanceConversionMap))
         {
             return $this->distanceConversionMap;
         }
-        elseif(in_array($this->unit, $this->pressureConst))
+        elseif(array_key_exists($this->unit, $this->pressureConversionMap))
         {
             return $this->pressureConversionMap;
         }

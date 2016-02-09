@@ -25,7 +25,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $rwy1_unit, $rwy1_interval, $rwy1_variable, $remaining)
+    public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $rwy1_vis_m, $rwy1_vis_feet,
+        $rwy1_unit, $rwy1_interval, $rwy1_variable, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $runways = $decoded['result']['runwaysVisualRange'];
@@ -41,6 +42,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($rwy1_unit, $min->getUnit());
         } else {
             $this->assertEquals($rwy1_vis, $visual_range->getVisualRange()->getValue());
+            $this->assertEquals($rwy1_vis_m, $visual_range->getVisualRange()->getConvertedValue('m'));
+            $this->assertEquals($rwy1_vis_feet, $visual_range->getVisualRange()->getConvertedValue('ft'));
             $this->assertEquals($rwy1_unit, $visual_range->getVisualRange()->getUnit());
         }
         $this->assertEquals($remaining, $decoded['remaining_metar']);
@@ -65,6 +68,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 1,
                 "rwy1_name" => "18L",
                 "rwy1_vis" => 800,
+                "rwy1_vis_m" => 800,
+                "rwy1_vis_feet" => 2624.672,
                 "rwy1_unit" => "m",
                 "rwy1_interval" => null,
                 "rw1_variable" => false,
@@ -75,6 +80,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 1,
                 "rwy1_name" => "20C",
                 "rwy1_vis" => 1200,
+                "rwy1_vis_m" => 1200,
+                "rwy1_vis_feet" => 3937.008,
                 "rwy1_unit" => "m",
                 "rwy1_interval" => null,
                 "rw1_variable" => false,
@@ -85,6 +92,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 2,
                 "rwy1_name" => "12",
                 "rwy1_vis" => null,
+                "rwy1_vis_m" => null,
+                "rwy1_vis_feet" => null,
                 "rwy1_unit" => "m",
                 "rwy1_interval" => array(800,1200),
                 "rw1_variable" => true,
@@ -95,6 +104,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "nb_runways" => 2,
                 "rwy1_name" => "30",
                 "rwy1_vis" => 5000,
+                "rwy1_vis_m" => 1524,
+                "rwy1_vis_feet" => 5000,
                 "rwy1_unit" => "ft",
                 "rwy1_interval" => null,
                 "rw1_variable" => false,
