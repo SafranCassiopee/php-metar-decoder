@@ -52,11 +52,26 @@ class Value
         return $this->value;
     }
 
+    /**
+     * Returns converted value of unit.
+     * Adapted from https://github.com/crisu83/php-conversion
+     * @param string $to Unit that you want your current unit converted to.
+     * Accepts 'kt', 'm/s', 'km/h', 'm', 'ft', 'SM', 'hPa', 'inHg'
+     * @return float Returns float value rounded to 3 digits after decimal point
+     * @throws \Exception If there's no conversion rate or conversion not possible between values
+     */
     public function getConvertedValue($to)
     {
         return round(($this->value * $this->getConversionRate($this->getUnit())) / $this->getConversionRate($to), 3);
     }
 
+    /**
+     * Returns conversion rate between original METAR unit and requested unit.
+     * Adapted from https://github.com/crisu83/php-conversion
+     * @param string $unit An unit that we want a conversion rate for (as compared to original METAR unit)
+     * @return mixed Returns conversion rate between original METAR unit and requested unit
+     * @throws \Exception Throws exception if there's no conversion rate between original METAR unit and requested unit
+     */
     private function getConversionRate($unit)
     {
         $conversionMap = $this->getConversionMap();
@@ -70,6 +85,11 @@ class Value
         return $conversionMap[$unit];
     }
 
+    /**
+     * Returns conversion map based on original METAR unit.
+     * @return array Returns conversion map based on unit of original METAR
+     * @throws \Exception Throws exception of there's no conversion map for original unit (i.e. for degrees)
+     */
     private function getConversionMap()
     {
         if(array_key_exists($this->unit, $this->speedConversionMap))
