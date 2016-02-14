@@ -20,21 +20,21 @@ class Value
     const MERCURY_INCH = 'inHg';
     const UNKNOWN_UNIT = 'N/A';
 
-    private $speedConversionMap = array(
+    private $speed_conversion_map = array(
         'base' => self::METER_PER_SECOND,
         self::METER_PER_SECOND => 1,
         self::KILOMETER_PER_HOUR => 0.277778,
         self::KNOT => 0.51444
     );
 
-    private $distanceConversionMap = array(
+    private $distance_conversion_map = array(
         'base' => self::METER,
         self::METER => 1,
         self::FEET => 0.3048,
         self::STATUTE_MILE => 1609.34
     );
 
-    private $pressureConversionMap = array(
+    private $pressure_conversion_map = array(
         'base' => self::HECTO_PASCAL,
         self::HECTO_PASCAL => 100,
         self::MERCURY_INCH => 3.386389e3
@@ -62,7 +62,9 @@ class Value
      */
     public function getConvertedValue($to)
     {
-        return round(($this->value * $this->getConversionRate($this->getUnit())) / $this->getConversionRate($to), 3);
+        $rate_from = $this->getConversionRate($this->getUnit());
+        $rate_to = $this->getConversionRate($to);
+        return round(($this->value * $rate_from) / $rate_to, 3);
     }
 
     /**
@@ -74,15 +76,15 @@ class Value
      */
     private function getConversionRate($unit)
     {
-        $conversionMap = $this->getConversionMap();
-        if (!isset($conversionMap[$unit])) {
+        $conversion_map = $this->getConversionMap();
+        if (!isset($conversion_map[$unit])) {
             throw new \Exception(sprintf(
                 'Conversion rate between "%s" and "%s" is not defined.',
-                $conversionMap['base'],
+                $conversion_map['base'],
                 $unit
             ));
         }
-        return $conversionMap[$unit];
+        return $conversion_map[$unit];
     }
 
     /**
@@ -92,22 +94,19 @@ class Value
      */
     private function getConversionMap()
     {
-        if(array_key_exists($this->unit, $this->speedConversionMap))
-        {
-            return $this->speedConversionMap;
+        $conversion_maps = array(
+            $this->speed_conversion_map,
+            $this->distance_conversion_map,
+            $this->pressure_conversion_map
+        );
+
+        foreach ($conversion_maps as $map) {
+            if (array_key_exists($this->unit, $map)) {
+                return $map;
+            }
         }
-        elseif(array_key_exists($this->unit, $this->distanceConversionMap))
-        {
-            return $this->distanceConversionMap;
-        }
-        elseif(array_key_exists($this->unit, $this->pressureConversionMap))
-        {
-            return $this->pressureConversionMap;
-        }
-        else
-        {
-            throw new \Exception("Trying to convert unsupported values");
-        }
+
+        throw new \Exception("Trying to convert unsupported values");
     }
 
     public function getUnit()
