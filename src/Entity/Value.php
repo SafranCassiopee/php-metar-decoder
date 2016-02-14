@@ -20,6 +20,26 @@ class Value
     const MERCURY_INCH = 'inHg';
     const UNKNOWN_UNIT = 'N/A';
 
+    private $speed_conversion_map = array(
+        'base' => self::METER_PER_SECOND,
+        self::METER_PER_SECOND => 1,
+        self::KILOMETER_PER_HOUR => 0.277778,
+        self::KNOT => 0.51444
+    );
+
+    private $distance_conversion_map = array(
+        'base' => self::METER,
+        self::METER => 1,
+        self::FEET => 0.3048,
+        self::STATUTE_MILE => 1609.34
+    );
+
+    private $pressure_conversion_map = array(
+        'base' => self::HECTO_PASCAL,
+        self::HECTO_PASCAL => 100,
+        self::MERCURY_INCH => 3.386389e3
+    );
+
     public function __construct($value, $unit)
     {
         $this->value = $value;
@@ -30,6 +50,63 @@ class Value
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Returns converted value of unit.
+     * Adapted from https://github.com/crisu83/php-conversion
+     * @param string $to Unit that you want your current unit converted to.
+     * Accepts 'kt', 'm/s', 'km/h', 'm', 'ft', 'SM', 'hPa', 'inHg'
+     * @return float Returns float value rounded to 3 digits after decimal point
+     * @throws \Exception If there's no conversion rate or conversion not possible between values
+     */
+    public function getConvertedValue($to)
+    {
+        $rate_from = $this->getConversionRate($this->getUnit());
+        $rate_to = $this->getConversionRate($to);
+        return round(($this->value * $rate_from) / $rate_to, 3);
+    }
+
+    /**
+     * Returns conversion rate between original METAR unit and requested unit.
+     * Adapted from https://github.com/crisu83/php-conversion
+     * @param string $unit An unit that we want a conversion rate for (as compared to original METAR unit)
+     * @return mixed Returns conversion rate between original METAR unit and requested unit
+     * @throws \Exception Throws exception if there's no conversion rate between original METAR unit and requested unit
+     */
+    private function getConversionRate($unit)
+    {
+        $conversion_map = $this->getConversionMap();
+        if (!isset($conversion_map[$unit])) {
+            throw new \Exception(sprintf(
+                'Conversion rate between "%s" and "%s" is not defined.',
+                $conversion_map['base'],
+                $unit
+            ));
+        }
+        return $conversion_map[$unit];
+    }
+
+    /**
+     * Returns conversion map based on original METAR unit.
+     * @return array Returns conversion map based on unit of original METAR
+     * @throws \Exception Throws exception of there's no conversion map for original unit (i.e. for degrees)
+     */
+    private function getConversionMap()
+    {
+        $conversion_maps = array(
+            $this->speed_conversion_map,
+            $this->distance_conversion_map,
+            $this->pressure_conversion_map
+        );
+
+        foreach ($conversion_maps as $map) {
+            if (array_key_exists($this->unit, $map)) {
+                return $map;
+            }
+        }
+
+        throw new \Exception("Trying to convert unsupported values");
     }
 
     public function getUnit()
