@@ -26,8 +26,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $direction, $variable_direction, $speed, $speed_kt, $speed_m, $speed_km,
-        $speed_variations, $speed_unit, $direction_variations, $remaining)
+    public function testParse($chunk, $direction, $variable_direction, $speed, $speed_variations, $speed_unit, $direction_variations, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $wind = $decoded['result']['surfaceWind'];
@@ -47,11 +46,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals('deg', $dir_var_min->getUnit());
         }
         $this->assertEquals($speed, $wind->getMeanSpeed()->getValue());
-
-        $this->assertEquals($speed_km, $wind->getMeanSpeed()->getConvertedValue('km/h'));
-        $this->assertEquals($speed_m, $wind->getMeanSpeed()->getConvertedValue('m/s'));
-        $this->assertEquals($speed_kt, $wind->getMeanSpeed()->getConvertedValue('kt'));
-
         if ($speed_variations != null) {
             $this->assertEquals($speed_variations, $wind->getSpeedVariations()->getValue());
         }
@@ -91,9 +85,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "direction" => null,
                 "variable_direction" => true,
                 "speed" => 1,
-                "speed_kt" => 1.944,
-                "speed_m" => 1,
-                "speed_km" => 3.6,
                 "speed_variations" => null,
                 "speed_unit" => "m/s",
                 "direction_variations" => null,
@@ -104,9 +95,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "direction" => 240,
                 "variable_direction" => false,
                 "speed" => 4,
-                "speed_kt" => 7.775,
-                "speed_m" => 4,
-                "speed_km" => 14.4,
                 "speed_variations" => null,
                 "speed_unit" => "m/s",
                 "direction_variations" => null,
@@ -117,9 +105,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "direction" => 140,
                 "variable_direction" => false,
                 "speed" => 99,
-                "speed_kt" => 99,
-                "speed_m" => 50.93,
-                "speed_km" => 183.346,
                 "speed_variations" => null,
                 "speed_unit" => "kt",
                 "direction_variations" => null,
@@ -130,9 +115,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "direction" => 20,
                 "variable_direction" => false,
                 "speed" => 5,
-                "speed_kt" => 9.719,
-                "speed_m" => 5,
-                "speed_km" => 18,
                 "speed_variations" => null,
                 "speed_unit" => "m/s",
                 "direction_variations" => array(350,70),
@@ -143,9 +125,6 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 "direction" => 120,
                 "variable_direction" => false,
                 "speed" => 3,
-                "speed_kt" => 1.620,
-                "speed_m" => 0.833,
-                "speed_km" => 3,
                 "speed_variations" => null,
                 "speed_unit" => "km/h",
                 "direction_variations" => null,

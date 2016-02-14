@@ -40,22 +40,6 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remaining, $decoded['remaining_metar']);
     }
 
-    /**
-     * Test "Trying to convert unsupported values" Exception during unit conversion
-     * @param $chunk
-     * @dataProvider getChunk
-     */
-    public function testParseConverterException($chunk, $air_temperature){
-
-        $decoded = $this->decoder->parse($chunk);
-
-        if ($air_temperature != null) {
-            $this->setExpectedException('Exception', 'Trying to convert unsupported values');
-            $this->assertEquals($air_temperature, $decoded['result']['airTemperature']->getConvertedValue('deg'));
-        }
-
-    }
-
     public function getChunk()
     {
         return array(
