@@ -29,12 +29,11 @@ class ValueTest extends \PHPUnit_Framework_TestCase
      * @param string $base_unit Base unit
      * @dataProvider getValueNoRateException
      */
-    public function testValueNoRateException($value, $unit, $required_unit, $base_unit){
-
+    public function testValueNoRateException($value, $unit, $required_unit, $base_unit)
+    {
         $value = new Value($value, $unit);
-        $this->setExpectedException('Exception', 'Conversion rate between "'.$base_unit.'" and "'.$required_unit.'" is not defined.');
+        $this->setExpectedException('Exception', 'Conversion rate between "' . $base_unit . '" and "' . $required_unit . '" is not defined.');
         $value->getConvertedValue($required_unit);
-
     }
 
     /**
@@ -43,12 +42,11 @@ class ValueTest extends \PHPUnit_Framework_TestCase
      * @param string $unit Unit of value
      * @dataProvider getValueUnsupportedException
      */
-    public function testValueUnsupportedException($value, $unit){
-
+    public function testValueUnsupportedException($value, $unit)
+    {
         $value = new Value($value, $unit);
         $this->setExpectedException('Exception', 'Trying to convert unsupported values');
         $value->getConvertedValue($unit);
-
     }
 
     public function getValue()
@@ -105,7 +103,8 @@ class ValueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function getValueNoRateException(){
+    public function getValueNoRateException()
+    {
         return array(
             array(
                 "value" => 3,
@@ -116,7 +115,8 @@ class ValueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function getValueUnsupportedException(){
+    public function getValueUnsupportedException()
+    {
         return array(
             array(
                 "value" => 3,
