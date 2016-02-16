@@ -99,6 +99,18 @@ class ValueTest extends \PHPUnit_Framework_TestCase
                 "unit" => 'km/h',
                 "new_value" => 1.620,
                 "required_unit" => 'kt'
+            ),
+            array(
+                "value" => 500,
+                "unit" => 'm',
+                "new_value" => 500,
+                "required_unit" => 'm'
+            ),
+            array(
+                "value" => 50,
+                "unit" => 'ft',
+                "new_value" => 50,
+                "required_unit" => 'ft'
             )
         );
     }
