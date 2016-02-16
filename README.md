@@ -178,6 +178,32 @@ $dew_point->getValue();
 $dew_point->getUnit();
 ```
 
+Value objects also contain their unit, that you can access with the `getUnit()` method. When you call `getValue()`, you'll get the value in this unit. 
+
+If you want to get the value directly in another unit you can call `getConvertedValue($unit)`. Supported values are speed, distance and pressure. 
+
+Here are all available units for conversion:
+
+```php
+// speed units:
+Value::METER_PER_SECOND
+Value::KILOMETER_PER_HOUR
+Value::KNOT
+
+// distance units:
+Value::METER
+Value::FEET
+Value::STATUTE_MILE
+
+// pressure units:
+Value::HECTO_PASCAL
+Value::MERCURY_INCH
+
+// use on-the-fly conversion
+$distance_in_sm = $visibility->getConvertedValue(Value::STATUTE_MILE);
+$speed_kph = $speed->getConvertedValue(Value::KILOMETER_PER_HOUR);
+```
+
 About parsing errors
 --------------------
 
