@@ -113,6 +113,7 @@ $v->getVisibility()->getValue(); //2500
 $v->getVisibility()->getUnit(); //'m'
 $v->getMinimumVisibility()->getValue(); //1000
 $v->getMinimumVisibilityDirection(); //'NW'
+$v->hasNDV(); //false
 
 //runway visual range
 $rvr = $d->getRunwaysVisualRange(); //RunwayVisualRange array

@@ -13,6 +13,9 @@ class Visibility
     // direction of minimum visibility
     private $minimum_direction;
 
+    // No Directional Variation
+    private $ndv;
+
     public function getVisibility()
     {
         return $this->visibility;
@@ -47,5 +50,15 @@ class Visibility
         $this->minimum_direction = $minimum_direction;
 
         return $this;
+    }
+
+    public function hasNDV()
+    {
+        return $this->ndv;
+    }
+
+    public function setNDV($has_ndv)
+    {
+        $this->ndv = $has_ndv;
     }
 }
