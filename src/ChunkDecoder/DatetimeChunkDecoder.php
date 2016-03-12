@@ -5,7 +5,7 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
- * Chunk decoder for date+time section
+ * Chunk decoder for date+time section.
  */
 class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
@@ -51,11 +51,13 @@ class DatetimeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
     }
 
     /**
-     * Check the validity of the decoded information for date time
-     * @param  string  $day
-     * @param  string  $hour
-     * @param  string  $minute
-     * @return boolean true if valid, false if not
+     * Check the validity of the decoded information for date time.
+     *
+     * @param string $day
+     * @param string $hour
+     * @param string $minute
+     *
+     * @return bool true if valid, false if not
      */
     private function checkValidity($day, $hour, $minute)
     {

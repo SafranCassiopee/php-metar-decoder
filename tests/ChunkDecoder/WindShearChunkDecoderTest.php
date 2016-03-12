@@ -14,10 +14,11 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid windshear chunks
-     * @param string  $chunk
-     * @param boolean $all_runways
-     * @param array   $runways
+     * Test parsing of valid windshear chunks.
+     *
+     * @param string $chunk
+     * @param bool   $all_runways
+     * @param array  $runways
      * @dataProvider getChunk
      */
     public function testParse($chunk, $all_runways, $runways, $remaining)
@@ -29,7 +30,8 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid wind shear chunks (bad format)
+     * Test parsing of invalid wind shear chunks (bad format).
+     *
      * @param string $chunk
      * @dataProvider getBadFormatChunk
      */
@@ -41,9 +43,10 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid wind shear chunks (invalid QFU)
+     * Test parsing of invalid wind shear chunks (invalid QFU).
+     *
      * @param string $chunk
-      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
+     * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
      */
     public function testInvalidChunk($chunk)
@@ -57,28 +60,28 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "input" => "WS R03L WS R32 WS R25C AAA",
-                "all_runways" => false,
-                "runways" => array("03L", "32", "25C"),
-                "remaining" => "AAA",
+                'input' => 'WS R03L WS R32 WS R25C AAA',
+                'all_runways' => false,
+                'runways' => array('03L', '32', '25C'),
+                'remaining' => 'AAA',
             ),
             array(
-                "input" => "WS R18C BBB",
-                "all_runways" => false,
-                "runways" => array("18C"),
-                "remaining" => "BBB",
+                'input' => 'WS R18C BBB',
+                'all_runways' => false,
+                'runways' => array('18C'),
+                'remaining' => 'BBB',
             ),
             array(
-                "input" => "WS ALL RWY CCC",
-                "all_runways" => true,
-                "runways" => null,
-                "remaining" => "CCC",
+                'input' => 'WS ALL RWY CCC',
+                'all_runways' => true,
+                'runways' => null,
+                'remaining' => 'CCC',
             ),
             array(
-                "input" => "WS RWY22 DDD",
-                "all_runways" => false,
-                "runways" => array("22"),
-                "remaining" => "DDD",
+                'input' => 'WS RWY22 DDD',
+                'all_runways' => false,
+                'runways' => array('22'),
+                'remaining' => 'DDD',
             ),
         );
     }
@@ -86,18 +89,18 @@ class WindShearChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getBadFormatChunk()
     {
         return array(
-            array("chunk" => "W RWY AAA"),
-            array("chunk" => "WS ALL BBB"),
-            array("chunk" => "WS R12P CCC"),
+            array('chunk' => 'W RWY AAA'),
+            array('chunk' => 'WS ALL BBB'),
+            array('chunk' => 'WS R12P CCC'),
         );
     }
 
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "WS RWY00 AAA"),
-            array("chunk" => "WS R40 BBB"),
-            array("chunk" => "WS R50C CCC"),
+            array('chunk' => 'WS RWY00 AAA'),
+            array('chunk' => 'WS R40 BBB'),
+            array('chunk' => 'WS R50C CCC'),
         );
     }
 }

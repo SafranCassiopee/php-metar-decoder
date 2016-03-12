@@ -7,7 +7,6 @@
  * Use composer to install this library if you want a simple autoloader setup.
  * To know how to use composer, see README.md
  */
-
 $to_include = array(
     'MetarDecoder.php',
 

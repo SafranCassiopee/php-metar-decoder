@@ -19,7 +19,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a complete, valid METAR
+     * Test parsing of a complete, valid METAR.
      */
     public function testParse()
     {
@@ -80,7 +80,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a short, valid METAR
+     * Test parsing of a short, valid METAR.
      */
     public function testParseShort()
     {
@@ -111,7 +111,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a short, invalid METAR, without strict option activated
+     * Test parsing of a short, invalid METAR, without strict option activated.
      */
     public function testParseInvalid()
     {
@@ -140,11 +140,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertNull($d->getPressure());
-
     }
 
     /**
-     * Test parsing of an invalid METAR, where parsing can continue normally without strict option activated
+     * Test parsing of an invalid METAR, where parsing can continue normally without strict option activated.
      */
     public function testParseInvalidPart()
     {
@@ -173,7 +172,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of an empty METAR, which is valid
+     * Test parsing of an empty METAR, which is valid.
      */
     public function testParseNil()
     {
@@ -182,7 +181,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of METAR with trailing end-of-message
+     * Test parsing of METAR with trailing end-of-message.
      */
     public function testParseEOM()
     {
@@ -192,7 +191,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a METAR with CAVOK
+     * Test parsing of a METAR with CAVOK.
      */
     public function testParseCAVOK()
     {
@@ -206,14 +205,14 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test parsing of invalid METARs
-     * TODO improve this now that strict option exists
+     * TODO improve this now that strict option exists.
      */
     public function testParseErrors()
     {
         $error_dataset = array(
             array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC'),
             array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234'),
-            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ','CloudChunkDecoder','FZRAA FEW015'),
+            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ', 'CloudChunkDecoder', 'FZRAA FEW015'),
         );
 
         foreach ($error_dataset as $metar_error) {
@@ -230,7 +229,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test object-wide strict option
+     * Test object-wide strict option.
      */
     public function testParseDefaultStrictMode()
     {

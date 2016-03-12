@@ -5,7 +5,8 @@ namespace MetarDecoder\ChunkDecoder;
 abstract class MetarChunkDecoder
 {
     /**
-     * Extract the corresponding chunk from the remaining metar
+     * Extract the corresponding chunk from the remaining metar.
+     *
      * @return matches array if any match (null if no match), + updated remaining metar
      */
     public function consume($remaining_metar)
@@ -27,5 +28,4 @@ abstract class MetarChunkDecoder
             'remaining' => $new_remaining_metar,
         );
     }
-
 }

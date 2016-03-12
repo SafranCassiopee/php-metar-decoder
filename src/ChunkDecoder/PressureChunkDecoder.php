@@ -6,7 +6,7 @@ use MetarDecoder\Exception\ChunkDecoderException;
 use MetarDecoder\Entity\Value;
 
 /**
- * Chunk decoder for atmospheric pressure section
+ * Chunk decoder for atmospheric pressure section.
  */
 class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
@@ -17,7 +17,7 @@ class PressureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecode
 
     public function getRegexp()
     {
-        return "#^(Q|A)(////|[0-9]{4})( )#";
+        return '#^(Q|A)(////|[0-9]{4})( )#';
     }
 
     public function parse($remaining_metar, $cavok = false)

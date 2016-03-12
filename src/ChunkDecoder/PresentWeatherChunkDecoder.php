@@ -5,12 +5,12 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Entity\WeatherPhenomenon;
 
 /**
- * Chunk decoder for present weather section
+ * Chunk decoder for present weather section.
  */
 class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     public static $carac_dic = array(
-        'TS','FZ','SH','BL','DR','MI','BC','PR',
+        'TS', 'FZ', 'SH', 'BL', 'DR', 'MI', 'BC', 'PR',
     );
     public static $type_dic = array(
         'DZ', 'RA', 'SN', 'SG',
@@ -39,13 +39,13 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
 
         $present_weather = array();
         for ($i = 1; $i <= 13; $i += 6) {
-            if ($found[$i] != null && $found[$i+3] != '//') {
+            if ($found[$i] != null && $found[$i + 3] != '//') {
                 $weather = new WeatherPhenomenon();
-                $weather->setIntensityProximity($found[$i+1]);
-                $weather->setCharacteristics($found[$i+2]);
-                for ($k = 3; $k <= 5; $k++) {
-                    if ($found[$i+$k] != null) {
-                        $weather->addType($found[$i+$k]);
+                $weather->setIntensityProximity($found[$i + 1]);
+                $weather->setCharacteristics($found[$i + 2]);
+                for ($k = 3; $k <= 5; ++$k) {
+                    if ($found[$i + $k] != null) {
+                        $weather->addType($found[$i + $k]);
                     }
                 }
                 $present_weather[] = $weather;

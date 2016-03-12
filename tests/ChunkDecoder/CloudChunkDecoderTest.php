@@ -14,7 +14,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid cloud chunks
+     * Test parsing of valid cloud chunks.
+     *
      * @param $chunk
      * @param $nb_layers
      * @param $layer1_amount
@@ -43,7 +44,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing with invalid cloud chunks but with CAVOK earlier in the METAR
+     * Test parsing with invalid cloud chunks but with CAVOK earlier in the METAR.
+     *
      * @param $chunk
      * @dataProvider getInvalidChunk
      */
@@ -54,7 +56,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid cloud chunks
+     * Test parsing of invalid cloud chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -68,52 +71,52 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "VV085 AAA",
-                "nb_layers" => 1,
-                "layer1_amount" => "VV",
-                "layer1_base_height" => 8500,
-                "layer1_type" => null,
-                "remaining" => "AAA",
+                'chunk' => 'VV085 AAA',
+                'nb_layers' => 1,
+                'layer1_amount' => 'VV',
+                'layer1_base_height' => 8500,
+                'layer1_type' => null,
+                'remaining' => 'AAA',
             ),
             array(
-                "chunk" => "BKN200TCU OVC250 VV/// BBB",
-                "nb_layers" => 3,
-                "layer1_amount" => "BKN",
-                "layer1_base_height" => 20000,
-                "layer1_type" => "TCU",
-                "remaining" => "BBB",
+                'chunk' => 'BKN200TCU OVC250 VV/// BBB',
+                'nb_layers' => 3,
+                'layer1_amount' => 'BKN',
+                'layer1_base_height' => 20000,
+                'layer1_type' => 'TCU',
+                'remaining' => 'BBB',
             ),
             array(
-                "chunk" => "OVC////// FEW250 CCC",
-                "nb_layers" => 2,
-                "layer1_amount" => "OVC",
-                "layer1_base_height" => null,
-                "layer1_type" => "///",
-                "remaining" => "CCC",
+                'chunk' => 'OVC////// FEW250 CCC',
+                'nb_layers' => 2,
+                'layer1_amount' => 'OVC',
+                'layer1_base_height' => null,
+                'layer1_type' => '///',
+                'remaining' => 'CCC',
             ),
             array(
-                "chunk" => "NSC DDD",
-                "nb_layers" => 0,
-                "layer1_amount" => null,
-                "layer1_base_height" => null,
-                "layer1_type" => null,
-                "remaining" => "DDD",
+                'chunk' => 'NSC DDD',
+                'nb_layers' => 0,
+                'layer1_amount' => null,
+                'layer1_base_height' => null,
+                'layer1_type' => null,
+                'remaining' => 'DDD',
             ),
             array(
-                "chunk" => "SKC EEE",
-                "nb_layers" => 0,
-                "layer1_amount" => null,
-                "layer1_base_height" => null,
-                "layer1_type" => null,
-                "remaining" => "EEE",
+                'chunk' => 'SKC EEE',
+                'nb_layers' => 0,
+                'layer1_amount' => null,
+                'layer1_base_height' => null,
+                'layer1_type' => null,
+                'remaining' => 'EEE',
             ),
             array(
-                "chunk" => "NCD FFF",
-                "nb_layers" => 0,
-                "layer1_amount" => null,
-                "layer1_base_height" => null,
-                "layer1_type" => null,
-                "remaining" => "FFF",
+                'chunk' => 'NCD FFF',
+                'nb_layers' => 0,
+                'layer1_amount' => null,
+                'layer1_base_height' => null,
+                'layer1_type' => null,
+                'remaining' => 'FFF',
             ),
         );
     }
@@ -121,9 +124,9 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "FEW10 EEE"),
-            array("chunk" => "AAA EEE"),
-            array("chunk" => "BKN100A EEE"),
+            array('chunk' => 'FEW10 EEE'),
+            array('chunk' => 'AAA EEE'),
+            array('chunk' => 'BKN100A EEE'),
         );
     }
 }

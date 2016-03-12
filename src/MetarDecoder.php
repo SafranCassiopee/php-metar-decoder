@@ -48,7 +48,7 @@ class MetarDecoder
     }
 
     /**
-     * Set global parsing mode (strict/not strict) for the whole object
+     * Set global parsing mode (strict/not strict) for the whole object.
      */
     public function setStrictParsing($is_strict)
     {
@@ -57,7 +57,7 @@ class MetarDecoder
 
     /**
      * Decode a full metar string into a complete metar object
-     * while using global strict option
+     * while using global strict option.
      */
     public function parse($raw_metar)
     {
@@ -67,7 +67,7 @@ class MetarDecoder
     /**
      * Decode a full metar string into a complete metar object
      * with strict option, meaning decoding will stop as soon as
-     * a non-compliance is detected
+     * a non-compliance is detected.
      */
     public function parseStrict($raw_metar)
     {
@@ -77,7 +77,7 @@ class MetarDecoder
     /**
      * Decode a full metar string into a complete metar object
      * with strict option disabled, meaning that decoding will
-     * continue even if metar is not compliant
+     * continue even if metar is not compliant.
      */
     public function parseNotStrict($raw_metar)
     {
@@ -85,7 +85,7 @@ class MetarDecoder
     }
 
     /**
-     * Decode a full metar string into a complete metar object
+     * Decode a full metar string into a complete metar object.
      */
     private function parseWithMode($raw_metar, $strict)
     {
@@ -93,7 +93,7 @@ class MetarDecoder
         // remove 'end of message', no more than one space)
         $clean_metar = trim(strtoupper($raw_metar));
         $clean_metar = preg_replace('#=$#', '', $clean_metar);
-        $clean_metar = preg_replace("#[ ]{2,}#", ' ', $clean_metar) . ' ';
+        $clean_metar = preg_replace('#[ ]{2,}#', ' ', $clean_metar).' ';
         $remaining_metar = $clean_metar;
         $decoded_metar = new DecodedMetar($clean_metar);
         $with_cavok = false;
@@ -145,5 +145,4 @@ class MetarDecoder
 
         return $decoded_metar;
     }
-
 }

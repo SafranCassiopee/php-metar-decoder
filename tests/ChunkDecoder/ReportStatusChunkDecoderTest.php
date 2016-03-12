@@ -14,7 +14,8 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid report status chunks
+     * Test parsing of valid report status chunks.
+     *
      * @param $chunk
      * @param $status
      * @param $remaining
@@ -28,7 +29,8 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid report status chunks
+     * Test parsing of invalid report status chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -42,39 +44,39 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "NIL ",
-                "status" => "NIL",
-                "remaining" => "",
+                'chunk' => 'NIL ',
+                'status' => 'NIL',
+                'remaining' => '',
             ),
             array(
-                "chunk" => "AUTO AAA",
-                "status" => "AUTO",
-                "remaining" => "AAA",
+                'chunk' => 'AUTO AAA',
+                'status' => 'AUTO',
+                'remaining' => 'AAA',
             ),
             array(
-                "chunk" => "AUTO AUTO",
-                "status" => "AUTO",
-                "remaining" => "AUTO",
+                'chunk' => 'AUTO AUTO',
+                'status' => 'AUTO',
+                'remaining' => 'AUTO',
             ),
             array(
-                "chunk" => "AUTO AUTO",
-                "status" => "AUTO",
-                "remaining" => "AUTO",
+                'chunk' => 'AUTO AUTO',
+                'status' => 'AUTO',
+                'remaining' => 'AUTO',
             ),
             array(
-                "chunk" => "COR BBB",
-                "status" => "COR",
-                "remaining" => "BBB",
+                'chunk' => 'COR BBB',
+                'status' => 'COR',
+                'remaining' => 'BBB',
             ),
             array(
-                "chunk" => "1234 CCC",
-                "status" => null,
-                "remaining" => "1234 CCC",
+                'chunk' => '1234 CCC',
+                'status' => null,
+                'remaining' => '1234 CCC',
             ),
             array(
-                "chunk" => "AFK DDD",
-                "status" => "AFK",
-                "remaining" => "DDD",
+                'chunk' => 'AFK DDD',
+                'status' => 'AFK',
+                'remaining' => 'DDD',
             ),
         );
     }
@@ -82,11 +84,11 @@ class ReportStatusChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "NIL AAA"),
-            array("chunk" => "NIL NIL"),
-            array("chunk" => "AUTIO BBB"),
-            array("chunk" => "AU CCC"),
-            array("chunk" => "R DDD"),
+            array('chunk' => 'NIL AAA'),
+            array('chunk' => 'NIL NIL'),
+            array('chunk' => 'AUTIO BBB'),
+            array('chunk' => 'AU CCC'),
+            array('chunk' => 'R DDD'),
         );
     }
 }

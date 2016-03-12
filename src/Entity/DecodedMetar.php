@@ -65,15 +65,15 @@ class DecodedMetar
     }
 
     /**
-     * Check if the decoded metar is valid, i.e. if there was no error during decoding
+     * Check if the decoded metar is valid, i.e. if there was no error during decoding.
      */
     public function isValid()
     {
-        return (count($this->decoding_exceptions) == 0);
+        return count($this->decoding_exceptions) == 0;
     }
 
     /**
-     * Add an exception that occured during metar decoding
+     * Add an exception that occured during metar decoding.
      */
     public function addDecodingException($exception)
     {
@@ -85,7 +85,7 @@ class DecodedMetar
     /**
      * If the decoded metar is invalid, get all the exceptions that occurred during decoding
      * Note that in strict mode, only the first encountered exception will be reported as parsing stops on error
-     * Else return null;
+     * Else return null;.
      */
     public function getDecodingExceptions()
     {

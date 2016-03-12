@@ -14,7 +14,8 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid pressure chunks
+     * Test parsing of valid pressure chunks.
+     *
      * @param string $chunk
      * @param string $pressure
      * @param string $pressure_unit
@@ -34,7 +35,8 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid pressure chunks
+     * Test parsing of invalid pressure chunks.
+     *
      * @param string $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -48,22 +50,22 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "input" => "Q1000 AAA",
-                "pressure" => 1000,
-                "pressure_unit" => 'hPa',
-                "remaining" => "AAA",
+                'input' => 'Q1000 AAA',
+                'pressure' => 1000,
+                'pressure_unit' => 'hPa',
+                'remaining' => 'AAA',
             ),
             array(
-                "input" => "A0202 BBB",
-                "pressure" => 2.02,
-                "pressure_unit" => 'inHg',
-                "remaining" => "BBB",
+                'input' => 'A0202 BBB',
+                'pressure' => 2.02,
+                'pressure_unit' => 'inHg',
+                'remaining' => 'BBB',
             ),
             array(
-                "input" => "Q//// CCC",
-                "pressure" => null,
-                "pressure_unit" => null,
-                "remaining" => "CCC",
+                'input' => 'Q//// CCC',
+                'pressure' => null,
+                'pressure_unit' => null,
+                'remaining' => 'CCC',
             ),
         );
     }
@@ -71,9 +73,9 @@ class PressureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "Q123 AAA"),
-            array("chunk" => "R1234 BBB"),
-            array("chunk" => "Q12345 CCC"),
+            array('chunk' => 'Q123 AAA'),
+            array('chunk' => 'R1234 BBB'),
+            array('chunk' => 'Q12345 CCC'),
         );
     }
 }

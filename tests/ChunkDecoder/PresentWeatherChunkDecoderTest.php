@@ -14,7 +14,8 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid present weather chunks
+     * Test parsing of valid present weather chunks.
+     *
      * @param $chunk
      * @param $nb_phenoms
      * @param $intensity1
@@ -47,49 +48,49 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "NOTHING HERE",
-                "nb_phenoms" => 0,
-                "intensity1" => null,
-                "carac1" => null,
-                "type1" => null,
-                "type2" => null,
-                "remaining" => "NOTHING HERE",
+                'chunk' => 'NOTHING HERE',
+                'nb_phenoms' => 0,
+                'intensity1' => null,
+                'carac1' => null,
+                'type1' => null,
+                'type2' => null,
+                'remaining' => 'NOTHING HERE',
             ),
             array(
-                "chunk" => "FZRA +SN BCFG AAA",
-                "nb_phenoms" => 3,
-                "intensity1" => null,
-                "carac1" => "FZ",
-                "type1" => array("RA"),
-                "type2" => array("SN"),
-                "remaining" => "AAA",
+                'chunk' => 'FZRA +SN BCFG AAA',
+                'nb_phenoms' => 3,
+                'intensity1' => null,
+                'carac1' => 'FZ',
+                'type1' => array('RA'),
+                'type2' => array('SN'),
+                'remaining' => 'AAA',
             ),
             array(
-                "chunk" => "-SG BBB",
-                "nb_phenoms" => 1,
-                "intensity1" => "-",
-                "carac1" => null,
-                "type1" => array("SG"),
-                "type2" => null,
-                "remaining" => "BBB",
+                'chunk' => '-SG BBB',
+                'nb_phenoms' => 1,
+                'intensity1' => '-',
+                'carac1' => null,
+                'type1' => array('SG'),
+                'type2' => null,
+                'remaining' => 'BBB',
             ),
             array(
-                "chunk" => "+GSBRFU VCDRFCPY // CCC",
-                "nb_phenoms" => 2,
-                "intensity1" => "+",
-                "carac1" => null,
-                "type1" => array("GS","BR","FU"),
-                "type2" => array("FC","PY"),
-                "remaining" => "CCC",
+                'chunk' => '+GSBRFU VCDRFCPY // CCC',
+                'nb_phenoms' => 2,
+                'intensity1' => '+',
+                'carac1' => null,
+                'type1' => array('GS', 'BR', 'FU'),
+                'type2' => array('FC', 'PY'),
+                'remaining' => 'CCC',
             ),
             array(
-                "chunk" => "// DDD",
-                "nb_phenoms" => 0,
-                "intensity1" => null,
-                "carac1" => null,
-                "type1" => null,
-                "type2" => null,
-                "remaining" => "DDD",
+                'chunk' => '// DDD',
+                'nb_phenoms' => 0,
+                'intensity1' => null,
+                'carac1' => null,
+                'type1' => null,
+                'type2' => null,
+                'remaining' => 'DDD',
             ),
         );
     }
