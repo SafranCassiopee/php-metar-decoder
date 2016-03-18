@@ -182,7 +182,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $d = $this->decoder->parseNotStrict($metar);
         $this->assertFalse($d->isValid());
         $this->assertEquals(1, count($d->getDecodingExceptions()));
-        $error = $d->getDecodingExceptions()[0];
+        $errors = $d->getDecodingExceptions();
+        $error = $errors[0];
         $this->assertEquals('CloudChunkDecoder', $error->getChunkDecoder());
         $this->assertNull($d->getClouds());
     }
