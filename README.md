@@ -241,6 +241,17 @@ $decoder->parseStrict("...");
 
 ```
 
+About parsing errors, again
+---------------------------
+
+In non-strict mode, it is possible to get a parsing error for a given chunk decoder, while still getting the decoded information for this chunk in the end. How is that possible ?
+
+It is because non-strict mode not only continues decoding where there is an error, it also tries the parsing again on the "next chunk" (based on whitespace separator). But all errors on first try will remain logged even if the second try suceeded.
+
+Let's say you have this chunk `AAA 12003KPH ...` provided to the SurfaceWind chunk decoder. This decoder will choke on `AAA`, will try to decode `12003KPH` and will succeed. The first exception for surface wind decoder will be kept but the SurfaceWind object will be filled with some information.
+
+All of this does not apply to strict mode as parsing is interrupted on first parsing error in this case.
+
 Contribute
 ----------
 
