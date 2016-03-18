@@ -153,7 +153,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
         // compare results
         $this->assertFalse($d->isValid());
-        $this->assertEquals(2, count($d->getDecodingExceptions()));
+        // 3 errors because visibility decoder will choke once before finding the right piece of metar
+        $this->assertEquals(3, count($d->getDecodingExceptions()));
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPB', $d->getIcao());
         $this->assertEquals(19, $d->getDay());
@@ -169,6 +170,21 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertEquals(1032, $d->getPressure()->getValue());
+    }
+
+    public function testParseNoClouds()
+    {
+        $metar = 'PAWI 140753Z AUTO 08034G41KT 1/4SM SN FZFG M18/M21 A2951 RMK PK WND 08041/0752 SLP995 P0000 T11831206 TSNO $ VIA AUTODIAL';
+
+        $d = $this->decoder->parseStrict($metar);
+        $this->assertFalse($d->isValid());
+
+        $d = $this->decoder->parseNotStrict($metar);
+        $this->assertFalse($d->isValid());
+        $this->assertEquals(1, count($d->getDecodingExceptions()));
+        $error = $d->getDecodingExceptions()[0];
+        $this->assertEquals('CloudChunkDecoder', $error->getChunkDecoder());
+        $this->assertNull($d->getClouds());
     }
 
     /**

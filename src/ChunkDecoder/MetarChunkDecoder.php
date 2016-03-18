@@ -28,4 +28,17 @@ abstract class MetarChunkDecoder
             'remaining' => $new_remaining_metar,
         );
     }
+
+    /**
+     * Consume one chunk blindly, without looking for the specific pattern (only whitespace).
+     */
+    public static function consumeOneChunk($remaining_metar)
+    {
+        $next_space = strpos($remaining_metar, ' ');
+        if ($next_space > 0) {
+            return substr($remaining_metar, $next_space + 1);
+        } else {
+            return $remaining_metar;
+        }
+    }
 }

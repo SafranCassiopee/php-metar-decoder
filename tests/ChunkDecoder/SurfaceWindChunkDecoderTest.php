@@ -75,7 +75,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->decoder->parse('/////KT PPP');
             $this->fail('An exception should have been thrown here');
         } catch (ChunkDecoderException $cde) {
-            $this->assertEquals('PPP', $cde->getFreshRemainingMetar());
+            $this->assertEquals('PPP', $cde->getRemainingMetar());
         }
     }
 

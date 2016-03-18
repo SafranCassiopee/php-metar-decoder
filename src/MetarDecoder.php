@@ -3,6 +3,7 @@
 namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
+use MetarDecoder\ChunkDecoder\MetarChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
@@ -84,6 +85,27 @@ class MetarDecoder
         return $this->parseWithMode($raw_metar, false);
     }
 
+    public function tryParsing($chunk_decoder, $strict, $remaining_metar, $with_cavok)
+    {
+        try {
+            $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
+        } catch (ChunkDecoderException $primary_exception) {
+            if ($strict) {
+                throw $primary_exception;
+            } else {
+                try {
+                    $alternative_remaining_metar = MetarChunkDecoder::consumeOneChunk($remaining_metar, $strict);
+                    $decoded = $chunk_decoder->parse($alternative_remaining_metar, $with_cavok);
+                    $decoded['exception'] = $primary_exception;
+                } catch (ChunkDecoderException $secondary_exception) {
+                    throw $primary_exception;
+                }
+            }
+        }
+
+        return $decoded;
+    }
+
     /**
      * Decode a full metar string into a complete metar object.
      */
@@ -102,7 +124,12 @@ class MetarDecoder
         foreach ($this->decoder_chain as $chunk_decoder) {
             try {
                 // try to parse a chunk with current chunk decoder
-                $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
+                $decoded = $this->tryParsing($chunk_decoder, $strict, $remaining_metar, $with_cavok);
+
+                // log any excception that would have occur at primary decoding
+                if (array_key_exists('exception', $decoded)) {
+                    $decoded_metar->addDecodingException($decoded['exception']);
+                }
 
                 // map obtained fields (if any) to the final decoded object
                 $result = $decoded['result'];
@@ -127,7 +154,7 @@ class MetarDecoder
                 }
 
                 // update remaining metar for next round
-                $remaining_metar = $cde->getFreshRemainingMetar();
+                $remaining_metar = $cde->getRemainingMetar();
             }
 
             // hook for report status decoder, abort if nil, but decoded metar is valid though
