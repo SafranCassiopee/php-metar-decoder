@@ -6,7 +6,7 @@ use MetarDecoder\Entity\Value;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
- * Chunk decoder for atmospheric pressure section
+ * Chunk decoder for atmospheric pressure section.
  */
 class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
@@ -37,7 +37,7 @@ class WindShearChunkDecoder extends MetarChunkDecoder implements MetarChunkDecod
                 $runways = array();
                 for ($k = 2; $k < 9; $k += 3) {
                     if ($found[$k] != null) {
-                        $runway = $found[$k+2];
+                        $runway = $found[$k + 2];
                         $qfu_as_int = Value::toInt($runway);
                         // check runway qfu validity
                         if ($qfu_as_int > 36 || $qfu_as_int < 1) {

@@ -5,7 +5,7 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
- * Chunk decoder for icao section
+ * Chunk decoder for icao section.
  */
 class IcaoChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {

@@ -19,7 +19,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a complete, valid METAR
+     * Test parsing of a complete, valid METAR.
      */
     public function testParse()
     {
@@ -80,7 +80,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a short, valid METAR
+     * Test parsing of a short, valid METAR.
      */
     public function testParseShort()
     {
@@ -111,7 +111,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a short, invalid METAR, without strict option activated
+     * Test parsing of a short, invalid METAR, without strict option activated.
      */
     public function testParseInvalid()
     {
@@ -140,11 +140,10 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $d->getAirTemperature()->getValue());
         $this->assertEquals(0, $d->getDewPointTemperature()->getValue());
         $this->assertNull($d->getPressure());
-
     }
 
     /**
-     * Test parsing of an invalid METAR, where parsing can continue normally without strict option activated
+     * Test parsing of an invalid METAR, where parsing can continue normally without strict option activated.
      */
     public function testParseInvalidPart()
     {
@@ -154,7 +153,8 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
         // compare results
         $this->assertFalse($d->isValid());
-        $this->assertEquals(2, count($d->getDecodingExceptions()));
+        // 3 errors because visibility decoder will choke once before finding the right piece of metar
+        $this->assertEquals(3, count($d->getDecodingExceptions()));
         $this->assertEquals('METAR', $d->getType());
         $this->assertEquals('LFPB', $d->getIcao());
         $this->assertEquals(19, $d->getDay());
@@ -172,8 +172,24 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1032, $d->getPressure()->getValue());
     }
 
+    public function testParseNoClouds()
+    {
+        $metar = 'PAWI 140753Z AUTO 08034G41KT 1/4SM SN FZFG M18/M21 A2951 RMK PK WND 08041/0752 SLP995 P0000 T11831206 TSNO $ VIA AUTODIAL';
+
+        $d = $this->decoder->parseStrict($metar);
+        $this->assertFalse($d->isValid());
+
+        $d = $this->decoder->parseNotStrict($metar);
+        $this->assertFalse($d->isValid());
+        $this->assertEquals(1, count($d->getDecodingExceptions()));
+        $errors = $d->getDecodingExceptions();
+        $error = $errors[0];
+        $this->assertEquals('CloudChunkDecoder', $error->getChunkDecoder());
+        $this->assertNull($d->getClouds());
+    }
+
     /**
-     * Test parsing of an empty METAR, which is valid
+     * Test parsing of an empty METAR, which is valid.
      */
     public function testParseNil()
     {
@@ -182,7 +198,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of METAR with trailing end-of-message
+     * Test parsing of METAR with trailing end-of-message.
      */
     public function testParseEOM()
     {
@@ -192,7 +208,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of a METAR with CAVOK
+     * Test parsing of a METAR with CAVOK.
      */
     public function testParseCAVOK()
     {
@@ -206,14 +222,14 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test parsing of invalid METARs
-     * TODO improve this now that strict option exists
+     * TODO improve this now that strict option exists.
      */
     public function testParseErrors()
     {
         $error_dataset = array(
             array('LFPG aaa bbb cccc', 'DatetimeChunkDecoder', 'AAA BBB CCCC'),
             array('METAR LFPO 231027Z NIL 1234', 'ReportStatusChunkDecoder', 'NIL 1234'),
-            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ','CloudChunkDecoder','FZRAA FEW015'),
+            array('METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D FZRAA FEW015 ', 'CloudChunkDecoder', 'FZRAA FEW015'),
         );
 
         foreach ($error_dataset as $metar_error) {
@@ -230,7 +246,7 @@ class MetarDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test object-wide strict option
+     * Test object-wide strict option.
      */
     public function testParseDefaultStrictMode()
     {

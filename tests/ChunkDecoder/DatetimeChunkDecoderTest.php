@@ -14,7 +14,8 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid datetime chunks
+     * Test parsing of valid datetime chunks.
+     *
      * @param $chunk
      * @param $day
      * @param $time
@@ -31,7 +32,8 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid datetime chunks
+     * Test parsing of invalid datetime chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -45,22 +47,22 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "271035Z AAA",
-                "day" => 27,
-                "time" => "10:35",
-                "remaining" => "AAA",
+                'chunk' => '271035Z AAA',
+                'day' => 27,
+                'time' => '10:35',
+                'remaining' => 'AAA',
             ),
             array(
-                "chunk" => "012342Z BBB",
-                "day" => 1,
-                "time" => "23:42",
-                "remaining" => "BBB",
+                'chunk' => '012342Z BBB',
+                'day' => 1,
+                'time' => '23:42',
+                'remaining' => 'BBB',
             ),
             array(
-                "chunk" => "311200Z CCC",
-                "day" => 31,
-                "time" => "12:00",
-                "remaining" => "CCC",
+                'chunk' => '311200Z CCC',
+                'day' => 31,
+                'time' => '12:00',
+                'remaining' => 'CCC',
             ),
         );
     }
@@ -68,12 +70,12 @@ class DatetimeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "271035 AAA"),
-            array("chunk" => "2102Z AAA"),
-            array("chunk" => "123580Z AAA"),
-            array("chunk" => "122380Z AAA"),
-            array("chunk" => "351212Z AAA"),
-            array("chunk" => "35018Z AAA"),
+            array('chunk' => '271035 AAA'),
+            array('chunk' => '2102Z AAA'),
+            array('chunk' => '123580Z AAA'),
+            array('chunk' => '122380Z AAA'),
+            array('chunk' => '351212Z AAA'),
+            array('chunk' => '35018Z AAA'),
         );
     }
 }

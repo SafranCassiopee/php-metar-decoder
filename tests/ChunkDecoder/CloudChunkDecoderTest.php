@@ -14,7 +14,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid cloud chunks
+     * Test parsing of valid cloud chunks.
+     *
      * @param $chunk
      * @param $nb_layers
      * @param $layer1_amount
@@ -44,7 +45,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing with invalid cloud chunks but with CAVOK earlier in the METAR
+     * Test parsing with invalid cloud chunks but with CAVOK earlier in the METAR.
+     *
      * @param $chunk
      * @dataProvider getInvalidChunk
      */
@@ -55,7 +57,8 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid cloud chunks
+     * Test parsing of invalid cloud chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -69,13 +72,13 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "VV085 AAA",
-                "nb_layers" => 1,
-                "return_chunk" => "VV085",
-                "layer1_amount" => "VV",
-                "layer1_base_height" => 8500,
-                "layer1_type" => null,
-                "remaining" => "AAA",
+                'chunk' => 'VV085 AAA',
+                'nb_layers' => 1,
+                'return_chunk' => 'VV085',
+                'layer1_amount' => 'VV',
+                'layer1_base_height' => 8500,
+                'layer1_type' => null,
+                'remaining' => 'AAA',
             ),
             array(
                 "chunk" => "BKN200TCU OVC250 VV/// BBB",
@@ -128,9 +131,9 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "FEW10 EEE"),
-            array("chunk" => "AAA EEE"),
-            array("chunk" => "BKN100A EEE"),
+            array('chunk' => 'FEW10 EEE'),
+            array('chunk' => 'AAA EEE'),
+            array('chunk' => 'BKN100A EEE'),
         );
     }
 }

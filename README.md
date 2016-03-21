@@ -8,7 +8,7 @@ PHP METAR decoder
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
-Try it on the [demo website](http://php-metar-decoder.inouire.net)
+Try it on the [demo website](https://php-metar-decoder.cassiopee.aero)
 
 Introduction
 ------------
@@ -113,6 +113,7 @@ $v->getVisibility()->getValue(); //2500
 $v->getVisibility()->getUnit(); //'m'
 $v->getMinimumVisibility()->getValue(); //1000
 $v->getMinimumVisibilityDirection(); //'NW'
+$v->hasNDV(); //false
 
 //runway visual range
 $rvr = $d->getRunwaysVisualRange(); //RunwayVisualRange array
@@ -178,6 +179,32 @@ $dew_point->getValue();
 $dew_point->getUnit();
 ```
 
+Value objects also contain their unit, that you can access with the `getUnit()` method. When you call `getValue()`, you'll get the value in this unit. 
+
+If you want to get the value directly in another unit you can call `getConvertedValue($unit)`. Supported values are speed, distance and pressure. 
+
+Here are all available units for conversion:
+
+```php
+// speed units:
+Value::METER_PER_SECOND
+Value::KILOMETER_PER_HOUR
+Value::KNOT
+
+// distance units:
+Value::METER
+Value::FEET
+Value::STATUTE_MILE
+
+// pressure units:
+Value::HECTO_PASCAL
+Value::MERCURY_INCH
+
+// use on-the-fly conversion
+$distance_in_sm = $visibility->getConvertedValue(Value::STATUTE_MILE);
+$speed_kph = $speed->getConvertedValue(Value::KILOMETER_PER_HOUR);
+```
+
 About parsing errors
 --------------------
 
@@ -213,6 +240,17 @@ $decoder->parse("...");
 $decoder->parseStrict("...");
 
 ```
+
+About parsing errors, again
+---------------------------
+
+In non-strict mode, it is possible to get a parsing error for a given chunk decoder, while still getting the decoded information for this chunk in the end. How is that possible ?
+
+It is because non-strict mode not only continues decoding where there is an error, it also tries the parsing again on the "next chunk" (based on whitespace separator). But all errors on first try will remain logged even if the second try suceeded.
+
+Let's say you have this chunk `AAA 12003KPH ...` provided to the SurfaceWind chunk decoder. This decoder will choke on `AAA`, will try to decode `12003KPH` and will succeed. The first exception for surface wind decoder will be kept but the SurfaceWind object will be filled with some information.
+
+All of this does not apply to strict mode as parsing is interrupted on first parsing error in this case.
 
 Contribute
 ----------

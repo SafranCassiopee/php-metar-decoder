@@ -14,7 +14,8 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid recent weather chunks
+     * Test parsing of valid recent weather chunks.
+     *
      * @param $chunk
      * @param $weather_carac
      * @param $weather_type
@@ -33,28 +34,28 @@ class RecentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "chunk" => "REBLSN AAA",
-                "weather_carac" => "BL",
-                "weather_types" => array("SN"),
-                "remaining" => "AAA",
+                'chunk' => 'REBLSN AAA',
+                'weather_carac' => 'BL',
+                'weather_types' => array('SN'),
+                'remaining' => 'AAA',
             ),
             array(
-                "chunk" => "REPL BBB",
-                "weather_carac" => "",
-                "weather_type" => array("PL"),
-                "remaining" => "BBB",
+                'chunk' => 'REPL BBB',
+                'weather_carac' => '',
+                'weather_type' => array('PL'),
+                'remaining' => 'BBB',
             ),
             array(
-                "chunk" => "RETSRA CCC",
-                "weather_carac" => "TS",
-                "weather_type" => array("RA"),
-                "remaining" => "CCC",
+                'chunk' => 'RETSRA CCC',
+                'weather_carac' => 'TS',
+                'weather_type' => array('RA'),
+                'remaining' => 'CCC',
             ),
             array(
-                "chunk" => "RETSRABR DDD",
-                "weather_carac" => "TS",
-                "weather_type" => array("RA","BR"),
-                "remaining" => "DDD",
+                'chunk' => 'RETSRABR DDD',
+                'weather_carac' => 'TS',
+                'weather_type' => array('RA', 'BR'),
+                'remaining' => 'DDD',
             ),
         );
     }

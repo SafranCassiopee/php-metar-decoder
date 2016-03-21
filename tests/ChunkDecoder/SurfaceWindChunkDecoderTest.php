@@ -15,7 +15,8 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid surface wind chunks
+     * Test parsing of valid surface wind chunks.
+     *
      * @param $chunk
      * @param $direction
      * @param $variable_direction
@@ -55,7 +56,8 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid surface wind chunks
+     * Test parsing of invalid surface wind chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -66,7 +68,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of chunk with no information
+     * Test parsing of chunk with no information.
      */
     public function testEmptyInformationChunk()
     {
@@ -74,7 +76,7 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->decoder->parse('/////KT PPP');
             $this->fail('An exception should have been thrown here');
         } catch (ChunkDecoderException $cde) {
-            $this->assertEquals('PPP', $cde->getFreshRemainingMetar());
+            $this->assertEquals('PPP', $cde->getRemainingMetar());
         }
     }
 
@@ -142,12 +144,12 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "12003G09 AAA"),
-            array("chunk" => "VRB01MP BBB"),
-            array("chunk" => "38003G12MPS CCC"),
-            array("chunk" => "12003KPA DDD"),
-            array("chunk" => "02005MPS 450V070 EEE"),
-            array("chunk" => "02005MPS 110V600 FFF"),
+            array('chunk' => '12003G09 AAA'),
+            array('chunk' => 'VRB01MP BBB'),
+            array('chunk' => '38003G12MPS CCC'),
+            array('chunk' => '12003KPA DDD'),
+            array('chunk' => '02005MPS 450V070 EEE'),
+            array('chunk' => '02005MPS 110V600 FFF'),
         );
     }
 }

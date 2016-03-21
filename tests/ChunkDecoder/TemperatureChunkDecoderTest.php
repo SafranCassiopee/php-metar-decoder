@@ -14,7 +14,8 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid temperature chunks
+     * Test parsing of valid temperature chunks.
+     *
      * @param string $chunk
      * @param string $air_temperature
      * @param string $dew_point_temperature
@@ -44,48 +45,48 @@ class TemperatureChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "input" => "M01/M10 AAA",
-                "air_temperature" => -1,
-                "dew_point_temperature" => -10,
-                "remaining" => "AAA",
+                'input' => 'M01/M10 AAA',
+                'air_temperature' => -1,
+                'dew_point_temperature' => -10,
+                'remaining' => 'AAA',
             ),
             array(
-                "input" => "05/12 BBB",
-                "air_temperature" => 5,
-                "dew_point_temperature" => 12,
-                "remaining" => "BBB",
+                'input' => '05/12 BBB',
+                'air_temperature' => 5,
+                'dew_point_temperature' => 12,
+                'remaining' => 'BBB',
             ),
             array(
-                "input" => "10/M01 CCC",
-                "air_temperature" => 10,
-                "dew_point_temperature" => -1,
-                "remaining" => "CCC",
+                'input' => '10/M01 CCC',
+                'air_temperature' => 10,
+                'dew_point_temperature' => -1,
+                'remaining' => 'CCC',
             ),
             // partial information
             array(
-                "input" => "M15/ DDD",
-                "air_temperature" => -15,
-                "dew_point_temperature" => null,
-                "remaining" => "DDD",
+                'input' => 'M15/ DDD',
+                'air_temperature' => -15,
+                'dew_point_temperature' => null,
+                'remaining' => 'DDD',
             ),
             array(
-                "input" => "NOTHING EEE",
-                "air_temperature" => null,
-                "dew_point_temperature" => null,
-                "remaining" => "NOTHING EEE",
+                'input' => 'NOTHING EEE',
+                'air_temperature' => null,
+                'dew_point_temperature' => null,
+                'remaining' => 'NOTHING EEE',
             ),
             // invalid formats
             array(
-                "input" => "M01//10 FFF",
-                "air_temperature" => null,
-                "dew_point_temperature" => null,
-                "remaining" => "M01//10 FFF",
+                'input' => 'M01//10 FFF',
+                'air_temperature' => null,
+                'dew_point_temperature' => null,
+                'remaining' => 'M01//10 FFF',
             ),
             array(
-                "input" => "M1/10 GGG",
-                "air_temperature" => null,
-                "dew_point_temperature" => null,
-                "remaining" => "M1/10 GGG",
+                'input' => 'M1/10 GGG',
+                'air_temperature' => null,
+                'dew_point_temperature' => null,
+                'remaining' => 'M1/10 GGG',
             ),
         );
     }

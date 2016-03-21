@@ -3,7 +3,7 @@
 namespace MetarDecoder\ChunkDecoder;
 
 /**
- * Chunk decoder for report type section
+ * Chunk decoder for report type section.
  */
 class ReportTypeChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {

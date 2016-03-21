@@ -5,7 +5,7 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Entity\Value;
 
 /**
- * Chunk decoder for air and dew point temperature section
+ * Chunk decoder for air and dew point temperature section.
  */
 class TemperatureChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {

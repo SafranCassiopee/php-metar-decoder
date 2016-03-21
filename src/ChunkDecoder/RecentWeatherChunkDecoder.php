@@ -5,7 +5,7 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Entity\WeatherPhenomenon;
 
 /**
- * Chunk decoder for recent weather section
+ * Chunk decoder for recent weather section.
  */
 class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
@@ -30,7 +30,7 @@ class RecentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunkD
             // retrieve found params
             $weather = new WeatherPhenomenon();
             $weather->setCharacteristics($found[1]);
-            for ($k = 2; $k <= 4; $k++) {
+            for ($k = 2; $k <= 4; ++$k) {
                 if ($found[$k] != null) {
                     $weather->addType($found[$k]);
                 }

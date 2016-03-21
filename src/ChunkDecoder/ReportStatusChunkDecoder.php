@@ -5,7 +5,7 @@ namespace MetarDecoder\ChunkDecoder;
 use MetarDecoder\Exception\ChunkDecoderException;
 
 /**
- * Chunk decoder for report status section (NIL or AUTO)
+ * Chunk decoder for report status section (NIL or AUTO).
  */
 class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
@@ -25,7 +25,7 @@ class ReportStatusChunkDecoder extends MetarChunkDecoder implements MetarChunkDe
             $result = null;
         } else {
             $status = $found[1];
-            if (strlen($status) != 3 && $status != "AUTO") {
+            if (strlen($status) != 3 && $status != 'AUTO') {
                 throw new ChunkDecoderException($remaining_metar,
                                                 $new_remaining_metar,
                                                 'Invalid report status, expecting AUTO, NIL, or any other 3 letter word',

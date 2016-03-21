@@ -7,17 +7,17 @@ use MetarDecoder\Entity\SurfaceWind;
 use MetarDecoder\Entity\Value;
 
 /**
- * Chunk decoder for surface wind section
+ * Chunk decoder for surface wind section.
  */
 class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderInterface
 {
     public function getRegexp()
     {
-        $direction = "([0-9]{3}|VRB|///)";
-        $speed = "P?([/0-9]{2,3}|//)";
-        $speed_variations = "(GP?([0-9]{2,3}))?"; // optionnal
-        $unit = "(KT|MPS|KPH)";
-        $direction_variations = "( ([0-9]{3})V([0-9]{3}))?"; // optionnal
+        $direction = '([0-9]{3}|VRB|///)';
+        $speed = 'P?([/0-9]{2,3}|//)';
+        $speed_variations = '(GP?([0-9]{2,3}))?'; // optionnal
+        $unit = '(KT|MPS|KPH)';
+        $direction_variations = '( ([0-9]{3})V([0-9]{3}))?'; // optionnal
 
         return "#^$direction$speed$speed_variations$unit$direction_variations( )#";
         //last group capture is here to ensure that array will always have the same size if there is a match
@@ -47,13 +47,13 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // get unit used
         switch ($found[5]) {
-            case "KT":
+            case 'KT':
                 $speed_unit = Value::KNOT;
                 break;
-            case "KPH":
+            case 'KPH':
                 $speed_unit = Value::KILOMETER_PER_HOUR;
                 break;
-            case "MPS":
+            case 'MPS':
                 $speed_unit = Value::METER_PER_SECOND;
                 break;
         }
@@ -103,7 +103,7 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
 
         // return result + remaining metar
         return array(
-            'result' => array( 'surfaceWind' => $surface_wind ),
+            'result' => array('surfaceWind' => $surface_wind),
             'remaining_metar' => $new_remaining_metar,
         );
     }

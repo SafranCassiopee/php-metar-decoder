@@ -5,7 +5,8 @@ namespace MetarDecoder\ChunkDecoder;
 abstract class MetarChunkDecoder
 {
     /**
-     * Extract the corresponding chunk from the remaining metar
+     * Extract the corresponding chunk from the remaining metar.
+     *
      * @return matches array if any match (null if no match), + updated remaining metar
      */
     public function consume($remaining_metar)
@@ -28,4 +29,16 @@ abstract class MetarChunkDecoder
         );
     }
 
+    /**
+     * Consume one chunk blindly, without looking for the specific pattern (only whitespace).
+     */
+    public static function consumeOneChunk($remaining_metar)
+    {
+        $next_space = strpos($remaining_metar, ' ');
+        if ($next_space > 0) {
+            return substr($remaining_metar, $next_space + 1);
+        } else {
+            return $remaining_metar;
+        }
+    }
 }

@@ -14,7 +14,8 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid present weather chunks
+     * Test parsing of valid present weather chunks.
+     *
      * @param $chunk
      * @param $nb_phenoms
      * @param $intensity1
@@ -24,7 +25,7 @@ class PresentWeatherChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_phenoms, $return_chunk1, $intensity1, $carac1, $type1, $return_chunk2, $type2, $remaining)
+    public function testParse($chunk, $nb_phenoms, $intensity1, $carac1, $type1, $type2, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $pw = $decoded['result']['presentWeather'];

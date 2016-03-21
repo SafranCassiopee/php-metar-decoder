@@ -3,6 +3,7 @@
 namespace MetarDecoder;
 
 use MetarDecoder\Entity\DecodedMetar;
+use MetarDecoder\ChunkDecoder\MetarChunkDecoder;
 use MetarDecoder\ChunkDecoder\ReportTypeChunkDecoder;
 use MetarDecoder\ChunkDecoder\IcaoChunkDecoder;
 use MetarDecoder\ChunkDecoder\DatetimeChunkDecoder;
@@ -48,7 +49,7 @@ class MetarDecoder
     }
 
     /**
-     * Set global parsing mode (strict/not strict) for the whole object
+     * Set global parsing mode (strict/not strict) for the whole object.
      */
     public function setStrictParsing($is_strict)
     {
@@ -57,7 +58,7 @@ class MetarDecoder
 
     /**
      * Decode a full metar string into a complete metar object
-     * while using global strict option
+     * while using global strict option.
      */
     public function parse($raw_metar)
     {
@@ -67,7 +68,7 @@ class MetarDecoder
     /**
      * Decode a full metar string into a complete metar object
      * with strict option, meaning decoding will stop as soon as
-     * a non-compliance is detected
+     * a non-compliance is detected.
      */
     public function parseStrict($raw_metar)
     {
@@ -77,15 +78,36 @@ class MetarDecoder
     /**
      * Decode a full metar string into a complete metar object
      * with strict option disabled, meaning that decoding will
-     * continue even if metar is not compliant
+     * continue even if metar is not compliant.
      */
     public function parseNotStrict($raw_metar)
     {
         return $this->parseWithMode($raw_metar, false);
     }
 
+    public function tryParsing($chunk_decoder, $strict, $remaining_metar, $with_cavok)
+    {
+        try {
+            $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
+        } catch (ChunkDecoderException $primary_exception) {
+            if ($strict) {
+                throw $primary_exception;
+            } else {
+                try {
+                    $alternative_remaining_metar = MetarChunkDecoder::consumeOneChunk($remaining_metar, $strict);
+                    $decoded = $chunk_decoder->parse($alternative_remaining_metar, $with_cavok);
+                    $decoded['exception'] = $primary_exception;
+                } catch (ChunkDecoderException $secondary_exception) {
+                    throw $primary_exception;
+                }
+            }
+        }
+
+        return $decoded;
+    }
+
     /**
-     * Decode a full metar string into a complete metar object
+     * Decode a full metar string into a complete metar object.
      */
     private function parseWithMode($raw_metar, $strict)
     {
@@ -93,7 +115,7 @@ class MetarDecoder
         // remove 'end of message', no more than one space)
         $clean_metar = trim(strtoupper($raw_metar));
         $clean_metar = preg_replace('#=$#', '', $clean_metar);
-        $clean_metar = preg_replace("#[ ]{2,}#", ' ', $clean_metar) . ' ';
+        $clean_metar = preg_replace('#[ ]{2,}#', ' ', $clean_metar).' ';
         $remaining_metar = $clean_metar;
         $decoded_metar = new DecodedMetar($clean_metar);
         $with_cavok = false;
@@ -102,7 +124,12 @@ class MetarDecoder
         foreach ($this->decoder_chain as $chunk_decoder) {
             try {
                 // try to parse a chunk with current chunk decoder
-                $decoded = $chunk_decoder->parse($remaining_metar, $with_cavok);
+                $decoded = $this->tryParsing($chunk_decoder, $strict, $remaining_metar, $with_cavok);
+
+                // log any excception that would have occur at primary decoding
+                if (array_key_exists('exception', $decoded)) {
+                    $decoded_metar->addDecodingException($decoded['exception']);
+                }
 
                 // map obtained fields (if any) to the final decoded object
                 $result = $decoded['result'];
@@ -127,7 +154,7 @@ class MetarDecoder
                 }
 
                 // update remaining metar for next round
-                $remaining_metar = $cde->getFreshRemainingMetar();
+                $remaining_metar = $cde->getRemainingMetar();
             }
 
             // hook for report status decoder, abort if nil, but decoded metar is valid though
@@ -145,5 +172,4 @@ class MetarDecoder
 
         return $decoded_metar;
     }
-
 }

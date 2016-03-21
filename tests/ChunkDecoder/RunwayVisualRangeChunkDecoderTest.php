@@ -14,7 +14,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of valid runway visual range chunks
+     * Test parsing of valid runway visual range chunks.
+     *
      * @param $chunk
      * @param $nb_runways
      * @param $rwy1_name
@@ -48,7 +49,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test parsing of invalid runway visual range chunks
+     * Test parsing of invalid runway visual range chunks.
+     *
      * @param $chunk
      * @expectedException \MetarDecoder\Exception\ChunkDecoderException
      * @dataProvider getInvalidChunk
@@ -111,8 +113,8 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     public function getInvalidChunk()
     {
         return array(
-            array("chunk" => "R42L/0500 AAA"),
-            array("chunk" => "R00C/0050 BBB"),
+            array('chunk' => 'R42L/0500 AAA'),
+            array('chunk' => 'R00C/0050 BBB'),
         );
     }
 }
