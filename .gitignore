@@ -1,3 +1,7 @@
 /vendor/
 /report/
 composer.lock
+/.idea
+/.vagrant
+Vagrantfile
+
