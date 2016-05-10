@@ -8,7 +8,13 @@ PHP METAR decoder
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
-Try it on the [demo website](https://php-metar-decoder.cassiopee.aero)
+You can try it on the [demo website](https://php-metar-decoder.cassiopee.aero).
+
+They use php-metar-decoder in production:
+
+- [VMC Today](http://vmc.today/) (public)
+- [Sagem Cassiopée](http://www.cassiopee.aero/) (private)
+- Your service here ? Submit a pull request or open an issue !
 
 Introduction
 ------------
