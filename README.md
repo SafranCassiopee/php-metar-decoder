@@ -272,30 +272,32 @@ If you want to improve or enrich the test suite, fork the repository and submit 
 
 If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more comfortable with.
 
-Tests and coverage
-------------------
+In order to contribute to the codebase, you must fork the repository on github, than clone it locally with:
+
+```shell
+git clone https://github.com/<username>/php-metar-decoder
+```
+
+Install all the dependencies using make ([composer](http://getcomposer.org) is needed):
+
+```shell
+make install
+```
+
+You're ready to launch the test suite with:
+
+```shell
+make test
+```
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
 Travis CI is used for continuous integration, which triggers tests for PHP 5.3, 5.4, 5.5 for each push to the repo.
 
-To run the tests by yourself, you must first install the dev dependencies ([composer](http://getcomposer.org) needed)
+If you're interested in code coverage you'll also need xdebug installed and enabled (package `php5-xdebug` on debian), then you can generate the html report about tests code coverage with:
 
 ```shell
-composer install --dev
-apt-get install php5-xdebug # only needed if you're interested in code coverage
-```
-
-Launch the test suite with the following command:
-    
-```shell
-./vendor/bin/phpunit tests
-```
-
-You can also generate an html coverage report by adding the `--coverage-html` option:
-
-```shell
-./vendor/bin/phpunit --coverage-html ./report tests
+make coverage
 ```
 
 
