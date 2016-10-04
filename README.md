@@ -177,7 +177,7 @@ Here is an example:
 // check that the $dew_point is not null and give it a default value if it is
 $dew_point = $d->getDewPointTemperature();
 if($dew_point == null){
-    $dew_point = new Value(999, Value::DEGREE_CELSIUS)
+    $dew_point = new Value(999, Value::DEGREE_CELSIUS);
 }
 
 // $dew_point object can now be accessed safely
