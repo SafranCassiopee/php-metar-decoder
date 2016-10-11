@@ -3,7 +3,7 @@ PHP METAR decoder
 
 [![License](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
 [![Build Status](https://travis-ci.org/SafranCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SafranCassiopee/php-metar-decoder)
-[![Coverage Status](https://coveralls.io/repos/SafranCassiopee/php-metar-decoder/badge.svg?branch=master&service=github)](https://coveralls.io/github/SafranCassiopee/php-metar-decoder?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/SafranCassiopee/php-metar-decoder/badge.svg?branch=master)](https://coveralls.io/github/SafranCassiopee/php-metar-decoder?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
