@@ -1,10 +1,10 @@
 PHP METAR decoder
 =================
 
-[![License](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/sagem-cassiopee/php-metar-decoder)
-[![Build Status](https://travis-ci.org/SagemCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SagemCassiopee/php-metar-decoder)
-[![Coverage Status](https://coveralls.io/repos/SagemCassiopee/php-metar-decoder/badge.svg?branch=master&service=github)](https://coveralls.io/github/SagemCassiopee/php-metar-decoder?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/sagem-cassiopee/php-metar-decoder)
+[![License](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
+[![Build Status](https://travis-ci.org/SafranCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SafranCassiopee/php-metar-decoder)
+[![Coverage Status](https://coveralls.io/repos/SafranCassiopee/php-metar-decoder/badge.svg?branch=master&service=github)](https://coveralls.io/github/SafranCassiopee/php-metar-decoder?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
@@ -48,7 +48,7 @@ Add the following line to the `composer.json` of your project
 ```json
 {
     "require": {
-        "sagem-cassiopee/php-metar-decoder": "dev-master"
+        "safran-cassiopee/php-metar-decoder": "dev-master"
     }
 }
 ```
@@ -68,7 +68,7 @@ require_once 'vendor/autoload.php';
 
 - By hand
 
-Download the latest release from [github](https://github.com/SagemCassiopee/php-metar-decoder/releases)
+Download the latest release from [github](https://github.com/SafranCassiopee/php-metar-decoder/releases)
 
 Extract it wherever you want in your project. The library itself is in the src/ directory, the other directories are not mandatory for the library to work.
 

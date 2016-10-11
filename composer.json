@@ -1,5 +1,5 @@
 {
-    "name": "sagem-cassiopee/php-metar-decoder",
+    "name": "safran-cassiopee/php-metar-decoder",
     "type": "library",
     "license": "GPL-3.0+",
     "description": "METAR weather observation decoder",
