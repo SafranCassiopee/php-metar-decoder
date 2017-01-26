@@ -1,14 +1,20 @@
 PHP METAR decoder
 =================
 
-[![License](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/sagem-cassiopee/php-metar-decoder)
-[![Build Status](https://travis-ci.org/SagemCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SagemCassiopee/php-metar-decoder)
-[![Coverage Status](https://coveralls.io/repos/SagemCassiopee/php-metar-decoder/badge.svg?branch=master&service=github)](https://coveralls.io/github/SagemCassiopee/php-metar-decoder?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/sagem-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/sagem-cassiopee/php-metar-decoder)
+[![License](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/license.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
+[![Build Status](https://travis-ci.org/SafranCassiopee/php-metar-decoder.svg)](https://travis-ci.org/SafranCassiopee/php-metar-decoder)
+[![Coverage Status](https://coveralls.io/repos/github/SafranCassiopee/php-metar-decoder/badge.svg?branch=master)](https://coveralls.io/github/SafranCassiopee/php-metar-decoder?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/safran-cassiopee/php-metar-decoder/v/stable.svg)](https://packagist.org/packages/safran-cassiopee/php-metar-decoder)
 
 A PHP library to decode METAR strings, fully unit tested (100% code coverage)
 
-Try it on the [demo website](https://php-metar-decoder.cassiopee.aero)
+You can try it on the [demo website](https://php-metar-decoder.cassiopee.aero).
+
+They use php-metar-decoder in production:
+
+- [VMC Today](http://vmc.today/) (public)
+- [Safran Cassiopée](http://www.cassiopee.aero/) (private)
+- Your service here ? Submit a pull request or open an issue !
 
 Introduction
 ------------
@@ -42,7 +48,7 @@ Add the following line to the `composer.json` of your project
 ```json
 {
     "require": {
-        "sagem-cassiopee/php-metar-decoder": "dev-master"
+        "safran-cassiopee/php-metar-decoder": "dev-master"
     }
 }
 ```
@@ -62,7 +68,7 @@ require_once 'vendor/autoload.php';
 
 - By hand
 
-Download the latest release from [github](https://github.com/SagemCassiopee/php-metar-decoder/releases)
+Download the latest release from [github](https://github.com/SafranCassiopee/php-metar-decoder/releases)
 
 Extract it wherever you want in your project. The library itself is in the src/ directory, the other directories are not mandatory for the library to work.
 
@@ -171,7 +177,7 @@ Here is an example:
 // check that the $dew_point is not null and give it a default value if it is
 $dew_point = $d->getDewPointTemperature();
 if($dew_point == null){
-    $dew_point = new Value(999, Value::DEGREE_CELSIUS)
+    $dew_point = new Value(999, Value::DEGREE_CELSIUS);
 }
 
 // $dew_point object can now be accessed safely
@@ -266,30 +272,32 @@ If you want to improve or enrich the test suite, fork the repository and submit 
 
 If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more comfortable with.
 
-Tests and coverage
-------------------
+In order to contribute to the codebase, you must fork the repository on github, than clone it locally with:
+
+```shell
+git clone https://github.com/<username>/php-metar-decoder
+```
+
+Install all the dependencies using make ([composer](http://getcomposer.org) is needed):
+
+```shell
+make install
+```
+
+You're ready to launch the test suite with:
+
+```shell
+make test
+```
 
 This library is fully unit tested, and uses [PHPUnit](https://phpunit.de/getting-started.html) to launch the tests.
 
 Travis CI is used for continuous integration, which triggers tests for PHP 5.3, 5.4, 5.5 for each push to the repo.
 
-To run the tests by yourself, you must first install the dev dependencies ([composer](http://getcomposer.org) needed)
+If you're interested in code coverage you'll also need xdebug installed and enabled (package `php5-xdebug` on debian), then you can generate the html report about tests code coverage with:
 
 ```shell
-composer install --dev
-apt-get install php5-xdebug # only needed if you're interested in code coverage
-```
-
-Launch the test suite with the following command:
-    
-```shell
-./vendor/bin/phpunit tests
-```
-
-You can also generate an html coverage report by adding the `--coverage-html` option:
-
-```shell
-./vendor/bin/phpunit --coverage-html ./report tests
+make coverage
 ```
 
 

@@ -4,4 +4,5 @@ composer.lock
 /.idea
 /.vagrant
 Vagrantfile
-
+php-cs-fixer.phar
+/build/
