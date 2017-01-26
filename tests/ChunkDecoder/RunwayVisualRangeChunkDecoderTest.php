@@ -26,12 +26,13 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_runways, $rwy1_name, $rwy1_vis, $rwy1_unit, $rwy1_interval, $rwy1_variable, $remaining)
+    public function testParse($chunk, $nb_runways, $return_chunk1, $rwy1_name, $rwy1_vis, $rwy1_unit, $rwy1_interval, $rwy1_variable, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $runways = $decoded['result']['runwaysVisualRange'];
         $visual_range = $runways[0];
         $this->assertEquals($nb_runways, count($runways));
+        $this->assertEquals($return_chunk1, $visual_range->getChunk());
         $this->assertEquals($rwy1_name, $visual_range->getRunway());
         $this->assertEquals($rwy1_variable, $visual_range->isVariable());
         if ($rwy1_variable) {
@@ -63,44 +64,48 @@ class RunwayVisualRangeChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'chunk' => 'R18L/0800 AAA',
-                'nb_runways' => 1,
-                'rwy1_name' => '18L',
-                'rwy1_vis' => 800,
-                'rwy1_unit' => 'm',
-                'rwy1_interval' => null,
-                'rw1_variable' => false,
-                'remaining' => 'AAA',
+                "chunk" => "R18L/0800 AAA",
+                "nb_runways" => 1,
+                "return_chunk1" => "R18L/0800",
+                "rwy1_name" => "18L",
+                "rwy1_vis" => 800,
+                "rwy1_unit" => "m",
+                "rwy1_interval" => null,
+                "rw1_variable" => false,
+                "remaining" => "AAA",
             ),
             array(
-                'chunk' => 'R20C/M1200 BBB',
-                'nb_runways' => 1,
-                'rwy1_name' => '20C',
-                'rwy1_vis' => 1200,
-                'rwy1_unit' => 'm',
-                'rwy1_interval' => null,
-                'rw1_variable' => false,
-                'remaining' => 'BBB',
+                "chunk" => "R20C/M1200 BBB",
+                "nb_runways" => 1,
+                "return_chunk1" => "R20C/M1200",
+                "rwy1_name" => "20C",
+                "rwy1_vis" => 1200,
+                "rwy1_unit" => "m",
+                "rwy1_interval" => null,
+                "rw1_variable" => false,
+                "remaining" => "BBB",
             ),
             array(
-                'chunk' => 'R12/M0800VP1200 R26/0040U CCC',
-                'nb_runways' => 2,
-                'rwy1_name' => '12',
-                'rwy1_vis' => null,
-                'rwy1_unit' => 'm',
-                'rwy1_interval' => array(800, 1200),
-                'rw1_variable' => true,
-                'remaining' => 'CCC',
+                "chunk" => "R12/M0800VP1200 R26/0040U CCC",
+                "nb_runways" => 2,
+                "return_chunk1" => "R12/M0800VP1200",
+                "rwy1_name" => "12",
+                "rwy1_vis" => null,
+                "rwy1_unit" => "m",
+                "rwy1_interval" => array(800,1200),
+                "rw1_variable" => true,
+                "remaining" => "CCC",
             ),
             array(
-                'chunk' => 'R30/5000FT R26/2500V3000FTU DDD',
-                'nb_runways' => 2,
-                'rwy1_name' => '30',
-                'rwy1_vis' => 5000,
-                'rwy1_unit' => 'ft',
-                'rwy1_interval' => null,
-                'rw1_variable' => false,
-                'remaining' => 'DDD',
+                "chunk" => "R30/5000FT R26/2500V3000FTU DDD",
+                "nb_runways" => 2,
+                "return_chunk1" => "R30/5000FT",
+                "rwy1_name" => "30",
+                "rwy1_vis" => 5000,
+                "rwy1_unit" => "ft",
+                "rwy1_interval" => null,
+                "rw1_variable" => false,
+                "remaining" => "DDD",
             ),
         );
     }

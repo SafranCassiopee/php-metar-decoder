@@ -27,10 +27,11 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $direction, $variable_direction, $speed, $speed_variations, $speed_unit, $direction_variations, $remaining)
+    public function testParse($chunk, $return_chunk, $direction, $variable_direction, $speed, $speed_variations, $speed_unit, $direction_variations, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $wind = $decoded['result']['surfaceWind'];
+        $this->assertEquals($return_chunk, $wind->getChunk());
         if (!$variable_direction) {
             $this->assertEquals($direction, $wind->getMeanDirection()->getValue());
             $this->assertEquals('deg', $wind->getMeanDirection()->getUnit());
@@ -83,54 +84,59 @@ class SurfaceWindChunkDecoderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'chunk' => 'VRB01MPS AAA',
-                'direction' => null,
-                'variable_direction' => true,
-                'speed' => 1,
-                'speed_variations' => null,
-                'speed_unit' => 'm/s',
-                'direction_variations' => null,
-                'remaining' => 'AAA',
+                "chunk" => "VRB01MPS AAA",
+                "return_chunk" => "VRB01MPS",
+                "direction" => null,
+                "variable_direction" => true,
+                "speed" => 1,
+                "speed_variations" => null,
+                "speed_unit" => "m/s",
+                "direction_variations" => null,
+                "remaining" => "AAA",
             ),
             array(
-                'chunk' => '24004MPS BBB',
-                'direction' => 240,
-                'variable_direction' => false,
-                'speed' => 4,
-                'speed_variations' => null,
-                'speed_unit' => 'm/s',
-                'direction_variations' => null,
-                'remaining' => 'BBB',
+                "chunk" => "24004MPS BBB",
+                "return_chunk" => "24004MPS",
+                "direction" => 240,
+                "variable_direction" => false,
+                "speed" => 4,
+                "speed_variations" => null,
+                "speed_unit" => "m/s",
+                "direction_variations" => null,
+                "remaining" => "BBB",
             ),
             array(
-                'chunk' => '140P99KT CCC',
-                'direction' => 140,
-                'variable_direction' => false,
-                'speed' => 99,
-                'speed_variations' => null,
-                'speed_unit' => 'kt',
-                'direction_variations' => null,
-                'remaining' => 'CCC',
+                "chunk" => "140P99KT CCC",
+                "return_chunk" => "140P99KT",
+                "direction" => 140,
+                "variable_direction" => false,
+                "speed" => 99,
+                "speed_variations" => null,
+                "speed_unit" => "kt",
+                "direction_variations" => null,
+                "remaining" => "CCC",
             ),
             array(
-                'chunk' => '02005MPS 350V070 DDD',
-                'direction' => 20,
-                'variable_direction' => false,
-                'speed' => 5,
-                'speed_variations' => null,
-                'speed_unit' => 'm/s',
-                'direction_variations' => array(350, 70),
-                'remaining' => 'DDD',
+                "chunk" => "02005MPS 350V070 DDD",
+                "return_chunk" => "02005MPS 350V070",
+                "direction" => 20,
+                "variable_direction" => false,
+                "speed" => 5,
+                "speed_variations" => null,
+                "speed_unit" => "m/s",
+                "direction_variations" => array(350,70),
+                "remaining" => "DDD",
             ),
             array(
-                'chunk' => '12003KPH FFF',
-                'direction' => 120,
-                'variable_direction' => false,
-                'speed' => 3,
-                'speed_variations' => null,
-                'speed_unit' => 'km/h',
-                'direction_variations' => null,
-                'remaining' => 'FFF',
+                "chunk" => "12003KPH FFF",
+                "return_chunk" => "12003KPH",
+                "direction" => 120,
+                "variable_direction" => false,
+                "speed" => 3,
+                "speed_variations" => null,
+                "speed_unit" => "km/h",
+                "direction_variations" => null,
+                "remaining" => "FFF",
             ),
         );
     }

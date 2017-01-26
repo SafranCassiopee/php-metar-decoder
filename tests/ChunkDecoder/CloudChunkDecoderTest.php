@@ -24,13 +24,14 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $nb_layers, $layer1_amount, $layer1_base_height, $layer1_type, $remaining)
+    public function testParse($chunk, $nb_layers, $return_chunk, $layer1_amount, $layer1_base_height, $layer1_type, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         $clouds = $decoded['result']['clouds'];
         $this->assertEquals($nb_layers, count($clouds));
         if (count($clouds) > 0) {
             $cloud = $clouds[0];
+            $this->assertEquals($return_chunk, $cloud->getChunk());
             $this->assertEquals($layer1_amount, $cloud->getAmount());
             if ($layer1_base_height != null) {
                 $this->assertEquals($layer1_base_height, $cloud->getBaseHeight()->getValue());
@@ -73,50 +74,56 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => 'VV085 AAA',
                 'nb_layers' => 1,
+                'return_chunk' => 'VV085',
                 'layer1_amount' => 'VV',
                 'layer1_base_height' => 8500,
                 'layer1_type' => null,
                 'remaining' => 'AAA',
             ),
             array(
-                'chunk' => 'BKN200TCU OVC250 VV/// BBB',
-                'nb_layers' => 3,
-                'layer1_amount' => 'BKN',
-                'layer1_base_height' => 20000,
-                'layer1_type' => 'TCU',
-                'remaining' => 'BBB',
+                "chunk" => "BKN200TCU OVC250 VV/// BBB",
+                "nb_layers" => 3,
+                "return_chunk" => "BKN200TCU",
+                "layer1_amount" => "BKN",
+                "layer1_base_height" => 20000,
+                "layer1_type" => "TCU",
+                "remaining" => "BBB",
             ),
             array(
-                'chunk' => 'OVC////// FEW250 CCC',
-                'nb_layers' => 2,
-                'layer1_amount' => 'OVC',
-                'layer1_base_height' => null,
-                'layer1_type' => '///',
-                'remaining' => 'CCC',
+                "chunk" => "OVC////// FEW250 CCC",
+                "nb_layers" => 2,
+                "return_chunk" => "OVC//////",
+                "layer1_amount" => "OVC",
+                "layer1_base_height" => null,
+                "layer1_type" => "///",
+                "remaining" => "CCC",
             ),
             array(
-                'chunk' => 'NSC DDD',
-                'nb_layers' => 0,
-                'layer1_amount' => null,
-                'layer1_base_height' => null,
-                'layer1_type' => null,
-                'remaining' => 'DDD',
+                "chunk" => "NSC DDD",
+                "nb_layers" => 0,
+                "return_chunk" => "NSC",
+                "layer1_amount" => null,
+                "layer1_base_height" => null,
+                "layer1_type" => null,
+                "remaining" => "DDD",
             ),
             array(
-                'chunk' => 'SKC EEE',
-                'nb_layers' => 0,
-                'layer1_amount' => null,
-                'layer1_base_height' => null,
-                'layer1_type' => null,
-                'remaining' => 'EEE',
+                "chunk" => "SKC EEE",
+                "nb_layers" => 0,
+                "return_chunk" => "SKC",
+                "layer1_amount" => null,
+                "layer1_base_height" => null,
+                "layer1_type" => null,
+                "remaining" => "EEE",
             ),
             array(
-                'chunk' => 'NCD FFF',
-                'nb_layers' => 0,
-                'layer1_amount' => null,
-                'layer1_base_height' => null,
-                'layer1_type' => null,
-                'remaining' => 'FFF',
+                "chunk" => "NCD FFF",
+                "nb_layers" => 0,
+                "return_chunk" => "NCD",
+                "layer1_amount" => null,
+                "layer1_base_height" => null,
+                "layer1_type" => null,
+                "remaining" => "FFF",
             ),
         );
     }

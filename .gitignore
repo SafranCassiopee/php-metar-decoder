@@ -1,5 +1,8 @@
 /vendor/
 /report/
 composer.lock
+/.idea
+/.vagrant
+Vagrantfile
 php-cs-fixer.phar
 /build/

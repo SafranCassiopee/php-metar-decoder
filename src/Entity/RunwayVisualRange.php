@@ -2,7 +2,7 @@
 
 namespace MetarDecoder\Entity;
 
-class RunwayVisualRange
+class RunwayVisualRange extends InformationBase
 {
     // concerned runway
     private $runway;

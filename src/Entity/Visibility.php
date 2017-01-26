@@ -2,7 +2,7 @@
 
 namespace MetarDecoder\Entity;
 
-class Visibility
+class Visibility extends InformationBase
 {
     // prevailing visibility
     private $visibility;

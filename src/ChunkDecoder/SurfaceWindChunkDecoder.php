@@ -61,6 +61,8 @@ class SurfaceWindChunkDecoder extends MetarChunkDecoder implements MetarChunkDec
         // retrieve and validate found params
         $surface_wind = new SurfaceWind();
 
+        $surface_wind->setChunk(trim($found[0]));
+
         // mean speed
         $surface_wind->setMeanSpeed(Value::newIntValue($found[2], $speed_unit));
 

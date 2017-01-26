@@ -25,7 +25,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
      * @param $remaining
      * @dataProvider getChunk
      */
-    public function testParse($chunk, $cavok, $visibility, $visibility_unit, $minimum, $minimum_direction, $has_ndv, $remaining)
+    public function testParse($chunk, $cavok, $return_chunk, $visibility, $visibility_unit, $minimum, $minimum_direction, $has_ndv, $remaining)
     {
         $decoded = $this->decoder->parse($chunk);
         if ($cavok) {
@@ -35,6 +35,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($decoded['result']['cavok']);
         } else {
             $vis = $decoded['result']['visibility'];
+            $this->assertEquals($return_chunk, $vis->getChunk());
             $this->assertEquals($visibility, $vis->getVisibility()->getValue());
             $this->assertEquals($visibility_unit, $vis->getVisibility()->getUnit());
             $this->assertEquals($has_ndv, $vis->hasNDV());
@@ -64,6 +65,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '0200 AAA',
                 'cavok' => false,
+                "return_chunk" => "0200",
                 'visibility' => 200,
                 'visibility_unit' => 'm',
                 'minimum' => null,
@@ -74,6 +76,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => 'CAVOK BBB',
                 'cavok' => true,
+                "return_chunk" => "CAVOK",
                 'visibility' => null,
                 'visibility_unit' => 'm',
                 'minimum' => null,
@@ -84,6 +87,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '8000 1200N CCC',
                 'cavok' => false,
+                "return_chunk" => "8000 1200N",
                 'visibility' => 8000,
                 'visibility_unit' => 'm',
                 'minimum' => 1200,
@@ -94,6 +98,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '2500 2200 DDD',
                 'cavok' => false,
+                "return_chunk" => "2500 2200",
                 'visibility' => 2500,
                 'visibility_unit' => 'm',
                 'minimum' => 2200,
@@ -104,6 +109,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '1 1/4SM EEE',
                 'cavok' => false,
+                "return_chunk" => "1 1/4SM",
                 'visibility' => 1.25,
                 'visibility_unit' => 'SM',
                 'minimum' => null,
@@ -114,6 +120,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '10SM FFF',
                 'cavok' => false,
+                "return_chunk" => "10SM",
                 'visibility' => 10,
                 'visibility_unit' => 'SM',
                 'minimum' => null,
@@ -124,6 +131,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '3/4SM GGG',
                 'cavok' => false,
+                "return_chunk" => "3/4SM",
                 'visibility' => 0.75,
                 'visibility_unit' => 'SM',
                 'minimum' => null,
@@ -134,6 +142,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '//// HHH',
                 'cavok' => false,
+                "return_chunk" => "////",
                 'visibility' => null,
                 'visibility_unit' => null,
                 'minimum' => null,
@@ -144,6 +153,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array(
                 'chunk' => '9000NDV JJJ',
                 'cavok' => false,
+                'return_chunk' => '9000NDV',
                 'visibility' => 9000,
                 'visibility_unit' => 'm',
                 'minimum' => null,

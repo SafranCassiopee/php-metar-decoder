@@ -49,6 +49,7 @@ class CloudChunkDecoder extends MetarChunkDecoder implements MetarChunkDecoderIn
                     } else {
                         $layer_height_ft = null;
                     }
+                    $layer->setChunk(trim($found[$i]));
                     $layer->setAmount($found[$i + 1])
                           ->setBaseHeight(Value::newValue($layer_height_ft, Value::FEET))
                           ->setType($found[$i + 3]);
