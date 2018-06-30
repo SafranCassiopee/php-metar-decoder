@@ -118,6 +118,14 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 'layer1_type' => null,
                 'remaining' => 'FFF',
             ),
+            array(
+                'chunk' => 'BKN200TCU OVC250 FEW300 FEW350 FEW400 VV/// GGG',
+                'nb_layers' => 6,
+                'layer1_amount' => 'BKN',
+                'layer1_base_height' => 20000,
+                'layer1_type' => 'TCU',
+                'remaining' => 'GGG',
+            ),
         );
     }
 
