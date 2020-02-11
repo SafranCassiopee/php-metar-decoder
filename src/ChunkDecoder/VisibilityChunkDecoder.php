@@ -17,9 +17,10 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
         $visibility = '([0-9]{4})(NDV)?';
         $us_visibility = 'M?([0-9]{0,2}) ?(([1357])/(2|4|8|16))?SM';
         $minimum_visibility = '( ([0-9]{4})(N|NE|E|SE|S|SW|W|NW)?)?';// optional
+        $km_visibility = '([0-9][05])(KM)?(NDV)?';
         $no_info = '////';
 
-        return "#^($cavok|$visibility$minimum_visibility|$us_visibility|$no_info)( )#";
+        return "#^($cavok|$visibility$minimum_visibility|$us_visibility|$km_visibility|$no_info)( )#";
     }
 
     public function parse($remaining_metar, $cavok = false)
@@ -51,6 +52,8 @@ class VisibilityChunkDecoder extends MetarChunkDecoder implements MetarChunkDeco
                                 ->setMinimumVisibilityDirection($found[6]);
                 }
                 $visibility->setNDV($found[3] != null);
+            } else if ($found[11] != null) { // km visibility
+                $visibility->setVisibility(Value::newIntValue($found[11] * 1000, Value::METER));
             } else { // us visibility
                 $main = intval($found[7]);
                 $frac_top = intval($found[9]);

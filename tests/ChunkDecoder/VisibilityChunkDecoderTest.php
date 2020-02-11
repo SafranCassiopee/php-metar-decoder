@@ -151,6 +151,26 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 'ndv' => true,
                 'remaining' => 'JJJ',
             ),
+            array(
+                'chunk' => '20KM KKK',
+                'cavok' => false,
+                'visibility' => 20000,
+                'visibility_unit' => 'm',
+                'minimum' => null,
+                'minimum_direction' => null,
+                'ndv' => false,
+                'remaining' => 'KKK',
+            ),
+            array(
+                'chunk' => '15KM LLL',
+                'cavok' => false,
+                'visibility' => 15000,
+                'visibility_unit' => 'm',
+                'minimum' => null,
+                'minimum_direction' => null,
+                'ndv' => false,
+                'remaining' => 'LLL',
+            ),
         );
     }
 
@@ -162,6 +182,7 @@ class VisibilityChunkDecoderTest extends \PHPUnit_Framework_TestCase
             array('chunk' => '123 EEE'),
             array('chunk' => '12335 EEE'),
             array('chunk' => '1233NVV EEE'),
+            array('chunk' => '23KM EEE'),
         );
     }
 }
