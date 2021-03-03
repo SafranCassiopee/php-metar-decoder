@@ -19,7 +19,6 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         'SA', 'DU', 'HZ', 'FU',
         'VA', 'PY', 'DU', 'PO',
         'SQ', 'FC', 'DS', 'SS',
-        '//',
     );
 
     public function getRegexp()
@@ -28,7 +27,7 @@ class PresentWeatherChunkDecoder extends MetarChunkDecoder implements MetarChunk
         $type_regexp = implode('|', self::$type_dic);
         $pw_regexp = "([-+]|VC)?($carac_regexp)?($type_regexp)?($type_regexp)?($type_regexp)?";
 
-        return "#^($pw_regexp )?($pw_regexp )?($pw_regexp )?()?#";
+        return "#^($pw_regexp )?($pw_regexp )?($pw_regexp )?(// )?()?#";
     }
 
     public function parse($remaining_metar, $cavok = false)
