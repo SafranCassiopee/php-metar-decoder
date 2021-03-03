@@ -126,6 +126,14 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 'layer1_type' => 'TCU',
                 'remaining' => 'GGG',
             ),
+            array(
+                'chunk' => '////// HH',
+                'nb_layers' => 1,
+                'layer1_amount' => '///',
+                'layer1_base_height' => null,
+                'layer1_type' => null,
+                'remaining' => 'HHH',
+            ),
         );
     }
 
