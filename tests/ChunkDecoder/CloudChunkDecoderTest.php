@@ -127,7 +127,7 @@ class CloudChunkDecoderTest extends \PHPUnit_Framework_TestCase
                 'remaining' => 'GGG',
             ),
             array(
-                'chunk' => '////// HH',
+                'chunk' => '////// HHH',
                 'nb_layers' => 1,
                 'layer1_amount' => '///',
                 'layer1_base_height' => null,
