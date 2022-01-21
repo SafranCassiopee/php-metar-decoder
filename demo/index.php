@@ -48,21 +48,21 @@ $d = $decoder->parse($raw_metar);
               </div>
             </form>
 
-            <? if(strlen($raw_metar) > 0) { ?>
+            <?php if(strlen($raw_metar) > 0) { ?>
                 <br>
                 <div style="text-align:center">
                     <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                 </div>
                 <br>
-                <? if ($d->isValid()){ ?>
+                <?php if ($d->isValid()){ ?>
                      <div class="alert alert-success">
                         <b>Valid format</b>
                     </div>
-                <? }else{ ?>
+                <?php }else{ ?>
                    <div class="alert alert-danger">
                         <b>Invalid format:</b><br>
                         <ul>
-                        <?
+                        <?php
                            foreach($d->getDecodingExceptions() as $e){
                                echo('<li>'.$e->getMessage());
                                echo(', on chunk "'.$e->getChunk().'"</li>');
@@ -71,8 +71,8 @@ $d = $decoder->parse($raw_metar);
                         ?>
                         </ul>
                     </div>
-                <? } ?>
-                <div><?
+                <?php } ?>
+                <div><?php
                     $raw_dump = util::var_dump($d,true,2);
 
                     $to_delete=array(
@@ -85,7 +85,7 @@ $d = $decoder->parse($raw_metar);
                     echo $clean_dump;
                 ?></div>
             </div>
-            <? } else { ?>
+            <?php } else { ?>
             </div>
                 <br>
                 <div class="alert alert-info">
@@ -97,11 +97,9 @@ $d = $decoder->parse($raw_metar);
                     <li><a href="./index.php?metar=SBGU+321400Z+27006KT+8000+TS+VCSH+BKN020+FEW030CB+BKN080+25%2F20">SBGU 321400Z 27006KT 8000 TS VCSH BKN020 FEW030CB BKN080 25/20</a> <- this one has errors, on purpose !</li>
                 </ul>
                 </div>
-            <? } ?>
+            <?php } ?>
         </div>
 
     
     </body>
 </html>
-
-
